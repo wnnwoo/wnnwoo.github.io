@@ -94,18 +94,18 @@
 
 
 
-  <meta name="description" content="欢迎光临我的个人博客，这个博客主要用来记录本人学习，生活和工作中的所思所想！~">
-<meta name="keywords" content="bluetooth, reading, thinking">
+  <meta name="description" content="git log –pretty=oneline  git log -1  git rev-parse –git-dir #show the .git folder name  git add . git add filename git add all git add . -A   control + r # search the history command  git commit -s">
+<meta name="keywords" content="GIT">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我的技术博客！">
-<meta property="og:url" content="http://yoursite.com/2019/07/09/introduct/index.html">
+<meta property="og:title" content="常用的git命令">
+<meta property="og:url" content="http://yoursite.com/2019/07/10/git-usage/index.html">
 <meta property="og:site_name" content="Wen Wu&#39;s notes">
-<meta property="og:description" content="欢迎光临我的个人博客，这个博客主要用来记录本人学习，生活和工作中的所思所想！~">
+<meta property="og:description" content="git log –pretty=oneline  git log -1  git rev-parse –git-dir #show the .git folder name  git add . git add filename git add all git add . -A   control + r # search the history command  git commit -s">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-09T14:25:22.214Z">
+<meta property="og:updated_time" content="2019-07-10T14:54:03.930Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我的技术博客！">
-<meta name="twitter:description" content="欢迎光临我的个人博客，这个博客主要用来记录本人学习，生活和工作中的所思所想！~">
+<meta name="twitter:title" content="常用的git命令">
+<meta name="twitter:description" content="git log –pretty=oneline  git log -1  git rev-parse –git-dir #show the .git folder name  git add . git add filename git add all git add . -A   control + r # search the history command  git commit -s">
 
 
 
@@ -113,7 +113,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/07/09/introduct/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/10/git-usage/">
 
 
 
@@ -123,7 +123,7 @@
   };
 </script>
 
-  <title>我的技术博客！ | Wen Wu's notes</title>
+  <title>常用的git命令 | Wen Wu's notes</title>
   
 
 
@@ -286,7 +286,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/09/introduct/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/10/git-usage/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wen Wu">
@@ -303,7 +303,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">我的技术博客！
+          <h1 class="post-title" itemprop="name headline">常用的git命令
 
               
             
@@ -329,10 +329,14 @@
                 
               
 
-              <time title="Created: 2019-07-09 22:25:22" itemprop="dateCreated datePublished" datetime="2019-07-09T22:25:22+08:00">2019-07-09</time>
+              <time title="Created: 2019-07-10 22:37:38 / Modified: 22:54:03" itemprop="dateCreated datePublished" datetime="2019-07-10T22:37:38+08:00">2019-07-10</time>
             </span>
           
 
+          
+            
+
+            
           
 
           
@@ -367,7 +371,54 @@
       
 
       
-        <p>欢迎光临我的个人博客，这个博客主要用来记录本人学习，生活和工作中的所思所想！<br>~                                                                               </p>
+        <ol>
+<li><p>git log –pretty=oneline</p>
+</li>
+<li><p>git log -1</p>
+</li>
+<li><p>git rev-parse –git-dir #show the .git folder name</p>
+</li>
+<li><p>git add . git add filename git add all git add . -A</p>
+</li>
+</ol>
+<p>control + r # search the history command</p>
+<ol start="5">
+<li><p>git commit -s</p>
+</li>
+<li><p>git commit -m “msg”</p>
+</li>
+<li><p>git commit –amend # add the current file to the previous change list</p>
+</li>
+<li><p>git push</p>
+</li>
+<li><p>git bisect 是用二分法协助RD查找是哪笔check-in导致的错误的，请<a href="http://www.ruanyifeng.com/blog/2018/12/git-bisect.html" target="_blank" rel="noopener">参考</a></p>
+</li>
+<li><p>git diff 文件格式说明，<a href="https://www.jianshu.com/p/98829d4e996f" target="_blank" rel="noopener">link</a></p>
+</li>
+<li><p>git diff HEAD – readme.txt</p>
+</li>
+<li><p>git reset –hard HEAD^ 用remote端最新code盖掉index区域的改动（已经add到index的改动）</p>
+</li>
+<li><p>git reset –hard 1094a 指定回到某个版本</p>
+</li>
+<li><p>git cherry-pick</p>
+</li>
+<li><p>git reflog 查找使用过的git command</p>
+</li>
+</ol>
+<blockquote>
+<p>Mac01:BlueShell wnnwoo$ git reflog<br>894474c (HEAD -&gt; master) HEAD@{0}: reset: moving to HEAD^<br>fcdea80 (origin/master) HEAD@{1}: commit: fix build error<br>894474c (HEAD -&gt; master) HEAD@{2}: commit: update basic operation<br>94e2258 HEAD@{3}: commit: Run the scheme testing<br>f305bac HEAD@{4}: commit: add generics test code<br>4acfba7 HEAD@{5}: commit: Add error handle</p>
+</blockquote>
+<ol start="16">
+<li><p>git checkout – readme.txt 丢弃工作区的改动</p>
+</li>
+<li><p>git reset HEAD readme.txt 暂存区的修改回退到工作区</p>
+</li>
+<li><p>git diff &gt; abc.diff</p>
+</li>
+<li><p>git apply abc.diff</p>
+</li>
+</ol>
 
       
     </div>
@@ -389,6 +440,15 @@
 
     <footer class="post-footer">
       
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/GIT/" rel="tag"># GIT</a>
+          
+        </div>
+      
 
       
       
@@ -398,15 +458,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/07/10/markdown-study/" rel="next" title="Mark down 语法记录">
+                <i class="fa fa-chevron-left"></i> Mark down 语法记录
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/10/markdown-study/" rel="prev" title="Mark down 语法记录">
-                Mark down 语法记录 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
