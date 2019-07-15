@@ -94,18 +94,18 @@
 
 
 
-  <meta name="description" content="I&apos;m a bluetooth Host and Controller developer">
-<meta name="keywords" content="bluetooth, reading, thinking">
+  <meta name="description" content="Bluetooth wireless technology  Basic Rate(BR) Enhanced Date Rate Alternertive Media Access Control (MAC) Physical(PHY) layer extensions   Low Energy(LE)  Bluetooth Core System  Host one or more Contro">
+<meta name="keywords" content="蓝牙笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo-usage">
-<meta property="og:url" content="http://yoursite.com/2019/07/08/hexo-usage/index.html">
+<meta property="og:title" content="bluetooth architecture, General description">
+<meta property="og:url" content="http://yoursite.com/2019/06/12/bluetooth-vol-1-architecture/index.html">
 <meta property="og:site_name" content="Wen Wu&#39;s notes">
-<meta property="og:description" content="I&apos;m a bluetooth Host and Controller developer">
+<meta property="og:description" content="Bluetooth wireless technology  Basic Rate(BR) Enhanced Date Rate Alternertive Media Access Control (MAC) Physical(PHY) layer extensions   Low Energy(LE)  Bluetooth Core System  Host one or more Contro">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-11T15:21:48.862Z">
+<meta property="og:updated_time" content="2019-07-14T16:07:42.582Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hexo-usage">
-<meta name="twitter:description" content="I&apos;m a bluetooth Host and Controller developer">
+<meta name="twitter:title" content="bluetooth architecture, General description">
+<meta name="twitter:description" content="Bluetooth wireless technology  Basic Rate(BR) Enhanced Date Rate Alternertive Media Access Control (MAC) Physical(PHY) layer extensions   Low Energy(LE)  Bluetooth Core System  Host one or more Contro">
 
 
 
@@ -113,7 +113,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/07/08/hexo-usage/">
+  <link rel="canonical" href="http://yoursite.com/2019/06/12/bluetooth-vol-1-architecture/">
 
 
 
@@ -123,7 +123,7 @@
   };
 </script>
 
-  <title>hexo-usage | Wen Wu's notes</title>
+  <title>bluetooth architecture, General description | Wen Wu's notes</title>
   
 
 
@@ -286,7 +286,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/08/hexo-usage/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/12/bluetooth-vol-1-architecture/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wen Wu">
@@ -303,7 +303,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">hexo-usage
+          <h1 class="post-title" itemprop="name headline">bluetooth architecture, General description
 
               
             
@@ -329,7 +329,7 @@
                 
               
 
-              <time title="Created: 2019-07-08 23:18:25" itemprop="dateCreated datePublished" datetime="2019-07-08T23:18:25+08:00">2019-07-08</time>
+              <time title="Created: 2019-06-12 22:10:04" itemprop="dateCreated datePublished" datetime="2019-06-12T22:10:04+08:00">2019-06-12</time>
             </span>
           
 
@@ -344,7 +344,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-07-11 23:21:48" itemprop="dateModified" datetime="2019-07-11T23:21:48+08:00">2019-07-11</time>
+                <time title="Modified: 2019-07-15 00:07:42" itemprop="dateModified" datetime="2019-07-15T00:07:42+08:00">2019-07-15</time>
               </span>
             
           
@@ -381,7 +381,64 @@
       
 
       
-        
+        <p><strong>Bluetooth wireless technology</strong></p>
+<ol>
+<li>Basic Rate(BR)<ol>
+<li>Enhanced Date Rate</li>
+<li>Alternertive Media Access Control (MAC)</li>
+<li>Physical(PHY) layer extensions</li>
+</ol>
+</li>
+<li>Low Energy(LE)</li>
+</ol>
+<p><strong>Bluetooth Core System</strong></p>
+<ol>
+<li>Host</li>
+<li>one or more Controller: primary Controllers and secondary Controllers<br>BR/EDR controller:<br> Radio,<br> Baseband,<br> Link Manager,<br> HCI<br>BLE Controller<br> LE PHY<br> Link Layer<br> HCI</li>
+</ol>
+<p><strong>BR/EDR Overview</strong></p>
+<ol>
+<li>Piconet</li>
+<li>Frequency hopping</li>
+<li>Physical channel: sub-divided into time units known as <strong>slots</strong>, TDD<br> physical channel -&gt; physical link -&gt; logical transport -&gt; logical link -&gt; L2CAP channel<blockquote>
+<p>   The physical link is used as a transport for one or more logical links that support unicast synchronous, asynchronous and isochronous traffic, and broadcast traffic. Traffic on logical links is multiplexed onto the physical link by occupying slots assigned by a scheduling function in the resource manager.</p>
+</blockquote>
+</li>
+<li>LMP,A control protocol for the baseband and physical layers is carried over logical links in addition to user data</li>
+<li>Connectionless Slave Broadcast devices </li>
+</ol>
+<p><strong>LE Overview</strong></p>
+<ol>
+<li>PHY<br> 1M:<br> 1M Coded:<pre><code>coding scheme:(where S is the number of symbols per bit.)
+    s=2: 2 symbols represent 1 bit, the speed is 500Kb/s
+    s=8: 8 symbols represent 1 bit, the speed is 125Kb/s</code></pre> 2M:</li>
+<li>40 physical channel, 2M for 1 channel</li>
+<li>Events:The physical channel is sub-divided into time units known as events<br> 4 types events: Advertising, Extended Advertising, Periodic Advertising, and Connection events<blockquote>
+<p>   In connection events, channel hopping occurs at the start of each connection event. Within a connection event, the master and slave alternate sending data packets using the same data PHY channel. The master initiates the beginning of each connection event and can end each connection event at any time.</p>
+</blockquote>
+</li>
+<li>Physical channel:<blockquote>
+<p>The advertising and periodic physical links provide a unidirectional packet transport from the advertiser to a potentially unlimited number of scanners or initiators.</p>
+</blockquote>
+</li>
+<li>Link Layer Protocol(LL), A control protocol for the link and physical layers is carried over logical links in addition to user data</li>
+<li>L2CAP:<br> fregmentation and de-fregmentation<br> multiplex and de-multiplex<br> two Fixed channel: SMP and ATT.</li>
+<li>LE Radio: AoA, AoD</li>
+</ol>
+<p><strong>Question 1</strong></p>
+<p>Why the modem of BR is 1Mb/s, but the date rates is 721.2 kb/s?</p>
+<blockquote>
+<p>The Basic Rate system offers synchronous and asynchronous connections with data rates of 721.2 kb/s for Basic Rate, 2.1 Mb/s for Enhanced Data Rate and high speed operation up to 54 Mb/s with the 802.11 AMP.<br>香浓定理：C = B*log2(1+S/N)</p>
+<blockquote>
+<p>C:信道容量，单位 bit/s<br>B:信道带宽，单位Hz<br>S:信号平均功率，单位W<br>N:噪声平均功率，单位W</p>
+</blockquote>
+</blockquote>
+<p><strong>Question.2</strong></p>
+<p>Synchronization Train 是什么？</p>
+<blockquote>
+<p>A series of packets transmitted on a set of fixed fre- quencies that deliver sufficient information for a receiv- ing device to start receiving corresponding Connectionless Slave Broadcast packets or to recover the current piconet clock after missing a Coarse Clock Adjust.</p>
+</blockquote>
+
       
     </div>
 
@@ -402,6 +459,15 @@
 
     <footer class="post-footer">
       
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/蓝牙笔记/" rel="tag"># 蓝牙笔记</a>
+          
+        </div>
+      
 
       
       
@@ -411,8 +477,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/01/google-bisto/" rel="next" title="Google Bisto">
-                <i class="fa fa-chevron-left"></i> Google Bisto
+              <a href="/2019/02/07/introduct/" rel="next" title="关于">
+                <i class="fa fa-chevron-left"></i> 关于
               </a>
             
           </div>
@@ -421,8 +487,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/09/markdown-study/" rel="prev" title="Mark down 语法记录">
-                Mark down 语法记录 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/06/13/amazon-mobile-accessory/" rel="prev" title="AMA(Amazon Mobile Accessory)">
+                AMA(Amazon Mobile Accessory) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
