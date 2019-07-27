@@ -14,7 +14,7 @@
   
 
 
-<html class="theme-next gemini use-motion" lang>
+<html class="theme-next mist use-motion" lang>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -68,7 +68,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Gemini',
+    scheme: 'Mist',
     version: '7.2.0',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
     back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
@@ -107,7 +107,7 @@
 <meta property="og:site_name" content="Wen Wu&#39;s notes">
 <meta property="og:description" content="官网规范  由于蓝牙设备在使用上有配对的流程，对于没有UI的设备来说，非常的不方便或是不安全。像Apple的Airpod，只要打开盒子，Apple的手机自动就弹出画面，只要点击一下就完成配对，非常的方便。所以Google也在Android上搞了一个类似的东西，叫做Fast Pair。目前前几名的蓝牙大佬已经支持了。  本文就介绍Google Fast Pair (GFPS) 的基本原理。 基本原理">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-14T02:58:51.977Z">
+<meta property="og:updated_time" content="2019-07-13T09:23:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Google Fast Pair">
 <meta name="twitter:description" content="官网规范  由于蓝牙设备在使用上有配对的流程，对于没有UI的设备来说，非常的不方便或是不安全。像Apple的Airpod，只要打开盒子，Apple的手机自动就弹出画面，只要点击一下就完成配对，非常的方便。所以Google也在Android上搞了一个类似的东西，叫做Fast Pair。目前前几名的蓝牙大佬已经支持了。  本文就介绍Google Fast Pair (GFPS) 的基本原理。 基本原理">
@@ -193,6 +193,10 @@
       </a>
     </div>
     
+      
+        <p class="site-subtitle">technical record</p>
+      
+    
     
   </div>
 
@@ -231,6 +235,54 @@
         
         
           
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
           <li class="menu-item menu-item-archives">
 
     
@@ -250,6 +302,9 @@
   
 
   
+    
+
+  
 
   
 </nav>
@@ -265,9 +320,6 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          
-            
-
           
           <div id="content" class="content">
             
@@ -329,23 +381,13 @@
                 
               
 
-              <time title="Created: 2019-07-13 17:22:32" itemprop="dateCreated datePublished" datetime="2019-07-13T17:22:32+08:00">2019-07-13</time>
+              <time title="Created: 2019-07-13 17:22:32 / Modified: 17:23:33" itemprop="dateCreated datePublished" datetime="2019-07-13T17:22:32+08:00">2019-07-13</time>
             </span>
           
 
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-07-14 10:58:51" itemprop="dateModified" datetime="2019-07-14T10:58:51+08:00">2019-07-14</time>
-              </span>
             
           
 
@@ -415,7 +457,35 @@
 <td>单元格</td>
 </tr>
 </tbody></table>
-<p>该Serviceyou如下的Charicterristic<br>|Fast Pair Service characteristic | Encrypted | Permissions | UUID|<br>|:-:|:-:|:-:|:-:|<br>|Key-based Pairing|No|Write and notify|0x1234|<br>|Passkey|No|Write and notify|0x1235|<br>|Account Key|No|Write|0x1236|</p>
+<p>该Serviceyou如下的Charicterristic</p>
+<table>
+<thead>
+<tr>
+<th align="center">Fast Pair Service characteristic</th>
+<th align="center">Encrypted</th>
+<th align="center">Permissions</th>
+<th align="center">UUID</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Key-based Pairing</td>
+<td align="center">No</td>
+<td align="center">Write and notify</td>
+<td align="center">0x1234</td>
+</tr>
+<tr>
+<td align="center">Passkey</td>
+<td align="center">No</td>
+<td align="center">Write and notify</td>
+<td align="center">0x1235</td>
+</tr>
+<tr>
+<td align="center">Account Key</td>
+<td align="center">No</td>
+<td align="center">Write</td>
+<td align="center">0x1236</td>
+</tr>
+</tbody></table>
 <h5 id="5-2-ATT-MTU-Size-Negotiation"><a href="#5-2-ATT-MTU-Size-Negotiation" class="headerlink" title="5.2 ATT MTU Size Negotiation"></a>5.2 ATT MTU Size Negotiation</h5><p>MTU 的size 应该是83，23 也是可以的。</p>
 <h4 id="5-3-Characteristic-Key-based-Pairing"><a href="#5-3-Characteristic-Key-based-Pairing" class="headerlink" title="5.3 Characteristic: Key-based Pairing"></a>5.3 Characteristic: Key-based Pairing</h4><p>Provider和Seeker基于一把private key，每次出发pair，public key/private key pair都应该不一样</p>
 <h4 id="5-4-Data-format"><a href="#5-4-Data-format" class="headerlink" title="5.4 Data format"></a>5.4 Data format</h4><table>
@@ -566,7 +636,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -669,7 +739,7 @@
 
 
 
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.2.0</div>
 
 
 
@@ -758,9 +828,7 @@
   
 
 
-  <script src="/js/affix.js?v=7.2.0"></script>
-
-  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
 
 
 
