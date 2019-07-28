@@ -99,18 +99,18 @@
   };
 </script>
 
-  <meta name="description" content="生成网站  hexo g   启动本地web service  hexo s   推送到 git  hexo d在推送前要在 _config.xml中配置好git地址  deploy:  type: git  repository: https://github.com/wnnwoo/wnnwoo.github.io.git  branch: master    插入图片  _config.xm">
+  <meta name="description" content="1. 生成网站 hexo g  2. 启动本地web service hexo s   推送到 git hexo d在推送前要在 _config.xml中配置好git地址  deploy:  type: git  repository: https://github.com/wnnwoo/wnnwoo.github.io.git  branch: master     4. 插入图片，可参考官网说">
 <meta name="keywords" content="bluetooth, reading, thinking">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hexo 常用命令">
 <meta property="og:url" content="http://yoursite.com/2019/07/08/hexo-usage/index.html">
 <meta property="og:site_name" content="Wen Wu&#39;s notes">
-<meta property="og:description" content="生成网站  hexo g   启动本地web service  hexo s   推送到 git  hexo d在推送前要在 _config.xml中配置好git地址  deploy:  type: git  repository: https://github.com/wnnwoo/wnnwoo.github.io.git  branch: master    插入图片  _config.xm">
+<meta property="og:description" content="1. 生成网站 hexo g  2. 启动本地web service hexo s   推送到 git hexo d在推送前要在 _config.xml中配置好git地址  deploy:  type: git  repository: https://github.com/wnnwoo/wnnwoo.github.io.git  branch: master     4. 插入图片，可参考官网说">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-21T05:05:18.720Z">
+<meta property="og:updated_time" content="2019-07-28T13:14:54.173Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo 常用命令">
-<meta name="twitter:description" content="生成网站  hexo g   启动本地web service  hexo s   推送到 git  hexo d在推送前要在 _config.xml中配置好git地址  deploy:  type: git  repository: https://github.com/wnnwoo/wnnwoo.github.io.git  branch: master    插入图片  _config.xm">
+<meta name="twitter:description" content="1. 生成网站 hexo g  2. 启动本地web service hexo s   推送到 git hexo d在推送前要在 _config.xml中配置好git地址  deploy:  type: git  repository: https://github.com/wnnwoo/wnnwoo.github.io.git  branch: master     4. 插入图片，可参考官网说">
 
 
 
@@ -396,7 +396,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-07-21 13:05:18" itemprop="dateModified" datetime="2019-07-21T13:05:18+08:00">2019-07-21</time>
+                <time title="Modified: 2019-07-28 21:14:54" itemprop="dateModified" datetime="2019-07-28T21:14:54+08:00">2019-07-28</time>
               </span>
             
           
@@ -430,31 +430,24 @@
       
 
       
-        <ol>
-<li><p>生成网站</p>
-<blockquote>
+        <h2 id="1-生成网站"><a href="#1-生成网站" class="headerlink" title="1. 生成网站"></a>1. 生成网站</h2><blockquote>
 <p>hexo g</p>
 </blockquote>
-</li>
-<li><p>启动本地web service</p>
-<blockquote>
+<h2 id="2-启动本地web-service"><a href="#2-启动本地web-service" class="headerlink" title="2. 启动本地web service"></a>2. 启动本地web service</h2><blockquote>
 <p>hexo s</p>
 </blockquote>
-</li>
-<li><p>推送到 git</p>
-<blockquote>
+<ol start="3">
+<li>推送到 git<blockquote>
 <p>hexo d<br>在推送前要在 _config.xml中配置好git地址</p>
 <blockquote>
 <p>deploy:<br>  type: git<br>  repository: <a href="https://github.com/wnnwoo/wnnwoo.github.io.git" target="_blank" rel="noopener">https://github.com/wnnwoo/wnnwoo.github.io.git</a><br>  branch: master</p>
 </blockquote>
 </blockquote>
 </li>
-<li><p>插入图片</p>
-<blockquote>
+</ol>
+<h2 id="4-插入图片，可参考官网说明"><a href="#4-插入图片，可参考官网说明" class="headerlink" title="4. 插入图片，可参考官网说明"></a>4. 插入图片，可参考<a href="https://hexo.io/zh-cn/docs/asset-folders" target="_blank" rel="noopener">官网说明</a></h2><blockquote>
 <p>_config.xml的post_asset_folder:设置为true<br>npm install hexo-asset-image –save</p>
 </blockquote>
-</li>
-</ol>
 <p>如果遇到类似下面的问题</p>
 <blockquote>
 <p>Mac01:wnnwoo.github.io wnnwoo$ npm install hexo-asset-image –save<br>npm WARN <a href="mailto:babel-eslint@10.0.2" target="_blank" rel="noopener">babel-eslint@10.0.2</a> requires a peer of eslint@&gt;= 4.12.1 but none is installed. You must install peer dependencies yourself.</p>
@@ -466,8 +459,8 @@
 <blockquote>
 <p>npm install -g npm</p>
 </blockquote>
-<p>运行hexo n “file name”来生成md博客时，会在_post目录下看到一个与博客同名的文件夹</p>
-<p>![你想要输入的替代文字](xxxx/图片名.jpg)</p>
+<p>运行hexo n “file name”来生成md博客时，会在_post目录下看到一个与博客同名的文件夹<br>可以用下面的几个方法来引入图片，<br>不过我自己试的时候，总是显示不出来图片</p>
+<h3 id="4-1-你想要输入的替代文字-xxxx-图片名-jpg"><a href="#4-1-你想要输入的替代文字-xxxx-图片名-jpg" class="headerlink" title="4.1 ![你想要输入的替代文字](xxxx/图片名.jpg)"></a>4.1 ![你想要输入的替代文字](xxxx/图片名.jpg)</h3><h3 id="4-2-asset-img-example-jpg-This-is-an-example-image"><a href="#4-2-asset-img-example-jpg-This-is-an-example-image" class="headerlink" title="4.2 "></a>4.2 </h3><h3 id="4-3-你想要输入的替代文字-图片URL"><a href="#4-3-你想要输入的替代文字-图片URL" class="headerlink" title="4.3 ![你想要输入的替代文字](图片URL)"></a>4.3 ![你想要输入的替代文字](图片URL)</h3><p>无奈，我用4.1 和4.2 都不行，只好购买<a href="https://www.aliyun.com" target="_blank" rel="noopener">阿里云</a>，显示cloud上的图片是没问题的。</p>
 
       
     </div>
@@ -556,8 +549,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -573,7 +575,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -600,7 +602,13 @@
         
           
         
-        <span class="site-state-item-count">6</span>
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">tags</span>
         
       </div>
@@ -624,6 +632,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-生成网站"><span class="nav-number">1.</span> <span class="nav-text">1. 生成网站</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-启动本地web-service"><span class="nav-number">2.</span> <span class="nav-text">2. 启动本地web service</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-插入图片，可参考官网说明"><span class="nav-number">3.</span> <span class="nav-text">4. 插入图片，可参考官网说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-你想要输入的替代文字-xxxx-图片名-jpg"><span class="nav-number">3.1.</span> <span class="nav-text">4.1 ![你想要输入的替代文字](xxxx/图片名.jpg)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-asset-img-example-jpg-This-is-an-example-image"><span class="nav-number">3.2.</span> <span class="nav-text">4.2 </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-你想要输入的替代文字-图片URL"><span class="nav-number">3.3.</span> <span class="nav-text">4.3 ![你想要输入的替代文字](图片URL)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
