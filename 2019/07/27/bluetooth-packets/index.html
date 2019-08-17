@@ -99,21 +99,22 @@
   };
 </script>
 
-  <meta name="description" content="BR/EDR packets  BLE packetsLE uncoded PHY   LE coded PHY">
+  <meta name="description" content="BR/EDR packets  BLE packetsLE uncoded PHY   LE coded PHY    CI: Coding indicator,   00b: S=8, 01B: S=2TERM1: terminator of FEC block 1TERM2: terminator of FED block 2">
 <meta name="keywords" content="Bluetooth">
 <meta property="og:type" content="article">
 <meta property="og:title" content="蓝牙数据包">
 <meta property="og:url" content="http://yoursite.com/2019/07/27/bluetooth-packets/index.html">
 <meta property="og:site_name" content="Wen Wu&#39;s notes">
-<meta property="og:description" content="BR/EDR packets  BLE packetsLE uncoded PHY   LE coded PHY">
+<meta property="og:description" content="BR/EDR packets  BLE packetsLE uncoded PHY   LE coded PHY    CI: Coding indicator,   00b: S=8, 01B: S=2TERM1: terminator of FEC block 1TERM2: terminator of FED block 2">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Bluetooth_packets/EDR_pkt_type.png">
 <meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Bluetooth_packets/LE_Uncoded_PHYs_pkt_type.png">
-<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Bluetooth_packets/LE_Coded_PHY_pkt_type.png">
+<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Bluetooth_packets/LE_Coded_PHY_packet_format.png">
+<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Bluetooth_packets/LE_Coded_PHY_field_size.png">
 <meta property="og:updated_time" content="2019-07-27T15:23:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="蓝牙数据包">
-<meta name="twitter:description" content="BR/EDR packets  BLE packetsLE uncoded PHY   LE coded PHY">
+<meta name="twitter:description" content="BR/EDR packets  BLE packetsLE uncoded PHY   LE coded PHY    CI: Coding indicator,   00b: S=8, 01B: S=2TERM1: terminator of FEC block 1TERM2: terminator of FED block 2">
 <meta name="twitter:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Bluetooth_packets/EDR_pkt_type.png">
 
 
@@ -426,7 +427,14 @@
       
         <h1 id="BR-EDR-packets"><a href="#BR-EDR-packets" class="headerlink" title="BR/EDR packets"></a>BR/EDR packets</h1><p> <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Bluetooth_packets/EDR_pkt_type.png" alt="EDR packet type" title="BR/EDR packet type"></p>
 <h1 id="BLE-packets"><a href="#BLE-packets" class="headerlink" title="BLE packets"></a>BLE packets</h1><h2 id="LE-uncoded-PHY"><a href="#LE-uncoded-PHY" class="headerlink" title="LE uncoded PHY"></a>LE uncoded PHY</h2><p>  <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Bluetooth_packets/LE_Uncoded_PHYs_pkt_type.png" alt="LE Uncoded PHY packet type"></p>
-<h2 id="LE-coded-PHY"><a href="#LE-coded-PHY" class="headerlink" title="LE coded PHY"></a>LE coded PHY</h2><p>  <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Bluetooth_packets/LE_Coded_PHY_pkt_type.png" alt="LE coded PHY packet type"></p>
+<h2 id="LE-coded-PHY"><a href="#LE-coded-PHY" class="headerlink" title="LE coded PHY"></a>LE coded PHY</h2><p>  <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Bluetooth_packets/LE_Coded_PHY_packet_format.png" alt="LE coded PHY packet type"></p>
+<blockquote>
+<p>CI: Coding indicator, </p>
+<blockquote>
+<p>00b: S=8, 01B: S=2<br>TERM1: terminator of FEC block 1<br>TERM2: terminator of FED block 2</p>
+</blockquote>
+</blockquote>
+<p>  <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Bluetooth_packets/LE_Coded_PHY_field_size.png" alt="LE coded PHY packet type"></p>
 
       
     </div>
@@ -550,7 +558,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
