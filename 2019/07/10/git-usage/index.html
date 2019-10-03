@@ -16,7 +16,7 @@
 
 <html class="theme-next gemini use-motion" lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
@@ -99,18 +99,18 @@
   };
 </script>
 
-  <meta name="description" content="git log –pretty=oneline  git log -1  git rev-parse –git-dir #show the .git folder name  git add . git add filename git add all git add . -A   control + r # search the history command  git commit -s">
+  <meta name="description" content="git log —pretty=oneline  git log -1  git rev-parse —git-dir #show the .git folder name  git add . git add filename git add all git add . -A   control + r # search the history command  git commit -s">
 <meta name="keywords" content="git basic">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常用的git命令">
 <meta property="og:url" content="http://yoursite.com/2019/07/10/git-usage/index.html">
 <meta property="og:site_name" content="Wen Wu&#39;s notes">
-<meta property="og:description" content="git log –pretty=oneline  git log -1  git rev-parse –git-dir #show the .git folder name  git add . git add filename git add all git add . -A   control + r # search the history command  git commit -s">
+<meta property="og:description" content="git log —pretty=oneline  git log -1  git rev-parse —git-dir #show the .git folder name  git add . git add filename git add all git add . -A   control + r # search the history command  git commit -s">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-07-10T14:37:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常用的git命令">
-<meta name="twitter:description" content="git log –pretty=oneline  git log -1  git rev-parse –git-dir #show the .git folder name  git add . git add filename git add all git add . -A   control + r # search the history command  git commit -s">
+<meta name="twitter:description" content="git log —pretty=oneline  git log -1  git rev-parse —git-dir #show the .git folder name  git add . git add filename git add all git add . -A   control + r # search the history command  git commit -s">
 
 
 
@@ -166,7 +166,7 @@
   .use-motion .logo-line-before i { left: initial; }
   .use-motion .logo-line-after i { right: initial; }
   </style>
-</noscript>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </head>
 
@@ -177,7 +177,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -432,22 +432,22 @@
 
       
         <ol>
-<li><p>git log –pretty=oneline</p>
+<li><p>git log —pretty=oneline</p>
 </li>
 <li><p>git log -1</p>
 </li>
-<li><p>git rev-parse –git-dir #show the .git folder name</p>
+<li><p>git rev-parse —git-dir #show the .git folder name</p>
 </li>
 <li><p>git add . git add filename git add all git add . -A</p>
 </li>
 </ol>
 <p>control + r # search the history command</p>
-<ol start="5">
+<ol>
 <li><p>git commit -s</p>
 </li>
 <li><p>git commit -m “msg”</p>
 </li>
-<li><p>git commit –amend # add the current file to the previous change list</p>
+<li><p>git commit —amend # add the current file to the previous change list</p>
 </li>
 <li><p>git push</p>
 </li>
@@ -455,11 +455,11 @@
 </li>
 <li><p>git diff 文件格式说明，<a href="https://www.jianshu.com/p/98829d4e996f" target="_blank" rel="noopener">link</a></p>
 </li>
-<li><p>git diff HEAD – readme.txt</p>
+<li><p>git diff HEAD — readme.txt</p>
 </li>
-<li><p>git reset –hard HEAD^ 用remote端最新code盖掉index区域的改动（已经add到index的改动）</p>
+<li><p>git reset —hard HEAD^ 用remote端最新code盖掉index区域的改动（已经add到index的改动）</p>
 </li>
-<li><p>git reset –hard 1094a 指定回到某个版本</p>
+<li><p>git reset —hard 1094a 指定回到某个版本</p>
 </li>
 <li><p>git cherry-pick</p>
 </li>
@@ -469,8 +469,8 @@
 <blockquote>
 <p>Mac01:BlueShell wnnwoo$ git reflog<br>894474c (HEAD -&gt; master) HEAD@{0}: reset: moving to HEAD^<br>fcdea80 (origin/master) HEAD@{1}: commit: fix build error<br>894474c (HEAD -&gt; master) HEAD@{2}: commit: update basic operation<br>94e2258 HEAD@{3}: commit: Run the scheme testing<br>f305bac HEAD@{4}: commit: add generics test code<br>4acfba7 HEAD@{5}: commit: Add error handle</p>
 </blockquote>
-<ol start="16">
-<li><p>git checkout – readme.txt 丢弃工作区的改动</p>
+<ol>
+<li><p>git checkout — readme.txt 丢弃工作区的改动</p>
 </li>
 <li><p>git reset HEAD readme.txt 暂存区的修改回退到工作区</p>
 </li>
@@ -593,7 +593,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -609,6 +609,8 @@
           
         
         
+        
+          
         
           
         
@@ -638,6 +640,8 @@
           
         
         
+        
+          
         
           
         
@@ -840,6 +844,13 @@
 
 
   
+  
+
+  
+  
+
+  
+
 
 
 
@@ -874,7 +885,24 @@ window.addEventListener("message", function(e) {
     $(`iframe[data-feature=${featureID}]`).height(parseInt(height) + 30);
   }
 }, false);
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

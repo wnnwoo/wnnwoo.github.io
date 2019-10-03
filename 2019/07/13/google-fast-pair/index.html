@@ -16,7 +16,7 @@
 
 <html class="theme-next gemini use-motion" lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
@@ -166,7 +166,7 @@
   .use-motion .logo-line-before i { left: initial; }
   .use-motion .logo-line-after i { right: initial; }
   </style>
-</noscript>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </head>
 
@@ -177,7 +177,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -440,11 +440,11 @@
 <h1 id="技术细节"><a href="#技术细节" class="headerlink" title="技术细节"></a>技术细节</h1><h2 id="角色定义"><a href="#角色定义" class="headerlink" title="角色定义"></a>角色定义</h2><h3 id="Seeker：手机端"><a href="#Seeker：手机端" class="headerlink" title="Seeker：手机端"></a>Seeker：手机端</h3><h3 id="Provider：设备端"><a href="#Provider：设备端" class="headerlink" title="Provider：设备端"></a>Provider：设备端</h3><h4 id="1-设备要首先要到Google-nearby-device去注册，这样Android才能识别出来。"><a href="#1-设备要首先要到Google-nearby-device去注册，这样Android才能识别出来。" class="headerlink" title="1. 设备要首先要到Google nearby device去注册，这样Android才能识别出来。"></a>1. 设备要首先要到Google nearby device去注册，这样Android才能识别出来。</h4><p>设备的TX power设定有讲究</p>
 <h4 id="2-Power设定应该比较小，目标是离SP-1m内可被搜到-Google建议的设定方法："><a href="#2-Power设定应该比较小，目标是离SP-1m内可被搜到-Google建议的设定方法：" class="headerlink" title="2. Power设定应该比较小，目标是离SP 1m内可被搜到.Google建议的设定方法："></a>2. Power设定应该比较小，目标是离SP 1m内可被搜到.Google建议的设定方法：</h4><blockquote>
 <p>The best way to determine the value is to measure the actual output of the device using an Android phone at 1 meter away, and then add 41 dBm to that. 41 dBm is the average signal strength loss that occurs over 1 meter.<br>Tx power 可以设定在广播包内，也可以设定在设备注册阶段就添上。<br>如果是在设备注册时就添上了Tx power的话，那所有的广播包都应该用这个Tx Power</p>
-</blockquote>
 <h4 id="3-关于Key"><a href="#3-关于Key" class="headerlink" title="3. 关于Key"></a>3. 关于Key</h4><ol>
 <li>反偷听的Public key 和private key（Anti-Spoofing Public/Private Key Pair）<br>Private Key是 256bits，建议保存在安全区域，避免泄露出去<br>Public Key在Seeker端才用得到</li>
 <li>Account Key list<br>Account key是为了让Seeker能识别出来这个key是属于某个google账号的。</li>
 </ol>
+</blockquote>
 <h4 id="4-关于Advertising"><a href="#4-关于Advertising" class="headerlink" title="4.关于Advertising"></a>4.关于Advertising</h4><h5 id="在BR-EDR是discoverable时的Advertising设定："><a href="#在BR-EDR是discoverable时的Advertising设定：" class="headerlink" title="在BR/EDR是discoverable时的Advertising设定："></a>在BR/EDR是discoverable时的Advertising设定：</h5><ol>
 <li>在广播包中要加入24bit module ID</li>
 <li><strong>Advertising Inerval</strong> &lt;= 100ms</li>
@@ -456,14 +456,16 @@
 <li>Pay load要包含 GFPS的Service UUID 和 Account key list</li>
 <li>Account Key Filter<br>为了让Seeker能尽快识别出Provider的广播包里是否有Seeker认识的Account，Provider对Account Key List计算出一个Key filter，Seeker能根据这个filter很快识别出是否有他关心的Account，从而决定是否要发起连线。<br>这个算法的细节后续再加进来。</li>
 </ol>
-<h4 id="5-GATT-Service"><a href="#5-GATT-Service" class="headerlink" title="5. GATT Service"></a>5. GATT Service</h4><h5 id="5-1-必须有GFPS-Service"><a href="#5-1-必须有GFPS-Service" class="headerlink" title="5.1 必须有GFPS Service"></a>5.1 必须有GFPS Service</h5><table>
+<h4 id="5-GATT-Service"><a href="#5-GATT-Service" class="headerlink" title="5. GATT Service"></a>5. GATT Service</h4><h5 id="5-1-必须有GFPS-Service"><a href="#5-1-必须有GFPS-Service" class="headerlink" title="5.1 必须有GFPS Service"></a>5.1 必须有GFPS Service</h5><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>Service</th>
 <th>UIID</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>Fast Pair Service</td>
 <td>0xFE2C</td>
 </tr>
@@ -471,39 +473,46 @@
 <td>单元格</td>
 <td>单元格</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>该Serviceyou如下的Charicterristic</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="center">Fast Pair Service characteristic</th>
-<th align="center">Encrypted</th>
-<th align="center">Permissions</th>
-<th align="center">UUID</th>
+<th style="text-align:center">Fast Pair Service characteristic</th>
+<th style="text-align:center">Encrypted</th>
+<th style="text-align:center">Permissions</th>
+<th style="text-align:center">UUID</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">Key-based Pairing</td>
-<td align="center">No</td>
-<td align="center">Write and notify</td>
-<td align="center">0x1234</td>
+<tbody>
+<tr>
+<td style="text-align:center">Key-based Pairing</td>
+<td style="text-align:center">No</td>
+<td style="text-align:center">Write and notify</td>
+<td style="text-align:center">0x1234</td>
 </tr>
 <tr>
-<td align="center">Passkey</td>
-<td align="center">No</td>
-<td align="center">Write and notify</td>
-<td align="center">0x1235</td>
+<td style="text-align:center">Passkey</td>
+<td style="text-align:center">No</td>
+<td style="text-align:center">Write and notify</td>
+<td style="text-align:center">0x1235</td>
 </tr>
 <tr>
-<td align="center">Account Key</td>
-<td align="center">No</td>
-<td align="center">Write</td>
-<td align="center">0x1236</td>
+<td style="text-align:center">Account Key</td>
+<td style="text-align:center">No</td>
+<td style="text-align:center">Write</td>
+<td style="text-align:center">0x1236</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h5 id="5-2-ATT-MTU-Size-Negotiation"><a href="#5-2-ATT-MTU-Size-Negotiation" class="headerlink" title="5.2 ATT MTU Size Negotiation"></a>5.2 ATT MTU Size Negotiation</h5><p>MTU 的size 应该是83，23 也是可以的。</p>
 <h4 id="5-3-Characteristic-Key-based-Pairing"><a href="#5-3-Characteristic-Key-based-Pairing" class="headerlink" title="5.3 Characteristic: Key-based Pairing"></a>5.3 Characteristic: Key-based Pairing</h4><p>Provider和Seeker基于一把private key，每次出发pair，public key/private key pair都应该不一样</p>
-<h4 id="5-4-Data-format"><a href="#5-4-Data-format" class="headerlink" title="5.4 Data format"></a>5.4 Data format</h4><table>
+<h4 id="5-4-Data-format"><a href="#5-4-Data-format" class="headerlink" title="5.4 Data format"></a>5.4 Data format</h4><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>Octet</th>
@@ -513,21 +522,18 @@
 <th>Mandatory?</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>0 - 1</td>
 <td>uint128</td>
 <td>Encrypted Request</td>
 <td>varies</td>
 <td>Mandatory</td>
 </tr>
-<tr>
-<td>16 - 79</td>
-<td>Public Key</td>
-<td>varies</td>
-<td>Optional</td>
-<td></td>
-</tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
+<p>16 - 79    |Public Key|varies|Optional|</p>
 
       
     </div>
@@ -651,7 +657,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -667,6 +673,8 @@
           
         
         
+        
+          
         
           
         
@@ -696,6 +704,8 @@
           
         
         
+        
+          
         
           
         
@@ -915,6 +925,13 @@
 
 
   
+  
+
+  
+  
+
+  
+
 
 
 
@@ -949,7 +966,24 @@ window.addEventListener("message", function(e) {
     $(`iframe[data-feature=${featureID}]`).height(parseInt(height) + 30);
   }
 }, false);
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 
