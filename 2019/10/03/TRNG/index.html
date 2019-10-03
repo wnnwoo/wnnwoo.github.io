@@ -421,7 +421,7 @@
 <li>首先就是产生随机数的速度很低，因为噪声放大电路有低通特性，使得高频的噪声被滤除了，而放大低频噪声就需要较长的时间，使得TRNG的工作频率受限。</li>
 <li>其次是电路系统里有很多不同的噪声，但并不是所有噪声都是随机的，比如电源噪声中很大一部分就是和系统时钟强相关的。而TRNG是一个放大极小信号的电路，它对外界干扰是极其敏感的，为了避免外界非随机信号的干扰TRNG必须要耗费不少功率和面积在屏蔽上。由于面积和功耗限制，CPU中不能内置很多个TRNG；由于频率限制，单个TRNG输出的随机数数量有限，这使得单靠TRNG产生的随机数数量不足以满足系统需要。</li>
 </ul>
-<p>还有用其他方法来生成随机数的，比如有个网站专门提供生成随机数的服务<a href="https://www.random.org" target="_blank" rel="noopener">Random</a>，该网站的随机数来自大气噪声（atmospheric noise）。</p>
+<p>还有用其他方法来生成随机数的，比如有个网站专门提供生成随机数的服务<a href="https://www.random.org" target="_blank" rel="noopener">Random</a>，该网站的随机数来自大气噪声（atmospheric noise）。<br><a href="https://www.random.org/randomness/" target="_blank" rel="noopener">关于真随机数和伪随机数</a></p>
 
       
     </div>
