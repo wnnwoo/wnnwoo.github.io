@@ -851,6 +851,21 @@
           
 
           
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Bluetooth/" itemprop="url" rel="index"><span itemprop="name">Bluetooth</span></a></span>
+
+                
+                
+              
+            </span>
+          
 
           
           
@@ -881,7 +896,7 @@
       
         
           
-            <p>伽罗华本人才华横溢，可惜在21岁时早早死于情场决斗。<br>Bluetooth在bit streaming过程中计算Sync word，HEC，FEC及data whitening时使用到了伽罗华域中的计算规则来处理比特流，本文就收集到的信息做个总结。</p>
+            <p>伽罗华（法国，1811～1832）才华横溢，可惜在21岁时早早死于情场决斗。他证明了：对于给定的一个素数次不可约方程能判断出它是否能根式求解。<br>Bluetooth在bit streaming过程中计算Sync word，HEC，FEC及data whitening时使用到了伽罗华域中的计算规则来处理比特流，本文就收集到的信息做个总结。</p>
 <p>一个元素个数有限的域称为<strong>有限域</strong>，或者<strong>伽罗华</strong>域(Galoisfield)</p>
 <ol>
 <li>有限域中元素的个数为一个素数，记为GF(p),其中p为素数;<blockquote>
@@ -897,8 +912,9 @@
 </ol>
 <p>二进制域GF(2)是扩展域GF($2^m$)的一个子域，类似于实数域是复数域的一个子域一样。除了数字0和1之外，在扩展域中还有特殊的元素，用一个新的符号a表示。GF($2^m$)中任何非0元素都可由a的<strong>幂次</strong>表示。</p>
 <p>有限元素的集合GF($2^m$)，只能含有$2^m$个元素，并且对乘法封闭，其约束条件为$a^{(2^m−1)}$+1=0<br>• 根据这个多项式限制条件，任何幂次等于或超过$2^m-1$的域元素都可降阶为下述幂次小于$2^m-1$的元素:</p>
-<script type="math/tex; mode=display">a^{(2^m+n)} = a^{(2^m−1)}a^{(n+1)} = a^{(n+1)}</script><p>这样，GF(2m)的元素可表示为:</p>
-<script type="math/tex; mode=display">GF(2^m) ={0,a^0,a^1,a^2,...,a^{2m −2}}</script><p>扩展域$GF(2^m)$中的加法<br>• 在$GF(2^m)$中，将每个非0域元素用多项式$a_i(x)$表示，其系数至少<br>有一个不为0。对于i=0,1, 2,…,$2^m-2$，有:$a_i = a_i(x) = a_{i,0} + a_{i,1}x + a_{i,2}x^2+…+a_{i,m-1}x^{m-1}$<br>•  先看m=3,有限域表示为$GF(2^3)$,下表为上式描述的基本元素(Primitive Element) ${x^0,x^1,x^2}$映射为7个元素{$a_i$}和一个0元素。表中的各行是二进制数字序列，代表上式中的系数$a_{i,0}、a_{i,1}、a_{i,2}$的取值。</p>
+<script type="math/tex; mode=display">a^{(2^m+n)} = a^{(2^m−1)}a^{(n+1)} = a^{(n+1)}</script><p>这样，GF($2^m$)的元素可表示为:</p>
+<script type="math/tex; mode=display">GF(2^m) ={0,a^0,a^1,a^2,...,a^{2^m −2}}</script><p>扩展域$GF(2^m)$中的加法<br>• 在$GF(2^m)$中，将每个非0域元素用多项式$a_i(x)$表示，其系数至少有一个不为0。对于i=0,1, 2,…,$2^m-2$，有:</p>
+<script type="math/tex; mode=display">a_i = a_i(x) = a_{i,0} + a_{i,1}x + a_{i,2}x^2+...+a_{i,m-1}x^{m-1}</script><p>• 先看m=3,有限域表示为$GF(2^3)$,下表为上式描述的基本元素(Primitive Element) ${x^0,x^1,x^2}$映射为7个元素{$a_i$}和一个0元素。表中的各行是二进制数字序列，代表上式中的系数$a_{i,0}、a_{i,1}、a_{i,2}$的取值。</p>
 <div class="table-container">
 <table>
 <thead>
@@ -968,12 +984,14 @@
 </table>
 </div>
 <p>多项式$f(x)=1+x+x^3$ 为GF($2^3$)的元素与基本元素之间的映射。</p>
-<p>有限域中两个元素的<strong>加法</strong>定义为两个多项式中同幂次项系数 进行<strong>模2加</strong>，即<br>$a^i+a^j=(a_{i,0}+a_{j,0}) + (a_{i,1}+a_{j,1})x + … + (a_{i,m-1}+a_{j,m-1})x^{m-1}$<br>• 有限域的<strong>本原多项式</strong>, 一个多项式是本原多项式的充要条件:</p>
+<p>有限域中两个元素的<strong>加法</strong>定义为两个多项式中同幂次项系数 进行<strong>模2加</strong>，即<br>$a^i+a^j=(a_{i,0}+a_{j,0}) + (a_{i,1}+a_{j,1})x + … + (a_{i,m-1}+a_{j,m-1})x^{m-1}$<br>• 有限域的<strong>本原多项式</strong>。本原多项式定义了域GF($2^m$)， 一个多项式是本原多项式的充要条件:</p>
 <blockquote>
-<p>一个m阶的不可约多项 式f(x)，如果f(x)整除$x^n+1$的最小正整数n满足$n=2^m-1$，则该多 项式是本原的。</p>
+<p>一个m阶的不可约多项 式f(x)，如果f(x)整除$x^n+1$的最小正整数n满足$n=2^m-1$，则该多项式是本原的。</p>
 </blockquote>
-<h3 id="关于多项式在伽罗华域的求根"><a href="#关于多项式在伽罗华域的求根" class="headerlink" title="关于多项式在伽罗华域的求根"></a>关于多项式在伽罗华域的求根</h3><p> 以$p(x) = 1 + x + x^3$ 为例，多项式的幂次为m=3,所以由p(x)所定义的域中包含了$2^m=2^3=8$个元素。求解p(x)的根就是指找到x 使p(x)=0。由基本代数学理论我们知道，对于幂次为m的多项式必然有m个根。对于这个例子，p(x)=0有3个根，由于这3个根不可能位于与p(x)系数相同的有限域中，而是位于扩展域GF($2^3$)中。<br>用扩展域的元素 a来定义多项式p(x)的根，可写成如下形式:p(a)=0<br>即 $1+a+a^3=0$，在该多项式两边都加上 1 + a, 就可以得到$a^3=1+a$ 这意味着$a^3$可以表示为更低阶a项的加权和。</p>
-<p>类似地有:<br>$a^4$=a<em>$a^3$=a</em>(1+a)=a+$a^2$<br>$a^5$=a<em>$a^4$=a</em>(a+$a^2$)=$a^2$+$a^3$=1+a+$a^2$<br>$a^6$=a<em>$a^5$=a</em>(1+a+$a^2$)=a+$a^2$+$a^3$=1+$a^2$<br>$a^7$=a<em>$a^6$=a</em>(1+$a^2$)=a+$a^3$=1=$a^0$ 所以，有限域GF($2^3$)的8个元素为 ${0,a^0,a^1,a^2,a^3,a^4,a^5,a^6}$</p>
+<h3 id="关于多项式在伽罗华域的求根"><a href="#关于多项式在伽罗华域的求根" class="headerlink" title="关于多项式在伽罗华域的求根"></a>关于多项式在伽罗华域的求根</h3><p> 以$p(x) = 1 + x + x^3$ 为例，多项式的幂次为m=3,所以由p(x)所定义的域中包含了$2^m=2^3=8$个元素。求解p(x)的根就是指找到x 使p(x)=0。由高斯的基本代数学理论我们知道，对于幂次为m的多项式必然有m个根。对于这个例子，p(x)=0有3个根，由于这3个根不可能位于与p(x)系数相同的有限域中，而是位于扩展域GF($2^3$)中。<br>用扩展域的元素 a来定义多项式p(x)的根，可写成如下形式:p(a)=0<br>即 $1+a+a^3=0$，在该多项式两边都加上 1 + a, 就可以得到$a^3=1+a$ 这意味着$a^3$可以表示为更低阶a项的加权和。</p>
+<p>类似地有:<br>$a^4$=a<em>$a^3$=a</em>(1+a)=a+$a^2$<br>$a^5$=a<em>$a^4$=a</em>(a+$a^2$)=$a^2$+$a^3$=1+a+$a^2$<br>$a^6$=a<em>$a^5$=a</em>(1+a+$a^2$)=a+$a^2$+$a^3$=1+$a^2$<br>$a^7$=a<em>$a^6$=a</em>(1+$a^2$)=a+$a^3$=1=$a^0$ </p>
+<p>所以，有限域GF($2^3$)的8个元素为 ${0,a^0,a^1,a^2,a^3,a^4,a^5,a^6}$</p>
+<p>这8个元素中哪些是p(x)=0的3个根呢?我们可通过枚举 找到!<br>p($a^0$)=1, $a^0$不是<br>p($a^1$)=1+a+$a^3$=0, $a^1$是<br>p($a^2$)=1+$a^2$+$a^6$=1+$a^0$=0, $a^2$是<br>p($a^3$)=1+$a^3$+$a^9$=1+$a^3$+$a^2$=1+$a^5$=$a^4$, $a^3$不是<br>p($a^4$)=1+$a^4$+$a^12$=1+$a^4$+$a^5$=1+$a^0$=0, $a^4$是<br>同理可计算p($a^5$)、p($a^6$)都不等于0，所以p(x)=1+x+$x^3$的 3个根是a, $a^2$, $a^4$</p>
 <p>主要参考文献有<br><a href="https://cloud.tencent.com/developer/article/1005808" target="_blank" rel="noopener">FEC的介绍</a></p>
 
           
@@ -1998,7 +2016,7 @@
         
           
         
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -2014,8 +2032,6 @@
           
         
         
-        
-          
         
           
         
