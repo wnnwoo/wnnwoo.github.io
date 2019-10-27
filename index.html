@@ -338,6 +338,151 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/27/usable-hci/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wen Wu">
+      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wen Wu's notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/10/27/usable-hci/" class="post-title-link" itemprop="url">HCI command笔记</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-27 09:27:24" itemprop="dateCreated datePublished" datetime="2019-10-27T09:27:24+08:00">2019-10-27</time>
+            </span>
+          
+
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>规范 Vol2 的Part E，讲HCI command的第7章有几个command，看起来很有用，这里list下</p>
+<h1 id="7-5-1-Read-Faild-Contact-Counter-command"><a href="#7-5-1-Read-Faild-Contact-Counter-command" class="headerlink" title="7.5.1 Read Faild Contact Counter command"></a>7.5.1 Read Faild Contact Counter command</h1><p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/Bluetooth_HCI_7.5.1_FailedContactNumber.png" alt="ReadFailedContactCounterCommand"><br>这个计数器(Failed_Contact_Counter，两个字节)是用来记录由于flush timeout到期（一般是因为空气中信号干扰比较多，数据包重传比较多）而flush掉的数据包的个数，在做bt music的时候经常看到smartphone送过来的数据包的序列号不连续，如果smartphone有用这个command来monitor数据包的状况的话，就比较容易看到这个现象。</p>
+<blockquote>
+<p>When the 802.11 PAL receives an HCI_Read_Failed_Contact_Counter command it shall return the number of consecutive incidents in which the remote device didn’t respond after the flus&gt;h timeout had expired, and the L2CAP packet that was currently being transmitted was automatically flushed. The Failed Contact Counter is specific to each logical link.</p>
+</blockquote>
+<h1 id="7-1-47-Truncated-Page-command"><a href="#7-1-47-Truncated-Page-command" class="headerlink" title="7.1.47 Truncated Page command"></a>7.1.47 Truncated Page command</h1><p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/HCICommand-7.1.47.png" alt><br>可以用来探测目标设备在不在可连接范围内？</p>
+<p>The HCI_Truncated_Page command is used to page the BR/EDR Controller with the specified BD_ADDR and then abort the paging sequence after an ID response has been received. See [Vol 2] Part B, Section 8.3.3 for additional information.</p>
+<p>BLUETOOTH CORE SPECIFICATION Version 5.1 | Vol 2, Part E page 1112</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/03/hexo-math/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1772,172 +1917,6 @@
   </article>
 
     
-        
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/27/bluetooth-packets/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wen Wu">
-      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wen Wu's notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/07/27/bluetooth-packets/" class="post-title-link" itemprop="url">蓝牙数据包</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-07-27 23:07:46 / 修改时间：23:23:23" itemprop="dateCreated datePublished" datetime="2019-07-27T23:07:46+08:00">2019-07-27</time>
-            </span>
-          
-
-          
-            
-
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/蓝牙/" itemprop="url" rel="index"><span itemprop="name">蓝牙</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          
-
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="BR-EDR-packets"><a href="#BR-EDR-packets" class="headerlink" title="BR/EDR packets"></a>BR/EDR packets</h1><p> <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Bluetooth_packets/EDR_pkt_type.png" alt="EDR packet type" title="BR/EDR packet type"></p>
-<h1 id="BLE-packets"><a href="#BLE-packets" class="headerlink" title="BLE packets"></a>BLE packets</h1><h2 id="LE-uncoded-PHY"><a href="#LE-uncoded-PHY" class="headerlink" title="LE uncoded PHY"></a>LE uncoded PHY</h2><p>  <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Bluetooth_packets/LE_Uncoded_PHYs_pkt_type.png" alt="LE Uncoded PHY packet type"></p>
-<h2 id="LE-coded-PHY"><a href="#LE-coded-PHY" class="headerlink" title="LE coded PHY"></a>LE coded PHY</h2><p>  <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Bluetooth_packets/LE_Coded_PHY_packet_format.png" alt="LE coded PHY packet type"></p>
-<blockquote>
-<p>CI: Coding indicator, </p>
-<blockquote>
-<p>00b: S=8, 01B: S=2<br>TERM1: terminator of FEC block 1<br>TERM2: terminator of FED block 2</p>
-</blockquote>
-</blockquote>
-<p>  <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Bluetooth_packets/LE_Coded_PHY_field_size.png" alt="LE coded PHY packet type"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1985,7 +1964,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2242,9 +2221,9 @@
       
     
       
-        
-      
     
+      
+        
       
     
       

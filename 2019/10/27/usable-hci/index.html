@@ -99,17 +99,21 @@
   };
 </script>
 
-  <meta name="description" content="I&apos;m a bluetooth Host and Controller developer">
-<meta name="keywords" content="bluetooth, reading, thinking">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Wen Wu&#39;s notes">
-<meta property="og:url" content="http://yoursite.com/tags/蓝牙/index.html">
+  <meta name="description" content="规范 Vol2 的Part E，讲HCI command的第7章有几个command，看起来很有用，这里list下 7.5.1 Read Faild Contact Counter command这个计数器(Failed_Contact_Counter，两个字节)是用来记录由于flush timeout到期（一般是因为空气中信号干扰比较多，数据包重传比较多）而flush掉的数据包的个数，在做bt">
+<meta name="keywords" content="蓝牙规范">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HCI command笔记">
+<meta property="og:url" content="http://yoursite.com/2019/10/27/usable-hci/index.html">
 <meta property="og:site_name" content="Wen Wu&#39;s notes">
-<meta property="og:description" content="I&apos;m a bluetooth Host and Controller developer">
+<meta property="og:description" content="规范 Vol2 的Part E，讲HCI command的第7章有几个command，看起来很有用，这里list下 7.5.1 Read Faild Contact Counter command这个计数器(Failed_Contact_Counter，两个字节)是用来记录由于flush timeout到期（一般是因为空气中信号干扰比较多，数据包重传比较多）而flush掉的数据包的个数，在做bt">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/Bluetooth_HCI_7.5.1_FailedContactNumber.png">
+<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/HCICommand-7.1.47.png">
+<meta property="og:updated_time" content="2019-10-27T01:27:24.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Wen Wu&#39;s notes">
-<meta name="twitter:description" content="I&apos;m a bluetooth Host and Controller developer">
+<meta name="twitter:title" content="HCI command笔记">
+<meta name="twitter:description" content="规范 Vol2 的Part E，讲HCI command的第7章有几个command，看起来很有用，这里list下 7.5.1 Read Faild Contact Counter command这个计数器(Failed_Contact_Counter，两个字节)是用来记录由于flush timeout到期（一般是因为空气中信号干扰比较多，数据包重传比较多）而flush掉的数据包的个数，在做bt">
+<meta name="twitter:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/Bluetooth_HCI_7.5.1_FailedContactNumber.png">
 
 
 
@@ -117,7 +121,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/tags/蓝牙/">
+  <link rel="canonical" href="http://yoursite.com/2019/10/27/usable-hci/">
 
 
 
@@ -128,7 +132,7 @@
 </script>
 
   
-  <title>标签: 蓝牙 | Wen Wu's notes</title>
+  <title>HCI command笔记 | Wen Wu's notes</title>
   
 
 
@@ -176,7 +180,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -250,7 +254,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -319,83 +323,184 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>蓝牙<small>标签</small>
-        </h1>
-      </div>
-
+  <div id="posts" class="posts-expand">
       
-        
+
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/27/usable-hci/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wen Wu">
+      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wen Wu's notes">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2019/07/27/bluetooth-baseband/" itemprop="url">
-            
-              <span itemprop="name">蓝牙基带介绍</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">HCI command笔记
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-27T11:16:47+08:00" content="2019-07-27">
-          07-27
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
 
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-27 09:27:24" itemprop="dateCreated datePublished" datetime="2019-10-27T09:27:24+08:00">2019-10-27</time>
+            </span>
+          
+
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>规范 Vol2 的Part E，讲HCI command的第7章有几个command，看起来很有用，这里list下</p>
+<h1 id="7-5-1-Read-Faild-Contact-Counter-command"><a href="#7-5-1-Read-Faild-Contact-Counter-command" class="headerlink" title="7.5.1 Read Faild Contact Counter command"></a>7.5.1 Read Faild Contact Counter command</h1><p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/Bluetooth_HCI_7.5.1_FailedContactNumber.png" alt="ReadFailedContactCounterCommand"><br>这个计数器(Failed_Contact_Counter，两个字节)是用来记录由于flush timeout到期（一般是因为空气中信号干扰比较多，数据包重传比较多）而flush掉的数据包的个数，在做bt music的时候经常看到smartphone送过来的数据包的序列号不连续，如果smartphone有用这个command来monitor数据包的状况的话，就比较容易看到这个现象。</p>
+<blockquote>
+<p>When the 802.11 PAL receives an HCI_Read_Failed_Contact_Counter command it shall return the number of consecutive incidents in which the remote device didn’t respond after the flus&gt;h timeout had expired, and the L2CAP packet that was currently being transmitted was automatically flushed. The Failed Contact Counter is specific to each logical link.</p>
+</blockquote>
+<h1 id="7-1-47-Truncated-Page-command"><a href="#7-1-47-Truncated-Page-command" class="headerlink" title="7.1.47 Truncated Page command"></a>7.1.47 Truncated Page command</h1><p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/HCICommand-7.1.47.png" alt><br>可以用来探测目标设备在不在可连接范围内？</p>
+<p>The HCI_Truncated_Page command is used to page the BR/EDR Controller with the specified BD_ADDR and then abort the paging sequence after an ID response has been received. See [Vol 2] Part B, Section 8.3.3 for additional information.</p>
+<p>BLUETOOTH CORE SPECIFICATION Version 5.1 | Vol 2, Part E page 1112</p>
 
       
     </div>
 
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/蓝牙规范/" rel="tag"># 蓝牙规范</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/03/hexo-math/" rel="next" title="hexo 中启用数学公式">
+                <i class="fa fa-chevron-left"></i> hexo 中启用数学公式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
-
+  </div>
 
 
           </div>
           
+  
+
+
 
         </div>
         
@@ -415,8 +520,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -534,6 +648,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#7-5-1-Read-Faild-Contact-Counter-command"><span class="nav-number">1.</span> <span class="nav-text">7.5.1 Read Faild Contact Counter command</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-1-47-Truncated-Page-command"><span class="nav-number">2.</span> <span class="nav-text">7.1.47 Truncated Page command</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -666,6 +797,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
 
   <script src="/js/next-boot.js?v=7.2.0"></script>
 
