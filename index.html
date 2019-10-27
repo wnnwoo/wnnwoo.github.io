@@ -425,8 +425,12 @@
 <blockquote>
 <p>When the 802.11 PAL receives an HCI_Read_Failed_Contact_Counter command it shall return the number of consecutive incidents in which the remote device didn’t respond after the flus&gt;h timeout had expired, and the L2CAP packet that was currently being transmitted was automatically flushed. The Failed Contact Counter is specific to each logical link.</p>
 </blockquote>
-<h1 id="7-1-47-Truncated-Page-command"><a href="#7-1-47-Truncated-Page-command" class="headerlink" title="7.1.47 Truncated Page command"></a>7.1.47 Truncated Page command</h1><p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/HCICommand-7.1.47.png" alt><br>可以用来探测目标设备在不在可连接范围内？</p>
-<p>The HCI_Truncated_Page command is used to page the BR/EDR Controller with the specified BD_ADDR and then abort the paging sequence after an ID response has been received. See [Vol 2] Part B, Section 8.3.3 for additional information.</p>
+<h1 id="7-1-47-Truncated-Page-command"><a href="#7-1-47-Truncated-Page-command" class="headerlink" title="7.1.47 Truncated Page command"></a>7.1.47 Truncated Page command</h1><p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/HCICommand-7.1.47.png" alt="Trncated Page"><br>可以用来探测目标设备在不在可连接范围内？</p>
+<blockquote>
+<p>The HCI_Truncated_Page command is used to page the BR/EDR Controller with the specified BD_ADDR and then abort the paging sequence after an ID response has been received. See [Vol &gt;2] Part B, Section 8.3.3 for additional information.</p>
+</blockquote>
+<p>复习下page的几个步骤，请看下面的两张图：</p>
+<p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/Baseband-Page-steps_list.png" alt="Page step list"><br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/Baseband-page-message-sequence.png" alt="Page step message sequence"></p>
 <p>BLUETOOTH CORE SPECIFICATION Version 5.1 | Vol 2, Part E page 1112</p>
 
           
