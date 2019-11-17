@@ -99,22 +99,20 @@
   };
 </script>
 
-  <meta name="description" content="开发BT audio，经常被各种BT music 断音，跳音等等问题而困扰，大部分都是因为codec出问题或是bt受干扰而throughput不够。针对BT music使用到的codec，这篇文章有做一些总结。Understanding Bluetooth codecs">
-<meta name="keywords" content="Bluetooth">
+  <meta name="description" content="看到一个很有意思的搜索引擎，在搜索结果出来的时候还做个summary，虽然没啥用，但是还挺有新意，也许未来能做的更好。">
+<meta name="keywords" content="搜索">
 <meta property="og:type" content="article">
-<meta property="og:title" content="BT Codec 总结">
-<meta property="og:url" content="http://yoursite.com/2019/08/17/bt-audio-codec/index.html">
+<meta property="og:title" content="magi, 将搜索数据结构化">
+<meta property="og:url" content="http://yoursite.com/2019/11/17/magi/index.html">
 <meta property="og:site_name" content="Wen Wu&#39;s notes">
-<meta property="og:description" content="开发BT audio，经常被各种BT music 断音，跳音等等问题而困扰，大部分都是因为codec出问题或是bt受干扰而throughput不够。针对BT music使用到的codec，这篇文章有做一些总结。Understanding Bluetooth codecs">
+<meta property="og:description" content="看到一个很有意思的搜索引擎，在搜索结果出来的时候还做个summary，虽然没啥用，但是还挺有新意，也许未来能做的更好。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothCodec/bt_codec_pors.png">
-<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothCodec/blueooth-codec-transfer-rate.png">
-<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothCodec/bluetooth-codec-latency.png">
-<meta property="og:updated_time" content="2019-08-17T12:55:51.000Z">
+<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/%E5%85%B6%E4%BB%96%E6%96%87%E4%BB%B6/magi-search.png">
+<meta property="og:updated_time" content="2019-11-17T01:10:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="BT Codec 总结">
-<meta name="twitter:description" content="开发BT audio，经常被各种BT music 断音，跳音等等问题而困扰，大部分都是因为codec出问题或是bt受干扰而throughput不够。针对BT music使用到的codec，这篇文章有做一些总结。Understanding Bluetooth codecs">
-<meta name="twitter:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothCodec/bt_codec_pors.png">
+<meta name="twitter:title" content="magi, 将搜索数据结构化">
+<meta name="twitter:description" content="看到一个很有意思的搜索引擎，在搜索结果出来的时候还做个summary，虽然没啥用，但是还挺有新意，也许未来能做的更好。">
+<meta name="twitter:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/%E5%85%B6%E4%BB%96%E6%96%87%E4%BB%B6/magi-search.png">
 
 
 
@@ -122,7 +120,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/08/17/bt-audio-codec/">
+  <link rel="canonical" href="http://yoursite.com/2019/11/17/magi/">
 
 
 
@@ -133,7 +131,7 @@
 </script>
 
   
-  <title>BT Codec 总结 | Wen Wu's notes</title>
+  <title>magi, 将搜索数据结构化 | Wen Wu's notes</title>
   
 
 
@@ -342,7 +340,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/17/bt-audio-codec/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/17/magi/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wen Wu">
@@ -359,7 +357,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">BT Codec 总结
+          <h1 class="post-title" itemprop="name headline">magi, 将搜索数据结构化
 
               
             
@@ -385,7 +383,7 @@
                 
               
 
-              <time title="创建时间：2019-08-17 20:55:51" itemprop="dateCreated datePublished" datetime="2019-08-17T20:55:51+08:00">2019-08-17</time>
+              <time title="创建时间：2019-11-17 09:10:09" itemprop="dateCreated datePublished" datetime="2019-11-17T09:10:09+08:00">2019-11-17</time>
             </span>
           
 
@@ -420,10 +418,8 @@
       
 
       
-        <p>开发BT audio，经常被各种BT music 断音，跳音等等问题而困扰，大部分都是因为codec出问题或是bt受干扰而throughput不够。<br>针对BT music使用到的codec，这篇文章有做一些总结。<a href="https://www.soundguys.com/understanding-bluetooth-codecs-15352/" target="_blank" rel="noopener">Understanding Bluetooth codecs</a></p>
-<p> <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothCodec/bt_codec_pors.png" alt="Bluetooth Codec PK" title="Codec PK"></p>
-<p> <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothCodec/blueooth-codec-transfer-rate.png" alt="Bluetooth Codec transfer rate" title="throughput"></p>
-<p> <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothCodec/bluetooth-codec-latency.png" alt="Bluetooth Codec latency" title="Latency"></p>
+        <p>看到一个很有意思的<a href="http://www.magi.com" target="_blank" rel="noopener">搜索引擎</a>，在搜索结果出来的时候还做个summary，虽然没啥用，但是还挺有新意，也许未来能做的更好。</p>
+<p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/%E5%85%B6%E4%BB%96%E6%96%87%E4%BB%B6/magi-search.png" alt="magi"></p>
 
       
     </div>
@@ -454,7 +450,7 @@
         
         <div class="post-tags">
           
-            <a href="/tags/Bluetooth/" rel="tag"># Bluetooth</a>
+            <a href="/tags/搜索/" rel="tag"># 搜索</a>
           
         </div>
       
@@ -467,8 +463,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/04/google-test/" rel="next" title="测试之道">
-                <i class="fa fa-chevron-left"></i> 测试之道
+              <a href="/2019/11/11/code-running-env/" rel="next" title="在线多语言运行环境">
+                <i class="fa fa-chevron-left"></i> 在线多语言运行环境
               </a>
             
           </div>
@@ -476,10 +472,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/08/26/存在主义咖啡馆/" rel="prev" title="存在主义咖啡馆">
-                存在主义咖啡馆 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
