@@ -99,21 +99,22 @@
   };
 </script>
 
-  <meta name="description" content="关于Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错What You Need to Know About Periodic Advertising Sync Transfer。这里就做一个简单的总结。">
+  <meta name="description" content="关于Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错What You Need to Know About Periodic Advertising Sync Transfer。这里就做一个简单的总结。这个新概念的引入，本质上是为了省电。对于Legacy的advertising，Advertiser在in">
 <meta name="keywords" content="Bluetooth">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Periodic Advertising Sync Transfer (PAST)">
 <meta property="og:url" content="http://yoursite.com/2019/12/31/bluetooth-past/index.html">
 <meta property="og:site_name" content="Wen Wu&#39;s notes">
-<meta property="og:description" content="关于Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错What You Need to Know About Periodic Advertising Sync Transfer。这里就做一个简单的总结。">
+<meta property="og:description" content="关于Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错What You Need to Know About Periodic Advertising Sync Transfer。这里就做一个简单的总结。这个新概念的引入，本质上是为了省电。对于Legacy的advertising，Advertiser在in">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-LegacyAdv.png">
 <meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-ExtAdv.png">
+<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PeriodicAdv.png?x-oss-process=image/rotate,90">
 <meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-Scenario.png">
 <meta property="og:updated_time" content="2019-12-31T15:06:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Periodic Advertising Sync Transfer (PAST)">
-<meta name="twitter:description" content="关于Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错What You Need to Know About Periodic Advertising Sync Transfer。这里就做一个简单的总结。">
+<meta name="twitter:description" content="关于Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错What You Need to Know About Periodic Advertising Sync Transfer。这里就做一个简单的总结。这个新概念的引入，本质上是为了省电。对于Legacy的advertising，Advertiser在in">
 <meta name="twitter:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-LegacyAdv.png">
 
 
@@ -435,10 +436,10 @@
       
 
       
-        <p>关于Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错<a href="https://www.bluetooth.com/blog/periodic-advertising-sync-transfer/" target="_blank" rel="noopener">What You Need to Know About Periodic Advertising Sync Transfer</a>。这里就做一个简单的总结。</p>
-<p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-LegacyAdv.png" alt="Legacy Adv" title="Legacy advertising"></p>
-<p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-ExtAdv.png" alt="Extended Adv" title="Extended advertising"></p>
-<p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-Scenario.png" alt="PAST" title="PAST"></p>
+        <p>关于Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错<a href="https://www.bluetooth.com/blog/periodic-advertising-sync-transfer/" target="_blank" rel="noopener">What You Need to Know About Periodic Advertising Sync Transfer</a>。这里就做一个简单的总结。<br>这个新概念的引入，本质上是为了省电。对于Legacy的advertising，Advertiser在interval附近会加一个Delay（0～10ms），那么Scanner就需要多开窗来抓到adverting 数据包，增加耗电，而PAST概念就是为了在某个场景下可以解决这个问题。</p>
+<h2 id="Legacy-Advertising"><a href="#Legacy-Advertising" class="headerlink" title="Legacy Advertising"></a>Legacy Advertising</h2><p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-LegacyAdv.png" alt="Legacy Adv" title="Legacy advertising"></p>
+<h2 id="Extended-Advertising"><a href="#Extended-Advertising" class="headerlink" title="Extended Advertising"></a>Extended Advertising</h2><p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-ExtAdv.png" alt="Extended Adv" title="Extended advertising"><br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PeriodicAdv.png?x-oss-process=image/rotate,90" alt></p>
+<h2 id="PAST"><a href="#PAST" class="headerlink" title="PAST"></a>PAST</h2><p>AoD Transmitter跟Smartphone有Sync，Smartphone跟Wearable Device有连线。而Wearable device同时也想搜到AoD Transmitter的数据包，正常情况下Wearable device在连线smartphone的同时还要开Scan去搜索AoD Transmitter的adv 数据包，而有PAST这个feature后，Wearable device就可以不用开Scan，通过PAST来收据数据。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-Scenario.png" alt="PAST" title="PAST"></p>
 
       
     </div>
@@ -532,8 +533,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -657,6 +667,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Legacy-Advertising"><span class="nav-number">1.</span> <span class="nav-text">Legacy Advertising</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Extended-Advertising"><span class="nav-number">2.</span> <span class="nav-text">Extended Advertising</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PAST"><span class="nav-number">3.</span> <span class="nav-text">PAST</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       

@@ -435,10 +435,10 @@
       
         
           
-            <p>关于Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错<a href="https://www.bluetooth.com/blog/periodic-advertising-sync-transfer/" target="_blank" rel="noopener">What You Need to Know About Periodic Advertising Sync Transfer</a>。这里就做一个简单的总结。</p>
-<p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-LegacyAdv.png" alt="Legacy Adv" title="Legacy advertising"></p>
-<p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-ExtAdv.png" alt="Extended Adv" title="Extended advertising"></p>
-<p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-Scenario.png" alt="PAST" title="PAST"></p>
+            <p>关于Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错<a href="https://www.bluetooth.com/blog/periodic-advertising-sync-transfer/" target="_blank" rel="noopener">What You Need to Know About Periodic Advertising Sync Transfer</a>。这里就做一个简单的总结。<br>这个新概念的引入，本质上是为了省电。对于Legacy的advertising，Advertiser在interval附近会加一个Delay（0～10ms），那么Scanner就需要多开窗来抓到adverting 数据包，增加耗电，而PAST概念就是为了在某个场景下可以解决这个问题。</p>
+<h2 id="Legacy-Advertising"><a href="#Legacy-Advertising" class="headerlink" title="Legacy Advertising"></a>Legacy Advertising</h2><p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-LegacyAdv.png" alt="Legacy Adv" title="Legacy advertising"></p>
+<h2 id="Extended-Advertising"><a href="#Extended-Advertising" class="headerlink" title="Extended Advertising"></a>Extended Advertising</h2><p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-ExtAdv.png" alt="Extended Adv" title="Extended advertising"><br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PeriodicAdv.png?x-oss-process=image/rotate,90" alt></p>
+<h2 id="PAST"><a href="#PAST" class="headerlink" title="PAST"></a>PAST</h2><p>AoD Transmitter跟Smartphone有Sync，Smartphone跟Wearable Device有连线。而Wearable device同时也想搜到AoD Transmitter的数据包，正常情况下Wearable device在连线smartphone的同时还要开Scan去搜索AoD Transmitter的adv 数据包，而有PAST这个feature后，Wearable device就可以不用开Scan，通过PAST来收据数据。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-Scenario.png" alt="PAST" title="PAST"></p>
 
           
         
