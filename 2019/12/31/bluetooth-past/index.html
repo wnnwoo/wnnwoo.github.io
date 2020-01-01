@@ -99,17 +99,22 @@
   };
 </script>
 
-  <meta name="description" content="I&apos;m a bluetooth Host and Controller developer">
-<meta name="keywords" content="bluetooth, reading, thinking">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Wen Wu&#39;s notes">
-<meta property="og:url" content="http://yoursite.com/tags/蓝牙规范/index.html">
+  <meta name="description" content="关于Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错What You Need to Know About Periodic Advertising Sync Transfer。这里就做一个简单的总结。">
+<meta name="keywords" content="Bluetooth">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Periodic Advertising Sync Transfer (PAST)">
+<meta property="og:url" content="http://yoursite.com/2019/12/31/bluetooth-past/index.html">
 <meta property="og:site_name" content="Wen Wu&#39;s notes">
-<meta property="og:description" content="I&apos;m a bluetooth Host and Controller developer">
+<meta property="og:description" content="关于Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错What You Need to Know About Periodic Advertising Sync Transfer。这里就做一个简单的总结。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-LegacyAdv.png">
+<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-ExtAdv.png">
+<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-Scenario.png">
+<meta property="og:updated_time" content="2019-12-31T15:06:57.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Wen Wu&#39;s notes">
-<meta name="twitter:description" content="I&apos;m a bluetooth Host and Controller developer">
+<meta name="twitter:title" content="Periodic Advertising Sync Transfer (PAST)">
+<meta name="twitter:description" content="关于Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错What You Need to Know About Periodic Advertising Sync Transfer。这里就做一个简单的总结。">
+<meta name="twitter:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-LegacyAdv.png">
 
 
 
@@ -117,7 +122,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/tags/蓝牙规范/">
+  <link rel="canonical" href="http://yoursite.com/2019/12/31/bluetooth-past/">
 
 
 
@@ -128,7 +133,7 @@
 </script>
 
   
-  <title>标签: 蓝牙规范 | Wen Wu's notes</title>
+  <title>Periodic Advertising Sync Transfer (PAST) | Wen Wu's notes</title>
   
 
 
@@ -176,7 +181,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -250,7 +255,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -319,161 +324,195 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+      
+
   
   
   
-  <div class="post-block tag">
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>蓝牙规范<small>标签</small>
-        </h1>
-      </div>
-
-      
-        
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/31/bluetooth-past/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wen Wu">
+      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wen Wu's notes">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2019/10/27/usable-hci/" itemprop="url">
-            
-              <span itemprop="name">HCI command笔记</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Periodic Advertising Sync Transfer (PAST)
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-27T09:27:24+08:00" content="2019-10-27">
-          10-27
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
 
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-31 23:06:57" itemprop="dateCreated datePublished" datetime="2019-12-31T23:06:57+08:00">2019-12-31</time>
+            </span>
+          
+
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Bluetooth/" itemprop="url" rel="index"><span itemprop="name">Bluetooth</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/07/27/bluetooth-packets/" itemprop="url">
-            
-              <span itemprop="name">蓝牙数据包</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-27T23:07:46+08:00" content="2019-07-27">
-          07-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/07/27/bluetooth-baseband/" itemprop="url">
-            
-              <span itemprop="name">蓝牙基带介绍</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-27T11:16:47+08:00" content="2019-07-27">
-          07-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/07/17/bluetooth-basic/" itemprop="url">
-            
-              <span itemprop="name">Bluetooth Topology</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-17T21:27:34+08:00" content="2019-07-17">
-          07-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <p>关于Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错<a href="https://www.bluetooth.com/blog/periodic-advertising-sync-transfer/" target="_blank" rel="noopener">What You Need to Know About Periodic Advertising Sync Transfer</a>。这里就做一个简单的总结。</p>
+<p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-LegacyAdv.png" alt="Legacy Adv" title="Legacy advertising"></p>
+<p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-ExtAdv.png" alt="Extended Adv" title="Extended advertising"></p>
+<p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-Scenario.png" alt="PAST" title="PAST"></p>
 
       
     </div>
 
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/Bluetooth/" rel="tag"># Bluetooth</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/31/marginnote/" rel="next" title="做笔记的利器Marginnote">
+                <i class="fa fa-chevron-left"></i> 做笔记的利器Marginnote
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
-
+  </div>
 
 
           </div>
           
+  
+
+
 
         </div>
         
@@ -750,6 +789,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
 
   <script src="/js/next-boot.js?v=7.2.0"></script>
 
