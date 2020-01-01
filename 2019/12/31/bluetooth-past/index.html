@@ -108,9 +108,10 @@
 <meta property="og:description" content="关于Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错What You Need to Know About Periodic Advertising Sync Transfer。这里就做一个简单的总结。这个新概念的引入，本质上是为了省电。对于Legacy的advertising，Advertiser在in">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-LegacyAdv.png">
+<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/LegacyAdvPDUFormat.png">
 <meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-ExtAdv.png">
-<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PeriodicAdv.png?x-oss-process=image/rotate,90">
 <meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-Scenario.png">
+<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PeriodicAdv.png?x-oss-process=image/rotate,90">
 <meta property="og:updated_time" content="2019-12-31T15:06:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Periodic Advertising Sync Transfer (PAST)">
@@ -436,10 +437,18 @@
       
 
       
-        <p>关于Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错<a href="https://www.bluetooth.com/blog/periodic-advertising-sync-transfer/" target="_blank" rel="noopener">What You Need to Know About Periodic Advertising Sync Transfer</a>。这里就做一个简单的总结。<br>这个新概念的引入，本质上是为了省电。对于Legacy的advertising，Advertiser在interval附近会加一个Delay（0～10ms），那么Scanner就需要多开窗来抓到adverting 数据包，增加耗电，而PAST概念就是为了在某个场景下可以解决这个问题。</p>
-<h2 id="Legacy-Advertising"><a href="#Legacy-Advertising" class="headerlink" title="Legacy Advertising"></a>Legacy Advertising</h2><p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-LegacyAdv.png" alt="Legacy Adv" title="Legacy advertising"></p>
-<h2 id="Extended-Advertising"><a href="#Extended-Advertising" class="headerlink" title="Extended Advertising"></a>Extended Advertising</h2><p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-ExtAdv.png" alt="Extended Adv" title="Extended advertising"><br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PeriodicAdv.png?x-oss-process=image/rotate,90" alt></p>
-<h2 id="PAST"><a href="#PAST" class="headerlink" title="PAST"></a>PAST</h2><p>AoD Transmitter跟Smartphone有Sync，Smartphone跟Wearable Device有连线。而Wearable device同时也想搜到AoD Transmitter的数据包，正常情况下Wearable device在连线smartphone的同时还要开Scan去搜索AoD Transmitter的adv 数据包，而有PAST这个feature后，Wearable device就可以不用开Scan，通过PAST来收据数据。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-Scenario.png" alt="PAST" title="PAST"></p>
+        <p>关于Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错<a href="https://www.bluetooth.com/blog/periodic-advertising-sync-transfer/" target="_blank" rel="noopener">What You Need to Know About Periodic Advertising Sync Transfer</a>。这里就做一个简单的总结。<br>这个新概念的引入，本质上是为了省电。对于Legacy的advertising，Advertiser在interval附近会加一个Delay（0～10ms），那么Scanner就需要多开窗来抓到adverting 数据包，增加耗电，而PAST概念就是为了在某个场景下可以解决这个问题。<br>先看下几种Advertising的概念</p>
+<h2 id="Legacy-Advertising"><a href="#Legacy-Advertising" class="headerlink" title="Legacy Advertising"></a>Legacy Advertising</h2><p>为了避免adv event刚好跟Scannner的scan window完美错过，所以会加一个advDalay，如下图。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-LegacyAdv.png" alt="Legacy Adv" title="Legacy advertising"><br>下图为Legacy Adv的PDU的格式：<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/LegacyAdvPDUFormat.png" alt="Legacy Adv"></p>
+<h2 id="Extended-Advertising"><a href="#Extended-Advertising" class="headerlink" title="Extended Advertising"></a>Extended Advertising</h2><p>Legacy Advertising能发送的Adv data有限，所以后来又衍生出了 extended adv：在Data channel里也可以打Adv data，如下图。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-ExtAdv.png" alt="Extended Adv" title="Extended advertising"><br>而Extended Advertising引入的概念就比较多了，比如：</p>
+<ul>
+<li>Advertising Handle，</li>
+<li>Advertising Set</li>
+<li>Advertising Data ID</li>
+<li>…</li>
+</ul>
+<h2 id="Periodic-Advertising"><a href="#Periodic-Advertising" class="headerlink" title="Periodic Advertising"></a>Periodic Advertising</h2><p>在Extended Advertising的基础上，在发送大量数据的时候又引入了Periodic Advertising。<br>Periodic Advertising 流程的建立有两种方式：</p>
+<h3 id="正常的Scanner-和-Advertiser的交互"><a href="#正常的Scanner-和-Advertiser的交互" class="headerlink" title="正常的Scanner 和 Advertiser的交互"></a>正常的Scanner 和 Advertiser的交互</h3><p>如下图中AoD Transmitter 与 Smartphone的Sync。</p>
+<h3 id="已经有Periodic-Advertising-Synchronization-infomation的一方，将该data通过-LE-C-转发给另外一个跟它连线的设备，就是PAST。"><a href="#已经有Periodic-Advertising-Synchronization-infomation的一方，将该data通过-LE-C-转发给另外一个跟它连线的设备，就是PAST。" class="headerlink" title="已经有Periodic Advertising Synchronization infomation的一方，将该data通过 LE-C 转发给另外一个跟它连线的设备，就是PAST。"></a>已经有Periodic Advertising Synchronization infomation的一方，将该data通过 LE-C 转发给另外一个跟它连线的设备，就是PAST。</h3><p>如下图右图中Smartphone 与Wearable Device之间的关系。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-Scenario.png" alt><br>下图是Spec中关于Periodic Advertising的一个概念图。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PeriodicAdv.png?x-oss-process=image/rotate,90" alt="PAST 对比"></p>
 
       
     </div>
@@ -678,7 +687,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Legacy-Advertising"><span class="nav-number">1.</span> <span class="nav-text">Legacy Advertising</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Extended-Advertising"><span class="nav-number">2.</span> <span class="nav-text">Extended Advertising</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PAST"><span class="nav-number">3.</span> <span class="nav-text">PAST</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Legacy-Advertising"><span class="nav-number">1.</span> <span class="nav-text">Legacy Advertising</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Extended-Advertising"><span class="nav-number">2.</span> <span class="nav-text">Extended Advertising</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Periodic-Advertising"><span class="nav-number">3.</span> <span class="nav-text">Periodic Advertising</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正常的Scanner-和-Advertiser的交互"><span class="nav-number">3.1.</span> <span class="nav-text">正常的Scanner 和 Advertiser的交互</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#已经有Periodic-Advertising-Synchronization-infomation的一方，将该data通过-LE-C-转发给另外一个跟它连线的设备，就是PAST。"><span class="nav-number">3.2.</span> <span class="nav-text">已经有Periodic Advertising Synchronization infomation的一方，将该data通过 LE-C 转发给另外一个跟它连线的设备，就是PAST。</span></a></li></ol></li></ol></div>
             
 
           </div>
