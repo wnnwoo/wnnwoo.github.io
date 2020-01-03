@@ -99,26 +99,26 @@
   };
 </script>
 
-  <meta name="description" content="关于Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错What You Need to Know About Periodic Advertising Sync Transfer。这里就做一个简单的总结。这个新概念的引入，本质上是为了省电。对于Legacy的advertising，Advertiser在in">
+  <meta name="description" content="Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错What You Need to Know About Periodic Advertising Sync Transfer。这里就做一个简单的总结。这个新概念的引入，本质上是为了省电。对于Legacy的advertising，Advertiser在inte">
 <meta name="keywords" content="Bluetooth">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Periodic Advertising Sync Transfer (PAST)">
+<meta property="og:title" content="Periodic Advertising Sync Transfer (PAST)[未完结]">
 <meta property="og:url" content="http://yoursite.com/2019/12/31/bluetooth-past/index.html">
 <meta property="og:site_name" content="Wen Wu&#39;s notes">
-<meta property="og:description" content="关于Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错What You Need to Know About Periodic Advertising Sync Transfer。这里就做一个简单的总结。这个新概念的引入，本质上是为了省电。对于Legacy的advertising，Advertiser在in">
+<meta property="og:description" content="Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错What You Need to Know About Periodic Advertising Sync Transfer。这里就做一个简单的总结。这个新概念的引入，本质上是为了省电。对于Legacy的advertising，Advertiser在inte">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-LegacyAdv.png">
-<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/LegacyAdvPDUFormat.png">
+<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/LegacyAdvPDUFormat.png?x-oss-process=image/resize,p_50">
 <meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-ExtAdv.png">
-<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/ExtAdvPayloadFormat.png">
-<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/ExtAdvHeaderFormat.png">
+<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/ExtAdvPayloadFormat.png?x-oss-process=image/resize,p_50">
+<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/ExtAdvHeaderFormat.png?x-oss-process=image/resize,p_50">
 <meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/ExtAdvHeaderFlags.png?x-oss-process=image/resize,p_50">
 <meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-Scenario.png">
 <meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PeriodicAdv.png?x-oss-process=image/rotate,90">
 <meta property="og:updated_time" content="2019-12-31T15:06:57.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Periodic Advertising Sync Transfer (PAST)">
-<meta name="twitter:description" content="关于Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错What You Need to Know About Periodic Advertising Sync Transfer。这里就做一个简单的总结。这个新概念的引入，本质上是为了省电。对于Legacy的advertising，Advertiser在in">
+<meta name="twitter:title" content="Periodic Advertising Sync Transfer (PAST)[未完结]">
+<meta name="twitter:description" content="Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错What You Need to Know About Periodic Advertising Sync Transfer。这里就做一个简单的总结。这个新概念的引入，本质上是为了省电。对于Legacy的advertising，Advertiser在inte">
 <meta name="twitter:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-LegacyAdv.png">
 
 
@@ -138,7 +138,7 @@
 </script>
 
   
-  <title>Periodic Advertising Sync Transfer (PAST) | Wen Wu's notes</title>
+  <title>Periodic Advertising Sync Transfer (PAST)[未完结] | Wen Wu's notes</title>
   
 
 
@@ -364,7 +364,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Periodic Advertising Sync Transfer (PAST)
+          <h1 class="post-title" itemprop="name headline">Periodic Advertising Sync Transfer (PAST)[未完结]
 
               
             
@@ -440,8 +440,8 @@
       
 
       
-        <p>关于Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错<a href="https://www.bluetooth.com/blog/periodic-advertising-sync-transfer/" target="_blank" rel="noopener">What You Need to Know About Periodic Advertising Sync Transfer</a>。这里就做一个简单的总结。<br>这个新概念的引入，本质上是为了省电。对于Legacy的advertising，Advertiser在interval附近会加一个Delay（0～10ms），那么Scanner就需要多开窗来抓到adverting 数据包，增加耗电，而PAST概念就是为了在某个场景下可以解决这个问题。<br>先看下几种Advertising的概念</p>
-<h2 id="Legacy-Advertising"><a href="#Legacy-Advertising" class="headerlink" title="Legacy Advertising"></a>Legacy Advertising</h2><p>Legacy Advertising只在37/38/39三个Channel上打，为了避免adv event刚好跟Scannner的scan window完美错过，在Adv的Interval上会加一个advDalay，让Anchor点随机shift一点点，增加与Scanner的scan window碰撞的几率，让如下图。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-LegacyAdv.png" alt="Legacy Adv" title="Legacy advertising"><br>下图为Legacy Adv的PDU的格式：<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/LegacyAdvPDUFormat.png" alt="Legacy Adv"></p>
+        <p>Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错<a href="https://www.bluetooth.com/blog/periodic-advertising-sync-transfer/" target="_blank" rel="noopener">What You Need to Know About Periodic Advertising Sync Transfer</a>。这里就做一个简单的总结。<br>这个新概念的引入，本质上是为了省电。对于Legacy的advertising，Advertiser在interval附近会加一个Delay（0～10ms），那么Scanner就需要多开窗来抓到adverting 数据包，增加耗电，而PAST概念就是为了在某个场景下可以解决这个问题。<br>先看下几种Advertising的概念</p>
+<h2 id="Legacy-Advertising"><a href="#Legacy-Advertising" class="headerlink" title="Legacy Advertising"></a>Legacy Advertising</h2><p>Legacy Advertising只在37/38/39三个Channel上打，为了避免adv event刚好跟Scannner的scan window完美错过，在Adv的Interval上会加一个随机值advDalay，让Anchor点随机shift一点点，增加与Scanner的scan window碰撞的几率，示意图如下：<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-LegacyAdv.png" alt="Legacy Adv" title="Legacy advertising"><br>下图为Legacy Adv的PDU的格式：<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/LegacyAdvPDUFormat.png?x-oss-process=image/resize,p_50" alt="Legacy Adv"></p>
 <h2 id="Extended-Advertising"><a href="#Extended-Advertising" class="headerlink" title="Extended Advertising"></a>Extended Advertising</h2><p>Legacy Advertising能发送的Adv data有限，所以后来又衍生出了 extended adv：在Data channel里也可以打Adv data，如下图。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-ExtAdv.png" alt="Extended Adv" title="Extended advertising"><br>而Extended Advertising引入的概念就比较多了，比如：</p>
 <ul>
 <li>Advertising Handle，</li>
@@ -449,7 +449,7 @@
 <li>Advertising Data ID</li>
 <li>…</li>
 </ul>
-<p>当收到的Adv的type是 ADV_EXT_IND 时，Adv的Payload的数据格式如下：<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/ExtAdvPayloadFormat.png" alt="Payload with ExtendedAdv" title="Payload"><br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/ExtAdvHeaderFormat.png" alt="Extended Header format" title="Extended Header"><br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/ExtAdvHeaderFlags.png?x-oss-process=image/resize,p_50" alt="Extended Adv Header Flags" title="Header Flags"></p>
+<p>当收到的Adv的type是 ADV_EXT_IND 时，Adv的Payload的数据格式如下：<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/ExtAdvPayloadFormat.png?x-oss-process=image/resize,p_50" alt="Payload with ExtendedAdv" title="Payload"><br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/ExtAdvHeaderFormat.png?x-oss-process=image/resize,p_50" alt="Extended Header format" title="Extended Header"><br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/ExtAdvHeaderFlags.png?x-oss-process=image/resize,p_50" alt="Extended Adv Header Flags" title="Header Flags"></p>
 <h2 id="Periodic-Advertising"><a href="#Periodic-Advertising" class="headerlink" title="Periodic Advertising"></a>Periodic Advertising</h2><p>在Extended Advertising的基础上，在发送大量数据的时候又引入了Periodic Advertising。<br>Periodic Advertising 流程的建立有两种方式：</p>
 <h3 id="正常的Scanner-和-Advertiser的交互"><a href="#正常的Scanner-和-Advertiser的交互" class="headerlink" title="正常的Scanner 和 Advertiser的交互"></a>正常的Scanner 和 Advertiser的交互</h3><p>如下图中AoD Transmitter 与 Smartphone的Sync。</p>
 <h3 id="已经有Periodic-Advertising-Synchronization-infomation的一方，将该data通过-LE-C-转发给另外一个跟它连线的设备，就是PAST。"><a href="#已经有Periodic-Advertising-Synchronization-infomation的一方，将该data通过-LE-C-转发给另外一个跟它连线的设备，就是PAST。" class="headerlink" title="已经有Periodic Advertising Synchronization infomation的一方，将该data通过 LE-C 转发给另外一个跟它连线的设备，就是PAST。"></a>已经有Periodic Advertising Synchronization infomation的一方，将该data通过 LE-C 转发给另外一个跟它连线的设备，就是PAST。</h3><p>如下图右图中Smartphone 与Wearable Device之间的关系。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-Scenario.png" alt><br>下图是Spec中关于Periodic Advertising的一个概念图。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PeriodicAdv.png?x-oss-process=image/rotate,90" alt="PAST 对比"></p>
