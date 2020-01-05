@@ -99,18 +99,18 @@
   };
 </script>
 
-  <meta name="description" content="文件重命名 mv a.xxx b.png  压缩文件搜索文件">
-<meta name="keywords" content="linux command">
+  <meta name="description" content="Nimble controller 的Scheduler是由一个32K的timer来驱动，一个tick是30.52us，任务执行在timer的isr里，所以timer callback里要做的事情不能太耗时（超过一个tick），否则scheduler就不准确了。 12/* Initialize cputimer for the scheduler */   os_cputime_timer_ini">
+<meta name="keywords" content="开源软件">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux usage command">
-<meta property="og:url" content="http://yoursite.com/2019/07/27/linux-command/index.html">
+<meta property="og:title" content="Nimble scheduler">
+<meta property="og:url" content="http://yoursite.com/2020/01/05/nimble-scheduler/index.html">
 <meta property="og:site_name" content="Wen Wu&#39;s notes">
-<meta property="og:description" content="文件重命名 mv a.xxx b.png  压缩文件搜索文件">
+<meta property="og:description" content="Nimble controller 的Scheduler是由一个32K的timer来驱动，一个tick是30.52us，任务执行在timer的isr里，所以timer callback里要做的事情不能太耗时（超过一个tick），否则scheduler就不准确了。 12/* Initialize cputimer for the scheduler */   os_cputime_timer_ini">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-27T15:23:23.000Z">
+<meta property="og:updated_time" content="2020-01-05T14:26:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux usage command">
-<meta name="twitter:description" content="文件重命名 mv a.xxx b.png  压缩文件搜索文件">
+<meta name="twitter:title" content="Nimble scheduler">
+<meta name="twitter:description" content="Nimble controller 的Scheduler是由一个32K的timer来驱动，一个tick是30.52us，任务执行在timer的isr里，所以timer callback里要做的事情不能太耗时（超过一个tick），否则scheduler就不准确了。 12/* Initialize cputimer for the scheduler */   os_cputime_timer_ini">
 
 
 
@@ -118,7 +118,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/07/27/linux-command/">
+  <link rel="canonical" href="http://yoursite.com/2020/01/05/nimble-scheduler/">
 
 
 
@@ -129,7 +129,7 @@
 </script>
 
   
-  <title>linux usage command | Wen Wu's notes</title>
+  <title>Nimble scheduler | Wen Wu's notes</title>
   
 
 
@@ -338,7 +338,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/27/linux-command/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/05/nimble-scheduler/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wen Wu">
@@ -355,7 +355,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">linux usage command
+          <h1 class="post-title" itemprop="name headline">Nimble scheduler
 
               
             
@@ -381,14 +381,10 @@
                 
               
 
-              <time title="创建时间：2019-07-27 23:23:02 / 修改时间：23:23:23" itemprop="dateCreated datePublished" datetime="2019-07-27T23:23:02+08:00">2019-07-27</time>
+              <time title="创建时间：2020-01-05 22:26:36" itemprop="dateCreated datePublished" datetime="2020-01-05T22:26:36+08:00">2020-01-05</time>
             </span>
           
 
-          
-            
-
-            
           
 
           
@@ -400,7 +396,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Nimble/" itemprop="url" rel="index"><span itemprop="name">Nimble</span></a></span>
 
                 
                 
@@ -435,10 +431,23 @@
       
 
       
-        <h2 id="文件重命名"><a href="#文件重命名" class="headerlink" title="文件重命名"></a>文件重命名</h2><blockquote>
-<p>mv a.xxx b.png</p>
-</blockquote>
-<h2 id="压缩文件"><a href="#压缩文件" class="headerlink" title="压缩文件"></a>压缩文件</h2><h2 id="搜索文件"><a href="#搜索文件" class="headerlink" title="搜索文件"></a>搜索文件</h2>
+        <p><strong>Nimble controller</strong> 的Scheduler是由一个32K的timer来驱动，一个tick是30.52us，任务执行在timer的isr里，所以timer callback里要做的事情不能太耗时（超过一个tick），否则scheduler就不准确了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/* Initialize cputimer for the scheduler */</span><br><span class="line">   os_cputime_timer_init(&amp;g_ble_ll_sched_timer, ble_ll_sched_run, NULL);</span><br></pre></td></tr></table></figure>
+<h3 id="基本时间单位"><a href="#基本时间单位" class="headerlink" title="基本时间单位"></a>基本时间单位</h3><ul>
+<li>Tick：由clock决定，对于32K clock来说，一个tick就是 1000000us/（32*1024） = 30.52us.</li>
+<li>Slot：1250个毫秒</li>
+<li>Period：N * Slot，N是可配置的</li>
+<li>Epoch：M * Period，M是可配置的<br>Scheduler在调度的时候，Connection发生在Period的边界，scanning/initiating/advertising是尽可能发生在没有被用到的Period内。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/* Time per BLE scheduler slot */</span><br><span class="line">#define BLE_LL_SCHED_USECS_PER_SLOT         (1250)</span><br><span class="line">#define BLE_LL_SCHED_32KHZ_TICKS_PER_SLOT   (41)    /* 1 tick = 30.517 usecs */</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="调度单位"><a href="#调度单位" class="headerlink" title="调度单位"></a>调度单位</h3><p>每一个可被调度的单位叫做Sched_item,  这些item放在FIFO的Q中，每当timer到期后Scheduler就从Q里拉一个出来做执行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"> * Schedule item</span><br><span class="line"> *  sched_type: This is the type of the schedule item.</span><br><span class="line"> *  enqueued: Flag denoting if item is on the scheduler list. 0: no, 1:yes</span><br><span class="line"> *  remainder: # of usecs from offset till tx/rx should occur</span><br><span class="line"> *  txrx_offset: Number of ticks from start time until tx/rx should occur.</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">struct ble_ll_sched_item</span><br><span class="line">&#123;</span><br><span class="line">    uint8_t         sched_type;</span><br><span class="line">    uint8_t         enqueued;</span><br><span class="line">    uint8_t         remainder;</span><br><span class="line">    uint32_t        start_time;</span><br><span class="line">    uint32_t        end_time;</span><br><span class="line">    void            *cb_arg;</span><br><span class="line">    sched_cb_func   sched_cb;</span><br><span class="line">    TAILQ_ENTRY(ble_ll_sched_item) link;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">/* Types of scheduler events */</span><br><span class="line">#define BLE_LL_SCHED_TYPE_ADV       (1)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_SCAN      (2)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_CONN      (3)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_AUX_SCAN  (4)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_DTM       (5)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_PERIODIC  (6)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_SYNC      (7)</span><br></pre></td></tr></table></figure></p>
+<h3 id="调度原则"><a href="#调度原则" class="headerlink" title="调度原则"></a>调度原则</h3><ul>
+<li>sched_item之间没有优先级的关系，完全按照sched_item的start_time为序，一个一个的执行。</li>
+<li>item在插入到调度列表的时候就已经排好序了。</li>
+<li>在插入新的item的时候，会避开每一个跟他有overlap的item，直到找到一个完全跟它没有overlap的位置。</li>
+<li>调度到某个item时就直接执行这个item的sched_cb，并将这个item从调度列表上删掉，callback执行完后，再起timer，等待下一个item的start_time到期。</li>
+</ul>
+
       
     </div>
 
@@ -468,7 +477,7 @@
         
         <div class="post-tags">
           
-            <a href="/tags/linux-command/" rel="tag"># linux command</a>
+            <a href="/tags/开源软件/" rel="tag"># 开源软件</a>
           
         </div>
       
@@ -481,8 +490,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/27/bluetooth-packets/" rel="next" title="蓝牙数据包">
-                <i class="fa fa-chevron-left"></i> 蓝牙数据包
+              <a href="/2020/01/05/markdown-online/" rel="next" title="markdown在线编辑">
+                <i class="fa fa-chevron-left"></i> markdown在线编辑
               </a>
             
           </div>
@@ -490,10 +499,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/28/communication-study/" rel="prev" title="通信相关的文章收集">
-                通信相关的文章收集 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -690,7 +695,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件重命名"><span class="nav-number">1.</span> <span class="nav-text">文件重命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#压缩文件"><span class="nav-number">2.</span> <span class="nav-text">压缩文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索文件"><span class="nav-number">3.</span> <span class="nav-text">搜索文件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本时间单位"><span class="nav-number">1.</span> <span class="nav-text">基本时间单位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调度单位"><span class="nav-number">2.</span> <span class="nav-text">调度单位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调度原则"><span class="nav-number">3.</span> <span class="nav-text">调度原则</span></a></li></ol></div>
             
 
           </div>
