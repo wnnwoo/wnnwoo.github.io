@@ -463,8 +463,8 @@
 <li>item在插入到调度列表的时候就已经排好序了。</li>
 <li><p>在插入新的item的时候，要避开每一个跟他有overlap的item，直到找到一个完全跟它没有overlap的位置，这意味着在有同样的start time的情况下，先入list的优先级高。</p>
 <blockquote>
-<p>以插入一个Adv Schedule为例，假如Scheduler的ReadyList里有4个item，它们的排列如下。那么下图中绿色的item就是可以直接插入的item，而红色的item则需要一直往后移动，一直移到一个能插入的地方，也许到list最后才能有它的一席之地。<br>Item中的<strong>Delay</strong>（0～10ms）指的是这个adv event最大允许delay的时间。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-new.png" alt></p>
-<p>在一个adv event执行完成后，需要再计算下一个adv event起来的时间，请参考下图。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-Reschedule.png" alt></p>
+<p>以插入一个Adv Schedule为例，假如Scheduler的ReadyList里有4个item，它们的排列如下。那么下图中绿色的item就是可以直接插入的item，而红色的item则需要一直往后移动，一直移到一个能插入的地方，也许到list最后才能有它的一席之地。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-new.png" alt></p>
+<p>在一个adv event执行完成后，需要再计算下一个adv event起来的时间，请参考下图。<br>Item中的<strong>Delay</strong>（0～10ms）指的是这个adv event最大允许delay的时间。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-Reschedule.png" alt></p>
 </blockquote>
 </li>
 </ul>
@@ -591,7 +591,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -772,6 +772,16 @@
 
 
 
+
+  <script src="https://unpkg.com/mermaid@/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+
         
 
 
@@ -907,6 +917,26 @@
 
 
 
+
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
 
 
 <script>

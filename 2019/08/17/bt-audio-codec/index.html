@@ -420,7 +420,7 @@
       
 
       
-        <p>开发BT audio，经常被各种BT music 断音，跳音等等问题而困扰，大部分都是因为codec出问题或是bt受干扰而throughput不够。<br>针对BT music使用到的codec，这篇文章有做一些总结。<a href="https://www.soundguys.com/understanding-bluetooth-codecs-15352/" target="_blank" rel="noopener">Understanding Bluetooth codecs</a></p>
+        <p>开发BT audio，经常被各种BT music 断音，跳音等等问题而困扰，大部分都是因为codec出问题或是bt受干扰而throughput不够。<br>针对BT music使用到的codec，这篇文章有做一些总结。<a href="https://www.soundguys.com/understanding-bluetooth-codecs-15352/">Understanding Bluetooth codecs</a></p>
 <p> <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothCodec/bt_codec_pors.png" alt="Bluetooth Codec PK" title="Codec PK"></p>
 <p> <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothCodec/blueooth-codec-transfer-rate.png" alt="Bluetooth Codec transfer rate" title="throughput"></p>
 <p> <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothCodec/bluetooth-codec-latency.png" alt="Bluetooth Codec latency" title="Latency"></p>
@@ -538,7 +538,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -702,6 +702,16 @@
 
 
 
+
+  <script src="https://unpkg.com/mermaid@/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+
         
 
 
@@ -837,6 +847,26 @@
 
 
 
+
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
 
 
 <script>

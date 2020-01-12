@@ -431,7 +431,7 @@
       
 
       
-        <p>本文来自 <a href="https://blog.csdn.net/crazy_scott/article/details/79293576" target="_blank" rel="noopener">https://blog.csdn.net/crazy_scott/article/details/79293576</a>  感谢原作者。</p>
+        <p>本文来自 <a href="https://blog.csdn.net/crazy_scott/article/details/79293576">https://blog.csdn.net/crazy_scott/article/details/79293576</a>  感谢原作者。</p>
 <p><strong>安装插件</strong></p>
 <ol>
 <li>首先我们需要安装Mathjax插件</li>
@@ -459,7 +459,7 @@
 <p><strong>写博客</strong></p>
 <p>在每次需要用LaTeX渲染的博文中，在文章的Front-matter里启动mathjax，具体如下：</p>
 <p>-—<br>title: Hexo Usage<br>date: 2018-2-8 21:01:30<br>tags: Hexo<br>mathjax: true<br>-—</p>
-<p><a href="https://blog.csdn.net/ethmery/article/details/50670297" target="_blank" rel="noopener">Mathjax 语法</a><br><a href="https://blog.csdn.net/weixin_43159148/article/details/88621318" target="_blank" rel="noopener">Markdown/LaTex数学符号大全</a></p>
+<p><a href="https://blog.csdn.net/ethmery/article/details/50670297">Mathjax 语法</a><br><a href="https://blog.csdn.net/weixin_43159148/article/details/88621318">Markdown/LaTex数学符号大全</a></p>
 
       
     </div>
@@ -574,7 +574,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -738,6 +738,16 @@
 
 
 
+
+  <script src="https://unpkg.com/mermaid@/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+
         
 
 
@@ -873,6 +883,26 @@
 
 
 
+
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
 
 
 <script>

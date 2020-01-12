@@ -418,7 +418,7 @@
       
 
       
-        <p>看到一个很有意思的<a href="http://www.magi.com" target="_blank" rel="noopener">搜索引擎</a>，在搜索结果出来的时候还做个summary，虽然没啥用，但是还挺有新意，也许未来能做的更好。</p>
+        <p>看到一个很有意思的<a href="http://www.magi.com">搜索引擎</a>，在搜索结果出来的时候还做个summary，虽然没啥用，但是还挺有新意，也许未来能做的更好。</p>
 <p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/%E5%85%B6%E4%BB%96%E6%96%87%E4%BB%B6/magi-search.png" alt="magi"></p>
 
       
@@ -534,7 +534,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -698,6 +698,16 @@
 
 
 
+
+  <script src="https://unpkg.com/mermaid@/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+
         
 
 
@@ -833,6 +843,26 @@
 
 
 
+
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
 
 
 <script>

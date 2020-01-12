@@ -441,7 +441,7 @@
 <li>《每个人的战争》</li>
 <li>《台北人》</li>
 <li>《编码 隐匿在计算机软硬件背后的语言》Charles Petzold<blockquote>
-<p>之前读过Charles的<a href="https://item.jd.com/45554406668.html" target="_blank" rel="noopener">《window编程设计》</a>，算是入门了windows。是看到这个作者名字才打算看看这本书，还是非常不错。</p>
+<p>之前读过Charles的<a href="https://item.jd.com/45554406668.html">《window编程设计》</a>，算是入门了windows。是看到这个作者名字才打算看看这本书，还是非常不错。</p>
 </blockquote>
 </li>
 <li>《把时间当朋友》李笑来</li>
@@ -477,7 +477,7 @@
 <li>《每一种孤独都有陪伴》</li>
 <li>《天才在左，疯子在右》</li>
 <li>《自控力》<blockquote>
-<p>作者Kelly曾经还在TED做过一次关于如何对待压力的<a href="http://kellymcgonigal.com/speaking" target="_blank" rel="noopener">讲座</a></p>
+<p>作者Kelly曾经还在TED做过一次关于如何对待压力的<a href="http://kellymcgonigal.com/speaking">讲座</a></p>
 <blockquote>
 <p>压力只对那些认为压力有害的人才有害。</p>
 </blockquote>
@@ -688,7 +688,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -869,6 +869,16 @@
 
 
 
+
+  <script src="https://unpkg.com/mermaid@/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+
         
 
 
@@ -1004,6 +1014,26 @@
 
 
 
+
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
 
 
 <script>

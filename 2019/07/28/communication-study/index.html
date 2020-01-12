@@ -416,11 +416,11 @@
       
 
       
-        <p>IQ调制：<a href="http://blog.chinaaet.com/molf/p/29748" target="_blank" rel="noopener">http://blog.chinaaet.com/molf/p/29748</a></p>
-<p>通信介绍：<a href="https://zhuanlan.zhihu.com/p/23612006" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/23612006</a></p>
-<p><a href="https://www.cnblogs.com/shaoyou/p/4822222.html" target="_blank" rel="noopener">https://www.cnblogs.com/shaoyou/p/4822222.html</a></p>
-<p><a href="https://en.wikipedia.org/wiki/File:Fourier_series_and_transform.gif" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/File:Fourier_series_and_transform.gif</a></p>
-<p><a href="https://en.wikipedia.org/wiki/File:Fourier_series_square_wave_circles_animation.gif" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/File:Fourier_series_square_wave_circles_animation.gif</a><br><a href="https://en.wikipedia.org/wiki/File:Fourier_series_sawtooth_wave_circles_animation.gif" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/File:Fourier_series_sawtooth_wave_circles_animation.gif</a></p>
+        <p>IQ调制：<a href="http://blog.chinaaet.com/molf/p/29748">http://blog.chinaaet.com/molf/p/29748</a></p>
+<p>通信介绍：<a href="https://zhuanlan.zhihu.com/p/23612006">https://zhuanlan.zhihu.com/p/23612006</a></p>
+<p><a href="https://www.cnblogs.com/shaoyou/p/4822222.html">https://www.cnblogs.com/shaoyou/p/4822222.html</a></p>
+<p><a href="https://en.wikipedia.org/wiki/File:Fourier_series_and_transform.gif">https://en.wikipedia.org/wiki/File:Fourier_series_and_transform.gif</a></p>
+<p><a href="https://en.wikipedia.org/wiki/File:Fourier_series_square_wave_circles_animation.gif">https://en.wikipedia.org/wiki/File:Fourier_series_square_wave_circles_animation.gif</a><br><a href="https://en.wikipedia.org/wiki/File:Fourier_series_sawtooth_wave_circles_animation.gif">https://en.wikipedia.org/wiki/File:Fourier_series_sawtooth_wave_circles_animation.gif</a></p>
 
       
     </div>
@@ -535,7 +535,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -699,6 +699,16 @@
 
 
 
+
+  <script src="https://unpkg.com/mermaid@/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+
         
 
 
@@ -834,6 +844,26 @@
 
 
 
+
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
 
 
 <script>

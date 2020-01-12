@@ -483,7 +483,7 @@
 <h3 id="6-2-Adapted-piconet-phycial-channel"><a href="#6-2-Adapted-piconet-phycial-channel" class="headerlink" title="6.2 Adapted piconet phycial channel"></a>6.2 Adapted piconet phycial channel</h3><p>   用到的channel个数可能会少于79个，不过至少会是20个。</p>
 <h3 id="6-4-Page-scan-phycial-channel"><a href="#6-4-Page-scan-phycial-channel" class="headerlink" title="6.4 Page scan phycial channel"></a>6.4 Page scan phycial channel</h3><p>   在Paging的时候，Master会发送paging message（就是ID packets），这个时候的跳频速度是 3200 hops/s，在Tx的slot内会打两次包，在Rx的Slot内也会收两次Slave的回应。<br>   Slave在收到Master的paging messagse后的625us会回一个slave reponse packet。Master在收到这个reponse packet的后面的那个Tx slock再发一个master page reponse packet。<br>  <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/Baseband-PageScanRxTxCycle.png" alt="Page Scan Channel" title="PageScan"><br>  <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/Baseband-PageScanInFirstHalfSlot.png" alt="Page Scan at 1st half slot" title="1st half slot"><br>  <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/Baseband-PageScanIn2ndHalfSlot.png" alt="Page at 2nd half slot" title="2nd half slot"></p>
 <h3 id="6-5-Inquiry-Scan-Physical-channel"><a href="#6-5-Inquiry-Scan-Physical-channel" class="headerlink" title="6.5 Inquiry Scan Physical channel"></a>6.5 Inquiry Scan Physical channel</h3><p>  在Inquiry的时候，Master会一直发送inquiry mesasge，带上GIAC 或 DIAC。<br>   <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/Baseband-InquiryScanAt1stHalfSlot.png" alt="Inquiry Scan" title="Inquiry Scan at 1st half"><br>   <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/Baseband-InquiryScanAt2ndHalfSlot.png" alt="Inquiry Scan 2" title="Inquiry Scan at 2nd half"></p>
-<h2 id="7-HOP-Seletion-（跳频）"><a href="#7-HOP-Seletion-（跳频）" class="headerlink" title="7. HOP Seletion （跳频）"></a>7. HOP Seletion （跳频）</h2><p>  据说跳频的理论模型还是个<a href="https://www.sohu.com/a/144238786_693721" target="_blank" rel="noopener">演员</a>发明的。</p>
+<h2 id="7-HOP-Seletion-（跳频）"><a href="#7-HOP-Seletion-（跳频）" class="headerlink" title="7. HOP Seletion （跳频）"></a>7. HOP Seletion （跳频）</h2><p>  据说跳频的理论模型还是个<a href="https://www.sohu.com/a/144238786_693721">演员</a>发明的。</p>
 <h3 id="7-1-Selection-Kernel"><a href="#7-1-Selection-Kernel" class="headerlink" title="7.1 Selection Kernel"></a>7.1 Selection Kernel</h3><p>  <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/Baseband-SelectionKernelOfHoppingSystem.png" alt="Selection Kernel" title="Selection Kernel"><br>  <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/Baseband-SelectionKernelHopSystemControlWord.png" alt="Control word" title="Control word"></p>
 
       
@@ -610,7 +610,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -791,6 +791,16 @@
 
 
 
+
+  <script src="https://unpkg.com/mermaid@/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+
         
 
 
@@ -926,6 +936,26 @@
 
 
 
+
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
 
 
 <script>

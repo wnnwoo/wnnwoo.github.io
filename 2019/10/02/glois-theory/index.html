@@ -527,7 +527,7 @@
 <p>类似地有:<br>$a^4$=a<em>$a^3$=a</em>(1+a)=a+$a^2$<br>$a^5$=a<em>$a^4$=a</em>(a+$a^2$)=$a^2$+$a^3$=1+a+$a^2$<br>$a^6$=a<em>$a^5$=a</em>(1+a+$a^2$)=a+$a^2$+$a^3$=1+$a^2$<br>$a^7$=a<em>$a^6$=a</em>(1+$a^2$)=a+$a^3$=1=$a^0$ </p>
 <p>所以，有限域GF($2^3$)的8个元素为 ${0,a^0,a^1,a^2,a^3,a^4,a^5,a^6}$</p>
 <p>这8个元素中哪些是p(x)=0的3个根呢?我们可通过枚举 找到!<br>p($a^0$)=1, $a^0$不是<br>p($a^1$)=1+a+$a^3$=0, $a^1$是<br>p($a^2$)=1+$a^2$+$a^6$=1+$a^0$=0, $a^2$是<br>p($a^3$)=1+$a^3$+$a^9$=1+$a^3$+$a^2$=1+$a^5$=$a^4$, $a^3$不是<br>p($a^4$)=1+$a^4$+$a^12$=1+$a^4$+$a^5$=1+$a^0$=0, $a^4$是<br>同理可计算p($a^5$)、p($a^6$)都不等于0，所以p(x)=1+x+$x^3$的 3个根是a, $a^2$, $a^4$</p>
-<p>主要参考文献有<br><a href="https://cloud.tencent.com/developer/article/1005808" target="_blank" rel="noopener">FEC的介绍</a></p>
+<p>主要参考文献有<br><a href="https://cloud.tencent.com/developer/article/1005808">FEC的介绍</a></p>
 
       
     </div>
@@ -651,7 +651,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -829,6 +829,16 @@
 
   <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
 
+
+
+
+
+  <script src="https://unpkg.com/mermaid@/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
 
 
 
@@ -1014,6 +1024,26 @@
 
 
 
+
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
 
 
 <script>

@@ -434,10 +434,10 @@
         <p>   直接用VI写markdown，然后用Hexo去preview有点太麻烦了，找到几个比较棒的在线编辑markdown的网站 ，非常方便，效率提升十倍。</p>
 <blockquote>
 <ul>
-<li><a href="https://maxiang.io" target="_blank" rel="noopener">马克飞象</a></li>
-<li><a href="http://mahua.jser.me" target="_blank" rel="noopener">muhua</a></li>
-<li><a href="https://www.mdeditor.com" target="_blank" rel="noopener">mdeditor</a></li>
-<li><a href="https://www.zybuluo.com/mdeditor" target="_blank" rel="noopener">作业部落</a></li>
+<li><a href="https://maxiang.io">马克飞象</a></li>
+<li><a href="http://mahua.jser.me">muhua</a></li>
+<li><a href="https://www.mdeditor.com">mdeditor</a></li>
+<li><a href="https://www.zybuluo.com/mdeditor">作业部落</a></li>
 </ul>
 </blockquote>
 <p>或者干脆直接用印象笔记自带的markdown编辑器。</p>
@@ -555,7 +555,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -719,6 +719,16 @@
 
 
 
+
+  <script src="https://unpkg.com/mermaid@/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+
         
 
 
@@ -854,6 +864,26 @@
 
 
 
+
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
 
 
 <script>

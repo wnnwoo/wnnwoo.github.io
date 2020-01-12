@@ -435,8 +435,8 @@
       
 
       
-        <p><a href="https://developers.google.com/nearby/fast-pair/spec" target="_blank" rel="noopener">官网规范</a><br>  由于蓝牙设备在使用上有配对的流程，对于没有UI的设备来说，非常的不方便或是不安全。像Apple的Airpod，只要打开盒子，Apple的手机自动就弹出画面，只要点击一下就完成配对，非常的方便。<br>所以Google也在Android上搞了一个类似的东西，叫做Fast Pair。目前前几名的<a href="https://developers.google.com/nearby/fast-pair/chipsets" target="_blank" rel="noopener">蓝牙大佬</a>已经支持了。<br>  本文就介绍Google Fast Pair (GFPS) 的基本原理。</p>
-<h1 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h1><p> 首先厂商需要到<a href="https://developers.google.com/nearby/devices/?refresh=1" target="_blank" rel="noopener">Nearby Devie</a>注册自己的支持Google Fast Pair的设备，Nearby Device会分配Modle ID 和public key 及private key给该设备。<br> 设备端通过BLE advertising广播自己的身份信息，当手机端发现搜索到的广播信息里表面设备支持GFPS，而且能认出该设备广播的modle ID的时候，就发起BLE连线到该设备，设备端发送其BR/EDR地址给手机，发送的数据是加密过的，手机拿到地址后发起BR/EDR连线，触发配对等流程，等BR/EDR连线都完成后，BLE连线就断开，整个Fast pair流程就结束。<br> 整个过程，只有手机在发现支持GFPS的设备的时候，询问用户是否要连线，用户只要点击一下就行。</p>
+        <p><a href="https://developers.google.com/nearby/fast-pair/spec">官网规范</a><br>  由于蓝牙设备在使用上有配对的流程，对于没有UI的设备来说，非常的不方便或是不安全。像Apple的Airpod，只要打开盒子，Apple的手机自动就弹出画面，只要点击一下就完成配对，非常的方便。<br>所以Google也在Android上搞了一个类似的东西，叫做Fast Pair。目前前几名的<a href="https://developers.google.com/nearby/fast-pair/chipsets">蓝牙大佬</a>已经支持了。<br>  本文就介绍Google Fast Pair (GFPS) 的基本原理。</p>
+<h1 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h1><p> 首先厂商需要到<a href="https://developers.google.com/nearby/devices/?refresh=1">Nearby Devie</a>注册自己的支持Google Fast Pair的设备，Nearby Device会分配Modle ID 和public key 及private key给该设备。<br> 设备端通过BLE advertising广播自己的身份信息，当手机端发现搜索到的广播信息里表面设备支持GFPS，而且能认出该设备广播的modle ID的时候，就发起BLE连线到该设备，设备端发送其BR/EDR地址给手机，发送的数据是加密过的，手机拿到地址后发起BR/EDR连线，触发配对等流程，等BR/EDR连线都完成后，BLE连线就断开，整个Fast pair流程就结束。<br> 整个过程，只有手机在发现支持GFPS的设备的时候，询问用户是否要连线，用户只要点击一下就行。</p>
 <h1 id="技术细节"><a href="#技术细节" class="headerlink" title="技术细节"></a>技术细节</h1><h2 id="角色定义"><a href="#角色定义" class="headerlink" title="角色定义"></a>角色定义</h2><h3 id="Seeker：手机端"><a href="#Seeker：手机端" class="headerlink" title="Seeker：手机端"></a>Seeker：手机端</h3><h3 id="Provider：设备端"><a href="#Provider：设备端" class="headerlink" title="Provider：设备端"></a>Provider：设备端</h3><h4 id="1-设备要首先要到Google-nearby-device去注册，这样Android才能识别出来。"><a href="#1-设备要首先要到Google-nearby-device去注册，这样Android才能识别出来。" class="headerlink" title="1. 设备要首先要到Google nearby device去注册，这样Android才能识别出来。"></a>1. 设备要首先要到Google nearby device去注册，这样Android才能识别出来。</h4><p>设备的TX power设定有讲究</p>
 <h4 id="2-Power设定应该比较小，目标是离SP-1m内可被搜到-Google建议的设定方法："><a href="#2-Power设定应该比较小，目标是离SP-1m内可被搜到-Google建议的设定方法：" class="headerlink" title="2. Power设定应该比较小，目标是离SP 1m内可被搜到.Google建议的设定方法："></a>2. Power设定应该比较小，目标是离SP 1m内可被搜到.Google建议的设定方法：</h4><blockquote>
 <p>The best way to determine the value is to measure the actual output of the device using an Android phone at 1 meter away, and then add 41 dBm to that. 41 dBm is the average signal strength loss that occurs over 1 meter.<br>Tx power 可以设定在广播包内，也可以设定在设备注册阶段就添上。<br>如果是在设备注册时就添上了Tx power的话，那所有的广播包都应该用这个Tx Power</p>
@@ -657,7 +657,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -838,6 +838,16 @@
 
 
 
+
+  <script src="https://unpkg.com/mermaid@/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+
         
 
 
@@ -973,6 +983,26 @@
 
 
 
+
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
 
 
 <script>

@@ -451,9 +451,9 @@
 </li>
 <li><p>git push</p>
 </li>
-<li><p>git bisect 是用二分法协助RD查找是哪笔check-in导致的错误的，请<a href="http://www.ruanyifeng.com/blog/2018/12/git-bisect.html" target="_blank" rel="noopener">参考</a></p>
+<li><p>git bisect 是用二分法协助RD查找是哪笔check-in导致的错误的，请<a href="http://www.ruanyifeng.com/blog/2018/12/git-bisect.html">参考</a></p>
 </li>
-<li><p>git diff 文件格式说明，<a href="https://www.jianshu.com/p/98829d4e996f" target="_blank" rel="noopener">link</a></p>
+<li><p>git diff 文件格式说明，<a href="https://www.jianshu.com/p/98829d4e996f">link</a></p>
 </li>
 <li><p>git diff HEAD — readme.txt</p>
 </li>
@@ -593,7 +593,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -757,6 +757,16 @@
 
 
 
+
+  <script src="https://unpkg.com/mermaid@/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+
         
 
 
@@ -892,6 +902,26 @@
 
 
 
+
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
 
 
 <script>

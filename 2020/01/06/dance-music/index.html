@@ -431,7 +431,7 @@
       
 
       
-        <p><a href="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Dance/%E6%A2%86%E6%A2%86%E8%88%9E%EF%BC%88%E5%85%A8%EF%BC%89.wav" target="_blank" rel="noopener">邦邦舞</a>，<a href="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Dance/%E5%A5%94%E8%85%BE.mp3" target="_blank" rel="noopener">奔腾</a>, <a href="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Dance/%7BMerengue%7D%2001.mp3" target="_blank" rel="noopener">Merengue</a>, <a href="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Dance/%E5%87%BA%E8%B5%B0.mp3" target="_blank" rel="noopener">出走</a>, <a href="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Dance/santa%20maria.mp3" target="_blank" rel="noopener">Santa maria</a></p>
+        <p><a href="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Dance/%E6%A2%86%E6%A2%86%E8%88%9E%EF%BC%88%E5%85%A8%EF%BC%89.wav">邦邦舞</a>，<a href="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Dance/%E5%A5%94%E8%85%BE.mp3">奔腾</a>, <a href="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Dance/%7BMerengue%7D%2001.mp3">Merengue</a>, <a href="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Dance/%E5%87%BA%E8%B5%B0.mp3">出走</a>, <a href="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Dance/santa%20maria.mp3">Santa maria</a></p>
 
       
     </div>
@@ -546,7 +546,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -710,6 +710,16 @@
 
 
 
+
+  <script src="https://unpkg.com/mermaid@/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+
         
 
 
@@ -845,6 +855,26 @@
 
 
 
+
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
 
 
 <script>
