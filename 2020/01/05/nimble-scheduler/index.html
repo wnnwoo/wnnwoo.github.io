@@ -110,6 +110,7 @@
 <meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-new.png">
 <meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-Reschedule.png">
 <meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-Reschedule4.png">
+<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-Reschedule5.png">
 <meta property="og:updated_time" content="2020-01-05T14:26:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nimble scheduler">
@@ -469,7 +470,7 @@
 </blockquote>
 </li>
 </ul>
-<h3 id="更正"><a href="#更正" class="headerlink" title="更正"></a>更正</h3><p>感谢JayDen215的指导，上图中关于Adv reschedule的图例欠妥，正确的符合code行为的插入Sched的示意图如下。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-Reschedule4.png" alt></p>
+<h3 id="更正"><a href="#更正" class="headerlink" title="更正"></a>更正</h3><p>感谢JayDen215的指导，上图中关于Adv reschedule的图例欠妥，正确的符合code行为的插入Sched的示意图如下。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-Reschedule4.png" alt><br>如果超过了max_delay,那插入也是失败的，如下图，虽然在#3的前面有位置给sch插入，但是因为overdue了，所以插入会失败。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-Reschedule5.png" alt></p>
 
       
     </div>
