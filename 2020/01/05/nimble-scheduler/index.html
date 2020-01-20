@@ -99,22 +99,22 @@
   };
 </script>
 
-  <meta name="description" content="[TOC] Nimble controller 的Scheduler是由一个32K的timer来驱动，一个tick是30.52us，完全执行在timer的isr里，所以timer callback里要做的事情不能太耗时（超过一个tick），否则scheduler就不准确了。 12/* Initialize cputimer for the scheduler */   os_cputime_tim">
+  <meta name="description" content="Nimble controller 的Scheduler是由一个32K的timer来驱动的，一个tick是30.52us，完全执行在timer的isr里，所以timer callback里要做的事情不能太耗时（超过一个tick），否则scheduler就不准确了，如下为scheduler的主函数：12/* Initialize cputimer for the scheduler */   os_">
 <meta name="keywords" content="开源软件">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nimble scheduler">
 <meta property="og:url" content="http://yoursite.com/2020/01/05/nimble-scheduler/index.html">
 <meta property="og:site_name" content="Wen Wu&#39;s notes">
-<meta property="og:description" content="[TOC] Nimble controller 的Scheduler是由一个32K的timer来驱动，一个tick是30.52us，完全执行在timer的isr里，所以timer callback里要做的事情不能太耗时（超过一个tick），否则scheduler就不准确了。 12/* Initialize cputimer for the scheduler */   os_cputime_tim">
+<meta property="og:description" content="Nimble controller 的Scheduler是由一个32K的timer来驱动的，一个tick是30.52us，完全执行在timer的isr里，所以timer callback里要做的事情不能太耗时（超过一个tick），否则scheduler就不准确了，如下为scheduler的主函数：12/* Initialize cputimer for the scheduler */   os_">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-new.png">
 <meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-Reschedule.png">
 <meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-Reschedule4.png">
 <meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-Reschedule5.png">
-<meta property="og:updated_time" content="2020-01-05T14:26:36.000Z">
+<meta property="og:updated_time" content="2020-01-19T14:26:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nimble scheduler">
-<meta name="twitter:description" content="[TOC] Nimble controller 的Scheduler是由一个32K的timer来驱动，一个tick是30.52us，完全执行在timer的isr里，所以timer callback里要做的事情不能太耗时（超过一个tick），否则scheduler就不准确了。 12/* Initialize cputimer for the scheduler */   os_cputime_tim">
+<meta name="twitter:description" content="Nimble controller 的Scheduler是由一个32K的timer来驱动的，一个tick是30.52us，完全执行在timer的isr里，所以timer callback里要做的事情不能太耗时（超过一个tick），否则scheduler就不准确了，如下为scheduler的主函数：12/* Initialize cputimer for the scheduler */   os_">
 <meta name="twitter:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-new.png">
 
 
@@ -391,6 +391,20 @@
           
 
           
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-01-19 22:26:36" itemprop="dateModified" datetime="2020-01-19T22:26:36+08:00">2020-01-19</time>
+              </span>
+            
+          
 
           
             <span class="post-meta-item">
@@ -436,17 +450,15 @@
       
 
       
-        <p>[TOC]</p>
-<p><strong>Nimble controller</strong> 的Scheduler是由一个32K的timer来驱动，一个tick是30.52us，完全执行在timer的isr里，所以timer callback里要做的事情不能太耗时（超过一个tick），否则scheduler就不准确了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/* Initialize cputimer for the scheduler */</span><br><span class="line">   os_cputime_timer_init(&amp;g_ble_ll_sched_timer, ble_ll_sched_run, NULL);</span><br></pre></td></tr></table></figure>
-<h3 id="基本时间单位"><a href="#基本时间单位" class="headerlink" title="基本时间单位"></a>基本时间单位</h3><ul>
+        <p><strong>Nimble controller</strong> 的Scheduler是由一个32K的timer来驱动的，一个tick是30.52us，完全执行在timer的isr里，所以timer callback里要做的事情不能太耗时（超过一个tick），否则scheduler就不准确了，如下为scheduler的主函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/* Initialize cputimer for the scheduler */</span><br><span class="line">   os_cputime_timer_init(&amp;g_ble_ll_sched_timer, ble_ll_sched_run, NULL);</span><br></pre></td></tr></table></figure></p>
+<h3 id="时间单位"><a href="#时间单位" class="headerlink" title="时间单位"></a>时间单位</h3><ul>
 <li>Tick：由clock决定，对于32K clock来说，一个tick就是 1000000us/（32*1024） = 30.52us.</li>
 <li>Slot：1250个毫秒</li>
 <li>Period：N * Slot，N是可配置的</li>
 <li>Epoch：M * Period，M是可配置的<br>Scheduler在调度的时候，有时要将Connection event放在Period的边界，scanning/initiating/advertising是尽可能发生在没有被用到的Period内。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/* Time per BLE scheduler slot */</span><br><span class="line">#define BLE_LL_SCHED_USECS_PER_SLOT         (1250)</span><br><span class="line">#define BLE_LL_SCHED_32KHZ_TICKS_PER_SLOT   (41)    /* 1 tick = 30.517 usecs */</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="调度单位"><a href="#调度单位" class="headerlink" title="调度单位"></a>调度单位</h3><p>每一个可被调度的单位叫做Sched_item,  这些item放在FIFO的List中，每当timer到期后Scheduler就从List里拉一个出来做执行。<br>每一个item有如下几个属性：</p>
+<h3 id="调度单位"><a href="#调度单位" class="headerlink" title="调度单位"></a>调度单位</h3><p>每一个可被调度的单位叫做Sched item,  这些item放在FIFO的List中，每当timer到期后Scheduler就从List里拉一个出来做执行。<br>每一个item有如下几个属性：</p>
 <blockquote>
 <ol>
 <li>schedule type，类型</li>
@@ -455,22 +467,37 @@
 <li>start_time, 开始执行时间</li>
 <li>end_time, 结束执行时间</li>
 <li>cb_args, item执行函数的参数</li>
-<li>sched_cb, item被调度到的时候的执行函数<br>如下是相关的code segment</li>
+<li>sched_cb, item被调度到的时候的执行函数<br>如下是相关的code segment <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">struct ble_ll_sched_item</span><br><span class="line">&#123;</span><br><span class="line">    uint8_t         sched_type;</span><br><span class="line">    uint8_t         enqueued;</span><br><span class="line">    uint8_t         remainder;</span><br><span class="line">    uint32_t        start_time;</span><br><span class="line">    uint32_t        end_time;</span><br><span class="line">    void            *cb_arg;</span><br><span class="line">    sched_cb_func   sched_cb;</span><br><span class="line">    TAILQ_ENTRY(ble_ll_sched_item) link;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">/* Types of scheduler events */</span><br><span class="line">#define BLE_LL_SCHED_TYPE_ADV       (1)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_SCAN      (2)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_CONN      (3)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_AUX_SCAN  (4)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_DTM       (5)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_PERIODIC  (6)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_SYNC      (7)</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"> * Schedule item</span><br><span class="line"> *  sched_type: This is the type of the schedule item.</span><br><span class="line"> *  enqueued: Flag denoting if item is on the scheduler list. 0: no, 1:yes</span><br><span class="line"> *  remainder: # of usecs from offset till tx/rx should occur</span><br><span class="line"> *  txrx_offset: Number of ticks from start time until tx/rx should occur.</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">struct ble_ll_sched_item</span><br><span class="line">&#123;</span><br><span class="line">    uint8_t         sched_type;</span><br><span class="line">    uint8_t         enqueued;</span><br><span class="line">    uint8_t         remainder;</span><br><span class="line">    uint32_t        start_time;</span><br><span class="line">    uint32_t        end_time;</span><br><span class="line">    void            *cb_arg;</span><br><span class="line">    sched_cb_func   sched_cb;</span><br><span class="line">    TAILQ_ENTRY(ble_ll_sched_item) link;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">/* Types of scheduler events */</span><br><span class="line">#define BLE_LL_SCHED_TYPE_ADV       (1)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_SCAN      (2)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_CONN      (3)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_AUX_SCAN  (4)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_DTM       (5)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_PERIODIC  (6)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_SYNC      (7)</span><br></pre></td></tr></table></figure>
-<h3 id="调度原则"><a href="#调度原则" class="headerlink" title="调度原则"></a>调度原则</h3><ul>
-<li>sched_item之间没有优先级的关系，完全按照sched_item的start_time为序，一个一个的执行。</li>
+<h3 id="调度原则"><a href="#调度原则" class="headerlink" title="调度原则"></a>调度原则</h3><ol>
+<li>Sched item之间没有优先级的关系，完全按照Sched item的start_time为序，一个一个的执行。</li>
 <li>调度到某个item时就直接执行这个item的sched_cb，并将这个item从调度列表上删掉，callback执行完后，再起timer，等待下一个item的start_time到期。</li>
 <li>item在插入到调度列表的时候就已经排好序了。</li>
-<li><p>在插入新的item的时候，要避开每一个跟他有overlap的item，直到找到一个完全跟它没有overlap的位置，这意味着在有同样的start time的情况下，先入list的优先级高。</p>
-<blockquote>
-<p>以插入一个Adv Schedule为例，假如Scheduler的ReadyList里有4个item，它们的排列如下。那么下图中绿色的item就是可以直接插入的item，而红色的item则需要一直往后移动，一直移到一个能插入的地方，也许到list最后才能有它的一席之地。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-new.png" alt></p>
-<p>在一个adv event执行完成后，需要再计算下一个adv event起来的时间，请参考下图。<br>Item中的<strong>Delay</strong>（0～10ms）指的是这个adv event最大允许delay的时间。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-Reschedule.png" alt></p>
+<li>在插入新的Adv Sched item的时候，新的Adv要避开每一个跟他有overlap的item，直到找到一个完全跟它没有overlap的位置，这意味着在有同样的start time的情况下，先入list的优先级高。<blockquote>
+<ul>
+<li>以插入一个Adv Schedule为例，假如Scheduler的ReadyList里有4个item，它们的排列如下。那么下图中绿色的item就是可以直接插入的item，而红色的item则需要一直往后移动，一直移到一个能插入&gt;的地方，也许到list最后才能有它的一席之地。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-new.png" alt></li>
+<li>在一个adv event执行完成后，需要再计算下一个adv event起来的时间，请参考下图。<br>Item中的<strong>Delay</strong>（0～10ms）指的是这个adv event最大允许delay的时间。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-Reschedule.png" alt></li>
+</ul>
 </blockquote>
 </li>
+<li>但是对于type为CONN的Sched是有点优先级的<blockquote>
+<ul>
+<li>正在execute的type为CONN的Sched的优先级最高，要新建立的conn的sched (ble_ll_sched_slave_new())如果刚好跟正在execute的conn overlap，那直接就取消新的这个conn。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/* The schedule item must occur after current running item (if any) */</span><br><span class="line">  if (ble_ll_sched_overlaps_current(sch)) &#123;</span><br><span class="line">      OS_EXIT_CRITICAL(sr);</span><br><span class="line">      return rc;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h3 id="更正"><a href="#更正" class="headerlink" title="更正"></a>更正</h3><p>感谢JayDen215的指导，上图中关于Adv reschedule的图例欠妥，正确的符合code行为的插入Sched的示意图如下。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-Reschedule4.png" alt><br>如果超过了max_delay,那插入也是失败的，如下图，虽然在#3的前面有位置给sch插入，但是因为overdue了，所以插入会失败。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-Reschedule5.png" alt></p>
+</blockquote>
+</li>
+</ol>
+<blockquote>
+<ul>
+<li>在收到CONN_IND的时候，为了能尽快在windowOffset到达时发包出去回应对方，会将跟他overlap的type为CONN的sched 给盖掉</li>
+<li>但这包如果type是其他的type，则会继续往后shift找合适的位置，但如果是回应CONN_IND的第一包的话，不在规定时间发包出去，link就建立不起来，这里还是有点问题。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if (ble_ll_sched_is_overlap(sch, entry)) &#123;</span><br><span class="line">    /* If we overlap with a connection, we re-schedule */</span><br><span class="line">    if (ble_ll_sched_conn_overlap(entry)) &#123;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<h3 id="更正-4"><a href="#更正-4" class="headerlink" title="更正 #4"></a>更正 #4</h3><p>感谢JayDen215的指导，上图中关于Adv reschedule的图例欠妥，正确的符合code行为的插入Sched的示意图如下。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-Reschedule4.png" alt><br>如果超过了max_delay,那插入也是失败的，如下图，虽然在#3的前面有位置给sch插入，但是因为overdue了，所以插入会失败。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-Reschedule5.png" alt></p>
 
       
     </div>
@@ -729,7 +756,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本时间单位"><span class="nav-number">1.</span> <span class="nav-text">基本时间单位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调度单位"><span class="nav-number">2.</span> <span class="nav-text">调度单位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调度原则"><span class="nav-number">3.</span> <span class="nav-text">调度原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更正"><span class="nav-number">4.</span> <span class="nav-text">更正</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#时间单位"><span class="nav-number">1.</span> <span class="nav-text">时间单位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调度单位"><span class="nav-number">2.</span> <span class="nav-text">调度单位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调度原则"><span class="nav-number">3.</span> <span class="nav-text">调度原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更正-4"><span class="nav-number">4.</span> <span class="nav-text">更正 #4</span></a></li></ol></div>
             
 
           </div>
