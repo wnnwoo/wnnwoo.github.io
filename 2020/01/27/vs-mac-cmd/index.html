@@ -99,18 +99,18 @@
   };
 </script>
 
-  <meta name="description" content="在去年11月参加RTT的开发者大会的时候得闻RTT目前在用Nimble做为BLE stack，两年前我有看到过这个东西，当时觉得这种比较关键的技术一般来说开源的都不是比较好的东西，比较有竞争力的部分比如high performance、small footprint(有人抱怨nimble吃RAM太大)、low power等一般都不会开出来，所以也没有仔细研读过。今年由于工作的重心也转到了BT">
-<meta name="keywords" content="开源软件">
+  <meta name="description" content="进入函数 fn + F12 回到前一个光标点 control + - 查看函数引用 fn + shift + F12, 每多按一次这个组合就跳转一次到引用该函数的地方">
+<meta name="keywords" content="VC code">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Nimble 初探">
-<meta property="og:url" content="http://yoursite.com/2020/01/04/nimble/index.html">
+<meta property="og:title" content="VC code 常用快捷键">
+<meta property="og:url" content="http://yoursite.com/2020/01/27/vs-mac-cmd/index.html">
 <meta property="og:site_name" content="Wen Wu&#39;s notes">
-<meta property="og:description" content="在去年11月参加RTT的开发者大会的时候得闻RTT目前在用Nimble做为BLE stack，两年前我有看到过这个东西，当时觉得这种比较关键的技术一般来说开源的都不是比较好的东西，比较有竞争力的部分比如high performance、small footprint(有人抱怨nimble吃RAM太大)、low power等一般都不会开出来，所以也没有仔细研读过。今年由于工作的重心也转到了BT">
+<meta property="og:description" content="进入函数 fn + F12 回到前一个光标点 control + - 查看函数引用 fn + shift + F12, 每多按一次这个组合就跳转一次到引用该函数的地方">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-03T16:20:12.000Z">
+<meta property="og:updated_time" content="2020-01-27T15:49:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nimble 初探">
-<meta name="twitter:description" content="在去年11月参加RTT的开发者大会的时候得闻RTT目前在用Nimble做为BLE stack，两年前我有看到过这个东西，当时觉得这种比较关键的技术一般来说开源的都不是比较好的东西，比较有竞争力的部分比如high performance、small footprint(有人抱怨nimble吃RAM太大)、low power等一般都不会开出来，所以也没有仔细研读过。今年由于工作的重心也转到了BT">
+<meta name="twitter:title" content="VC code 常用快捷键">
+<meta name="twitter:description" content="进入函数 fn + F12 回到前一个光标点 control + - 查看函数引用 fn + shift + F12, 每多按一次这个组合就跳转一次到引用该函数的地方">
 
 
 
@@ -118,7 +118,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2020/01/04/nimble/">
+  <link rel="canonical" href="http://yoursite.com/2020/01/27/vs-mac-cmd/">
 
 
 
@@ -129,7 +129,7 @@
 </script>
 
   
-  <title>Nimble 初探 | Wen Wu's notes</title>
+  <title>VC code 常用快捷键 | Wen Wu's notes</title>
   
 
 
@@ -338,7 +338,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/04/nimble/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/27/vs-mac-cmd/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wen Wu">
@@ -355,7 +355,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Nimble 初探
+          <h1 class="post-title" itemprop="name headline">VC code 常用快捷键
 
               
             
@@ -381,7 +381,7 @@
                 
               
 
-              <time title="创建时间：2020-01-04 00:20:12" itemprop="dateCreated datePublished" datetime="2020-01-04T00:20:12+08:00">2020-01-04</time>
+              <time title="创建时间：2020-01-27 23:49:30" itemprop="dateCreated datePublished" datetime="2020-01-27T23:49:30+08:00">2020-01-27</time>
             </span>
           
 
@@ -396,7 +396,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Nimble/" itemprop="url" rel="index"><span itemprop="name">Nimble</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MAC/" itemprop="url" rel="index"><span itemprop="name">MAC</span></a></span>
 
                 
                 
@@ -431,7 +431,11 @@
       
 
       
-        <p>   在去年11月参加<a href="https://www.rt-thread.org">RTT</a>的开发者大会的时候得闻RTT目前在用<a href="https://github.com/apache/mynewt-nimble">Nimble</a>做为BLE stack，两年前我有看到过这个东西，当时觉得这种比较关键的技术一般来说开源的都不是比较好的东西，比较有竞争力的部分比如high performance、small footprint(<a href="https://github.com/apache/mynewt-nimble/issues/689">有人抱怨nimble吃RAM太大</a>)、low power等一般都不会开出来，所以也没有仔细研读过。今年由于工作的重心也转到了BT Controller，所以得好好研读下Nimble的source code，先纠正一个<a href="https://github.com/apache/mynewt-nimble/commit/3f373f3eaa3de4d78efc3b01199fde21fa27ecfe">小小的错误</a>，作为今年学习的一个好彩头。<br>   这里有一<a href="https://www.youtube.com/watch?v=TiIxC1QbZ3k">video</a>介绍为啥要有nimble。</p>
+        <ol>
+<li>进入函数 fn + F12</li>
+<li>回到前一个光标点 control + -</li>
+<li>查看函数引用 fn + shift + F12, 每多按一次这个组合就跳转一次到引用该函数的地方</li>
+</ol>
 
       
     </div>
@@ -462,7 +466,7 @@
         
         <div class="post-tags">
           
-            <a href="/tags/开源软件/" rel="tag"># 开源软件</a>
+            <a href="/tags/VC-code/" rel="tag"># VC code</a>
           
         </div>
       
@@ -475,8 +479,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/01/04/aliyun/" rel="next" title="阿里云使用">
-                <i class="fa fa-chevron-left"></i> 阿里云使用
+              <a href="/2020/01/12/nimble-adv/" rel="next" title="nimble advertising">
+                <i class="fa fa-chevron-left"></i> nimble advertising
               </a>
             
           </div>
@@ -484,10 +488,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/01/05/markdown-online/" rel="prev" title="markdown在线编辑">
-                markdown在线编辑 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
