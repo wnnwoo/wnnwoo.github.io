@@ -99,18 +99,18 @@
   };
 </script>
 
-  <meta name="description" content="Link Layer总共有7个状态，这7个状态串起了整个Link layer的运作。 stateDiagram     [*] --&amp;gt; STANDBY     STANDBY --&amp;gt; ADV     ADV --&amp;gt; STANDBY     ADV --&amp;gt; SYNC     ADV --&amp;gt; CONNECTION     STANDBY --&amp;gt; SCANNING     SCANNING --&amp;gt; ST">
+  <meta name="description" content="Link Layer总共有7个状态，这7个状态串起了整个Link layer的运作。 1234567#define BLE_LL_STATE_STANDBY        (0)#define BLE_LL_STATE_ADV            (1)#define BLE_LL_STATE_SCANNING       (2)#define BLE_LL_STATE_INITIATING">
 <meta name="keywords" content="Mermaid,Nimble">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nimble Link layer 状态机">
 <meta property="og:url" content="http://yoursite.com/2020/01/28/nimble-ll-state/index.html">
 <meta property="og:site_name" content="Wen Wu&#39;s notes">
-<meta property="og:description" content="Link Layer总共有7个状态，这7个状态串起了整个Link layer的运作。 stateDiagram     [*] --&amp;gt; STANDBY     STANDBY --&amp;gt; ADV     ADV --&amp;gt; STANDBY     ADV --&amp;gt; SYNC     ADV --&amp;gt; CONNECTION     STANDBY --&amp;gt; SCANNING     SCANNING --&amp;gt; ST">
+<meta property="og:description" content="Link Layer总共有7个状态，这7个状态串起了整个Link layer的运作。 1234567#define BLE_LL_STATE_STANDBY        (0)#define BLE_LL_STATE_ADV            (1)#define BLE_LL_STATE_SCANNING       (2)#define BLE_LL_STATE_INITIATING">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2020-01-27T16:27:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nimble Link layer 状态机">
-<meta name="twitter:description" content="Link Layer总共有7个状态，这7个状态串起了整个Link layer的运作。 stateDiagram     [*] --&amp;gt; STANDBY     STANDBY --&amp;gt; ADV     ADV --&amp;gt; STANDBY     ADV --&amp;gt; SYNC     ADV --&amp;gt; CONNECTION     STANDBY --&amp;gt; SCANNING     SCANNING --&amp;gt; ST">
+<meta name="twitter:description" content="Link Layer总共有7个状态，这7个状态串起了整个Link layer的运作。 1234567#define BLE_LL_STATE_STANDBY        (0)#define BLE_LL_STATE_ADV            (1)#define BLE_LL_STATE_SCANNING       (2)#define BLE_LL_STATE_INITIATING">
 
 
 
@@ -432,13 +432,15 @@
 
       
         <p>Link Layer总共有7个状态，这7个状态串起了整个Link layer的运作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#define BLE_LL_STATE_STANDBY        (0)</span><br><span class="line">#define BLE_LL_STATE_ADV            (1)</span><br><span class="line">#define BLE_LL_STATE_SCANNING       (2)</span><br><span class="line">#define BLE_LL_STATE_INITIATING     (3)</span><br><span class="line">#define BLE_LL_STATE_CONNECTION     (4)</span><br><span class="line">#define BLE_LL_STATE_DTM            (5)</span><br><span class="line">#define BLE_LL_STATE_SYNC           (6)</span><br></pre></td></tr></table></figure>
 <pre class="mermaid">stateDiagram
-    [*] --> STANDBY
+    [*] --> STANDBY : reset
     STANDBY --> ADV
+    STANDBY --> SCANNING
+    STANDBY --> SYNC
     ADV --> STANDBY
     ADV --> SYNC
     ADV --> CONNECTION
-    STANDBY --> SCANNING
     SCANNING --> STANDBY
     SCANNING --> INITIATING
     SCANNING --> SYNC
@@ -448,7 +450,6 @@
     CONNECTION --> DTM
     CONNECTION --> SYNC
     DTM --> STANDBY
-    STANDBY --> SYNC
     SYNC --> STANDBY</pre>
 
       
