@@ -844,54 +844,32 @@
       
         
           
-            <ol>
-<li><p>git log —pretty=oneline</p>
-</li>
-<li><p>git log -1</p>
-</li>
-<li><p>git rev-parse —git-dir #show the .git folder name</p>
-</li>
-<li><p>git add . git add filename git add all git add . -A</p>
-</li>
-</ol>
-<p>control + r # search the history command</p>
+            <p>介绍git原理的不错的文章： <a href="https://codewords.recurse.com/issues/two/git-from-the-inside-out">git from inside out</a></p>
 <ol>
-<li><p>git commit -s</p>
-</li>
-<li><p>git commit -m “msg”</p>
-</li>
-<li><p>git commit —amend # add the current file to the previous change list</p>
-</li>
-<li><p>git push</p>
-</li>
-<li><p>git bisect 是用二分法协助RD查找是哪笔check-in导致的错误的，请<a href="http://www.ruanyifeng.com/blog/2018/12/git-bisect.html">参考</a></p>
-</li>
-<li><p>git diff 文件格式说明，<a href="https://www.jianshu.com/p/98829d4e996f">link</a></p>
-</li>
-<li><p>git diff HEAD — readme.txt</p>
-</li>
-<li><p>git reset —hard HEAD^ 用remote端最新code盖掉index区域的改动（已经add到index的改动）</p>
-</li>
-<li><p>git reset —hard 1094a 指定回到某个版本</p>
-</li>
-<li><p>git cherry-pick</p>
-</li>
-<li><p>git reflog 查找使用过的git command</p>
-</li>
-</ol>
-<blockquote>
+<li>git log —pretty=oneline</li>
+<li>git log -1</li>
+<li>git rev-parse —git-dir #show the .git folder name</li>
+<li>git add . git add filename git add all git add . -A</li>
+<li>git commit -s</li>
+<li>git commit -m “msg”</li>
+<li>git commit —amend # add the current file to the previous change list</li>
+<li>git push</li>
+<li>git bisect 是用二分法协助RD查找是哪笔check-in导致的错误的，请<a href="http://www.ruanyifeng.com/blog/2018/12/git-bisect.html">参考</a></li>
+<li>git diff 文件格式说明，<a href="https://www.jianshu.com/p/98829d4e996f">link</a></li>
+<li>git diff HEAD — readme.txt</li>
+<li>git reset —hard HEAD^ 用remote端最新code盖掉index区域的改动（已经add到index的改动）</li>
+<li>git reset —hard 1094a 指定回到某个版本</li>
+<li>git cherry-pick</li>
+<li>git reflog 查找使用过的git command<blockquote>
 <p>Mac01:BlueShell wnnwoo$ git reflog<br>894474c (HEAD -&gt; master) HEAD@{0}: reset: moving to HEAD^<br>fcdea80 (origin/master) HEAD@{1}: commit: fix build error<br>894474c (HEAD -&gt; master) HEAD@{2}: commit: update basic operation<br>94e2258 HEAD@{3}: commit: Run the scheme testing<br>f305bac HEAD@{4}: commit: add generics test code<br>4acfba7 HEAD@{5}: commit: Add error handle</p>
 </blockquote>
-<ol>
-<li><p>git checkout — readme.txt 丢弃工作区的改动</p>
 </li>
-<li><p>git reset HEAD readme.txt 暂存区的修改回退到工作区</p>
-</li>
-<li><p>git diff &gt; abc.diff</p>
-</li>
-<li><p>git apply abc.diff</p>
-</li>
+<li>git checkout — readme.txt 丢弃工作区的改动</li>
+<li>git reset HEAD readme.txt 暂存区的修改回退到工作区</li>
+<li>git diff &gt; abc.diff</li>
+<li>git apply abc.diff</li>
 </ol>
+<p>control + r # search the history command</p>
 
           
         
