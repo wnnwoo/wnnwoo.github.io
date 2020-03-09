@@ -99,22 +99,18 @@
   };
 </script>
 
-  <meta name="description" content="开发BT audio，经常被各种BT music 断音，跳音等等问题而困扰，大部分都是因为codec出问题或是bt受干扰而throughput不够。针对BT music使用到的codec，这篇文章有做一些总结。Understanding Bluetooth codecs">
+  <meta name="description" content="从好友Yufeng那里得知Nimble有在ESP32上落地，刚好手头有一片ESP-WRCOM-32，手痒痒就download了一份ESP32的IDF 玩下。Getting Start 写的真心不错，简单明了，照着操作步骤一步一步跑就能跑起来Nimble的example project。不过ESP32只用了Nimble的Host，没有用Controller的部分，毕竟ESP32是Combo c">
 <meta name="keywords" content="Bluetooth">
 <meta property="og:type" content="article">
-<meta property="og:title" content="BT Codec 总结">
-<meta property="og:url" content="http://yoursite.com/2019/08/17/bt-audio-codec/index.html">
+<meta property="og:title" content="nimble on ESP32">
+<meta property="og:url" content="http://yoursite.com/2020/03/09/nimble-esp32/index.html">
 <meta property="og:site_name" content="Wen Wu&#39;s notes">
-<meta property="og:description" content="开发BT audio，经常被各种BT music 断音，跳音等等问题而困扰，大部分都是因为codec出问题或是bt受干扰而throughput不够。针对BT music使用到的codec，这篇文章有做一些总结。Understanding Bluetooth codecs">
+<meta property="og:description" content="从好友Yufeng那里得知Nimble有在ESP32上落地，刚好手头有一片ESP-WRCOM-32，手痒痒就download了一份ESP32的IDF 玩下。Getting Start 写的真心不错，简单明了，照着操作步骤一步一步跑就能跑起来Nimble的example project。不过ESP32只用了Nimble的Host，没有用Controller的部分，毕竟ESP32是Combo c">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothCodec/bt_codec_pors.png">
-<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothCodec/blueooth-codec-transfer-rate.png">
-<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothCodec/bluetooth-codec-latency.png">
-<meta property="og:updated_time" content="2019-08-17T12:55:51.000Z">
+<meta property="og:updated_time" content="2020-03-09T12:49:41.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="BT Codec 总结">
-<meta name="twitter:description" content="开发BT audio，经常被各种BT music 断音，跳音等等问题而困扰，大部分都是因为codec出问题或是bt受干扰而throughput不够。针对BT music使用到的codec，这篇文章有做一些总结。Understanding Bluetooth codecs">
-<meta name="twitter:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothCodec/bt_codec_pors.png">
+<meta name="twitter:title" content="nimble on ESP32">
+<meta name="twitter:description" content="从好友Yufeng那里得知Nimble有在ESP32上落地，刚好手头有一片ESP-WRCOM-32，手痒痒就download了一份ESP32的IDF 玩下。Getting Start 写的真心不错，简单明了，照着操作步骤一步一步跑就能跑起来Nimble的example project。不过ESP32只用了Nimble的Host，没有用Controller的部分，毕竟ESP32是Combo c">
 
 
 
@@ -122,7 +118,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/08/17/bt-audio-codec/">
+  <link rel="canonical" href="http://yoursite.com/2020/03/09/nimble-esp32/">
 
 
 
@@ -133,7 +129,7 @@
 </script>
 
   
-  <title>BT Codec 总结 | Wen Wu's notes</title>
+  <title>nimble on ESP32 | Wen Wu's notes</title>
   
 
 
@@ -342,7 +338,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/17/bt-audio-codec/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/09/nimble-esp32/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wen Wu">
@@ -359,7 +355,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">BT Codec 总结
+          <h1 class="post-title" itemprop="name headline">nimble on ESP32
 
               
             
@@ -385,12 +381,27 @@
                 
               
 
-              <time title="创建时间：2019-08-17 20:55:51" itemprop="dateCreated datePublished" datetime="2019-08-17T20:55:51+08:00">2019-08-17</time>
+              <time title="创建时间：2020-03-09 20:49:41" itemprop="dateCreated datePublished" datetime="2020-03-09T20:49:41+08:00">2020-03-09</time>
             </span>
           
 
           
 
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Nimble/" itemprop="url" rel="index"><span itemprop="name">Nimble</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -420,10 +431,15 @@
       
 
       
-        <p>开发BT audio，经常被各种BT music 断音，跳音等等问题而困扰，大部分都是因为codec出问题或是bt受干扰而throughput不够。<br>针对BT music使用到的codec，这篇文章有做一些总结。<a href="https://www.soundguys.com/understanding-bluetooth-codecs-15352/">Understanding Bluetooth codecs</a></p>
-<p> <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothCodec/bt_codec_pors.png" alt="Bluetooth Codec PK" title="Codec PK"></p>
-<p> <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothCodec/blueooth-codec-transfer-rate.png" alt="Bluetooth Codec transfer rate" title="throughput"></p>
-<p> <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothCodec/bluetooth-codec-latency.png" alt="Bluetooth Codec latency" title="Latency"></p>
+        <p>   从好友Yufeng那里得知Nimble有在ESP32上落地，刚好手头有一片ESP-WRCOM-32，手痒痒就download了一份ESP32的<a href="https://github.com/espressif/esp-idf">IDF</a> 玩下。<br><a href="https://docs.espressif.com/projects/esp-idf/en/stable/get-started/#get-started-connect">Getting Start</a> 写的真心不错，简单明了，照着操作步骤一步一步跑就能跑起来Nimble的example project。不过ESP32只用了Nimble的Host，没有用Controller的部分，毕竟ESP32是Combo chip，Nimble Controller Scheduler没有考虑过Wifi的部分。</p>
+<blockquote>
+<ul>
+<li>ESP32文档很很赞，花了大力气做宣传，内容挺丰富，也很正规，YouTube也有很多教学视频。</li>
+<li>还挺开放，放了不少源码出来，包括ble mesh等。</li>
+<li>不知道为啥没有自己的Host，之前用bluedroid，footprint没啥优势。</li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">I (0) cpu_start: App cpu up.</span><br><span class="line">I (386) heap_init: Initializing. RAM available for dynamic allocation:</span><br><span class="line">I (393) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM</span><br><span class="line">I (399) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM</span><br><span class="line">I (405) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM</span><br><span class="line">I (411) heap_init: At 3FFBDB5C len 00000004 (0 KiB): DRAM</span><br><span class="line">I (417) heap_init: At 3FFC3B68 len 0001C498 (113 KiB): DRAM</span><br><span class="line">I (424) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM</span><br><span class="line">I (430) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM</span><br><span class="line">I (436) heap_init: At 40093CE0 len 0000C320 (48 KiB): IRAM</span><br><span class="line">I (443) cpu_start: Pro cpu start user code</span><br><span class="line">I (461) spi_flash: detected chip: gd</span><br><span class="line">I (461) spi_flash: flash io: dio</span><br><span class="line">W (462) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.</span><br><span class="line">I (472) cpu_start: Starting scheduler on PRO CPU.</span><br><span class="line">I (0) cpu_start: Starting scheduler on APP CPU.</span><br><span class="line">I (557) BTDM_INIT: BT controller compile version [fd2a63b]</span><br><span class="line">I (557) system_api: Base MAC address is not set</span><br><span class="line">I (557) system_api: read default base MAC address from EFUSE</span><br><span class="line">I (657) phy: phy_version: 4180, cb3948e, Sep 12 2019, 16:39:13, 0, 0</span><br><span class="line">I (887) NimBLE_BLE_PRPH: BLE Host Task Started</span><br><span class="line">I (897) uart: queue free spaces: 8</span><br><span class="line">Device Address: 80:7d:3a:d7:f1:56</span><br><span class="line">GAP procedure initiated: advertise; disc_mode=2 adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=0 adv_itvl_max=0</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -467,8 +483,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/04/google-test/" rel="next" title="测试之道">
-                <i class="fa fa-chevron-left"></i> 测试之道
+              <a href="/2020/02/29/how-to-pick-career/" rel="next" title="如何寻找一份适合你的职业">
+                <i class="fa fa-chevron-left"></i> 如何寻找一份适合你的职业
               </a>
             
           </div>
@@ -476,10 +492,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/08/26/存在主义咖啡馆/" rel="prev" title="存在主义咖啡馆">
-                存在主义咖啡馆 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
