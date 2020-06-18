@@ -338,6 +338,184 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/10/git-usage/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wen Wu">
+      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wen Wu's notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/07/10/git-usage/" class="post-title-link" itemprop="url">常用的git命令</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-10 22:37:38" itemprop="dateCreated datePublished" datetime="2019-07-10T22:37:38+08:00">2019-07-10</time>
+            </span>
+          
+
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/GIT/" itemprop="url" rel="index"><span itemprop="name">GIT</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>介绍git原理的不错的文章： <a href="https://codewords.recurse.com/issues/two/git-from-the-inside-out">git from inside out</a></p>
+<ol>
+<li>git log —pretty=oneline</li>
+<li>git log -1</li>
+<li>git rev-parse —git-dir #show the .git folder name</li>
+<li>git add . git add filename git add all git add . -A</li>
+<li>git commit -s</li>
+<li>git commit -m “msg”</li>
+<li>git commit —amend # add the current file to the previous change list</li>
+<li>git push</li>
+<li>git bisect 是用二分法协助RD查找是哪笔check-in导致的错误的，请<a href="http://www.ruanyifeng.com/blog/2018/12/git-bisect.html">参考</a></li>
+<li>git diff 文件格式说明，<a href="https://www.jianshu.com/p/98829d4e996f">link</a></li>
+<li>git diff HEAD — readme.txt</li>
+<li>git reset —hard HEAD^ 用remote端最新code盖掉index区域的改动（已经add到index的改动）</li>
+<li>git reset —hard 1094a 指定回到某个版本</li>
+<li>git cherry-pick</li>
+<li>git reflog 查找使用过的git command<blockquote>
+<p>Mac01:BlueShell wnnwoo$ git reflog<br>894474c (HEAD -&gt; master) HEAD@{0}: reset: moving to HEAD^<br>fcdea80 (origin/master) HEAD@{1}: commit: fix build error<br>894474c (HEAD -&gt; master) HEAD@{2}: commit: update basic operation<br>94e2258 HEAD@{3}: commit: Run the scheme testing<br>f305bac HEAD@{4}: commit: add generics test code<br>4acfba7 HEAD@{5}: commit: Add error handle</p>
+</blockquote>
+</li>
+<li>git checkout — readme.txt 丢弃工作区的改动</li>
+<li>git reset HEAD readme.txt 暂存区的修改回退到工作区</li>
+<li>git diff &gt; abc.diff</li>
+<li>git apply abc.diff</li>
+</ol>
+<p>control + r # search the history command</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/10/当呼吸化为空气/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1880,7 +2058,7 @@ cond(no)->op
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1996,7 +2174,9 @@ cond(no)->op
         
           
         
-        <span class="site-state-item-count">29</span>
+          
+        
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -2177,6 +2357,8 @@ cond(no)->op
 
   
   
+    
+      
     
       
     
