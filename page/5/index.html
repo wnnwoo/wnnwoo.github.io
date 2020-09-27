@@ -338,6 +338,198 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/27/bluetooth-baseband/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wen Wu">
+      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wen Wu's notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/07/27/bluetooth-baseband/" class="post-title-link" itemprop="url">蓝牙基带介绍</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-27 11:16:47" itemprop="dateCreated datePublished" datetime="2019-07-27T11:16:47+08:00">2019-07-27</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-09-18 07:59:31" itemprop="dateModified" datetime="2019-09-18T07:59:31+08:00">2019-09-18</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/蓝牙/" itemprop="url" rel="index"><span itemprop="name">蓝牙</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>对于任何一门知识体系，一定有一个最小基本单位，基本概念，其他的概念或是规矩都是基于这几个基本的东西在玩花样。对于这个很基本的分析问题的方法，混沌大学的李善友老师还起来一个非常高大上的名字叫做“唯一性原理”，有点故弄玄虚，其实叫啥无所谓，面对同样一份原始数据，如果你有相关的知识，你就能将数据切的更细，那就能看到更多东西。</p>
+<p>先列举下Baseband的几个基本单位：</p>
+<h2 id="1-Piconet"><a href="#1-Piconet" class="headerlink" title="1. Piconet"></a>1. Piconet</h2><p>  跟其他网络技术一样，蓝牙也有自己的网络。网上把这个单词翻译成微网。在蓝牙设备没有跟其他蓝牙设备连线的时候，它自己属于一个piconet。当有连线后，piconet里有两种角色：master 和 slave。发起连线的一方是master，被连接的一方是slave。slave会以master的时钟为参照，以625us为时间单位，与master进行数据收发。每一个piconet里，一个master最多有7个slave。<br>  <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Spec.Vol1.BluetoothBasic/BREDR_Topology.png" alt="Piconet" title="PicoNet"></p>
+<h2 id="2-Mode"><a href="#2-Mode" class="headerlink" title="2. Mode"></a>2. Mode</h2><p>  这里的Mode其实对应的是Modem，数据编码不同，那Modem就不同，传输数据的速度也不同。</p>
+<h3 id="2-1-Basic-Rate：最基本的一种模式，采用BPSK，传输速率是-1Mb-s。"><a href="#2-1-Basic-Rate：最基本的一种模式，采用BPSK，传输速率是-1Mb-s。" class="headerlink" title="2.1 Basic Rate：最基本的一种模式，采用BPSK，传输速率是 1Mb/s。"></a>2.1 Basic Rate：最基本的一种模式，采用BPSK，传输速率是 1Mb/s。</h3><h3 id="2-2-Enhanced-Data-Rate：增强模式，传输速率是-2Mb-s-（π-4-DQPSK）或-3Mb-s（8DPSK），这种模式有两种编码。"><a href="#2-2-Enhanced-Data-Rate：增强模式，传输速率是-2Mb-s-（π-4-DQPSK）或-3Mb-s（8DPSK），这种模式有两种编码。" class="headerlink" title="2.2 Enhanced Data Rate：增强模式，传输速率是 2Mb/s （π/4-DQPSK）或 3Mb/s（8DPSK），这种模式有两种编码。"></a>2.2 Enhanced Data Rate：增强模式，传输速率是 2Mb/s （π/4-DQPSK）或 3Mb/s（8DPSK），这种模式有两种编码。</h3><h2 id="3-BT-clock"><a href="#3-BT-clock" class="headerlink" title="3. BT clock"></a>3. BT clock</h2><p>  Clock是蓝牙通信最最基础的一个概念，clock定义了通信的时空范围，定义了这个Piconet时空的坐标系，只有在同一个坐标系里，网络内的各个角色才能相互了解对方的时间线，才知道什么时候发包，什么时候收包。<br>  BT clock是个28bit的计数器，每tick一次是312.5us，所以总共有 (2^28 -1)个tick，算一下大约是(2^28-1)*312.5us/10^6/3600 = 23.3个小时后clock会翻转。<br>  <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/BaseBand_BluetoothClock.png" alt="BT Clock" title="BT Clock"><br>  针对clock有几个概念也要知道下：</p>
+<blockquote>
+<p>CLK0, 312.5us，是一个tick<br>CLK1, 625us, 是一个slot<br>CLK2, 1.25ms, 是一个frame（做一次TX 和 RX）<br>CLK12, 1.28s.<br>  Clock的精确度要求为 +/-250ppm 和 +/-20ppm</p>
+</blockquote>
+<h2 id="4-BT-地址"><a href="#4-BT-地址" class="headerlink" title="4. BT 地址"></a>4. BT 地址</h2><p>  蓝牙地址有48bit，需要跟IEEE去购买。<br>  <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/BluetoothAddr.png" alt="BDA" title="BD Address"><br>  LAP中有64个：0x9E8B00-0x9E8B3F是用来做inquiry的。0x9E8B000 是用来做 General inquiry，余下的63个是用来做Dedicate inquiry。当保留LAP被使用的时候，UAP会是0x00，Default Check Initialization。</p>
+<h2 id="5-Access-Code"><a href="#5-Access-Code" class="headerlink" title="5. Access Code"></a>5. Access Code</h2><p>  所有的蓝牙数据包都以access code为开头，所有的access code是从LAP生出来的。access code是为了告诉对方，数据包来了，该做准备了，而接收方也可以根据access code来确定这包数据是不是属于自己的。</p>
+<blockquote>
+<p>device access code (DAC)<br>channel access code (CAC)<br>Inquiry access code (IAC)</p>
+<blockquote>
+<p>IAC 又分为 GIAC 和 DIAC</p>
+</blockquote>
+</blockquote>
+<h2 id="6-Physical-Channel（信道）"><a href="#6-Physical-Channel（信道）" class="headerlink" title="6. Physical Channel（信道）"></a>6. Physical Channel（信道）</h2><p>  蓝牙有79个信道,每个信道2M<br>  <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/baseband_79_Channels.png" alt="79 Channels" title="bluetooth channels"><br>  Spec总共有定义如下5种channel</p>
+<blockquote>
+<p>Basic piconet physical channel<br>Adapted piconet physical channel<br>Page scan physical channel<br>Inquiry scan physical channel<br>Synchronization scan physical channel</p>
+</blockquote>
+<h3 id="6-1-Basic-piconet-physical-channel"><a href="#6-1-Basic-piconet-physical-channel" class="headerlink" title="6.1 Basic piconet physical channel"></a>6.1 Basic piconet physical channel</h3><p>   在建立连线后，Slave会以Mater的clock为准。Master和Slave以一个slot为单位进行Tx和Rx，Master在clock为偶数时发包，Slave在clock为偶数时收包，如下面的两张图。<br>  <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/BaseBand_Master_TXRX_Cycle.png" alt="MasterCycle" title="Master Tx/Rx Cycle"><br>  <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/Baseband_Slave_RxTx_cycle.png" alt="Slave Cyle" title="Slave Rx/Tx Cycle"><br>   为了处理time sliping，定义uncertainty window来增加Rx的时候收到包的几率，Slave可以加大自己的Rx时间uncertainty window来提高收到包的几率。<br>   如果在250ms内等不到Master的包，那Slave就只能认为是短线了。</p>
+<h3 id="6-2-Adapted-piconet-phycial-channel"><a href="#6-2-Adapted-piconet-phycial-channel" class="headerlink" title="6.2 Adapted piconet phycial channel"></a>6.2 Adapted piconet phycial channel</h3><p>   用到的channel个数可能会少于79个，不过至少会是20个。</p>
+<h3 id="6-4-Page-scan-phycial-channel"><a href="#6-4-Page-scan-phycial-channel" class="headerlink" title="6.4 Page scan phycial channel"></a>6.4 Page scan phycial channel</h3><p>   在Paging的时候，Master会发送paging message（就是ID packets），这个时候的跳频速度是 3200 hops/s，在Tx的slot内会打两次包，在Rx的Slot内也会收两次Slave的回应。<br>   Slave在收到Master的paging messagse后的625us会回一个slave reponse packet。Master在收到这个reponse packet的后面的那个Tx slock再发一个master page reponse packet。<br>  <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/Baseband-PageScanRxTxCycle.png" alt="Page Scan Channel" title="PageScan"><br>  <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/Baseband-PageScanInFirstHalfSlot.png" alt="Page Scan at 1st half slot" title="1st half slot"><br>  <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/Baseband-PageScanIn2ndHalfSlot.png" alt="Page at 2nd half slot" title="2nd half slot"></p>
+<h3 id="6-5-Inquiry-Scan-Physical-channel"><a href="#6-5-Inquiry-Scan-Physical-channel" class="headerlink" title="6.5 Inquiry Scan Physical channel"></a>6.5 Inquiry Scan Physical channel</h3><p>  在Inquiry的时候，Master会一直发送inquiry mesasge，带上GIAC 或 DIAC。<br>   <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/Baseband-InquiryScanAt1stHalfSlot.png" alt="Inquiry Scan" title="Inquiry Scan at 1st half"><br>   <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/Baseband-InquiryScanAt2ndHalfSlot.png" alt="Inquiry Scan 2" title="Inquiry Scan at 2nd half"></p>
+<h2 id="7-HOP-Seletion-（跳频）"><a href="#7-HOP-Seletion-（跳频）" class="headerlink" title="7. HOP Seletion （跳频）"></a>7. HOP Seletion （跳频）</h2><p>  据说跳频的理论模型还是个<a href="https://www.sohu.com/a/144238786_693721">演员</a>发明的。</p>
+<h3 id="7-1-Selection-Kernel"><a href="#7-1-Selection-Kernel" class="headerlink" title="7.1 Selection Kernel"></a>7.1 Selection Kernel</h3><p>  <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/Baseband-SelectionKernelOfHoppingSystem.png" alt="Selection Kernel" title="Selection Kernel"><br>  <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothBaseband/Baseband-SelectionKernelHopSystemControlWord.png" alt="Control word" title="Control word"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/21/software-management/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2025,211 +2217,6 @@ cond(no)->op
   </article>
 
     
-        
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/12/bluetooth-vol-1-architecture/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wen Wu">
-      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wen Wu's notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/06/12/bluetooth-vol-1-architecture/" class="post-title-link" itemprop="url">bluetooth architecture, General description</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-06-12 22:10:04" itemprop="dateCreated datePublished" datetime="2019-06-12T22:10:04+08:00">2019-06-12</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-07-21 10:18:01" itemprop="dateModified" datetime="2019-07-21T10:18:01+08:00">2019-07-21</time>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>Bluetooth wireless technology</strong></p>
-<ol>
-<li>Basic Rate(BR)<ol>
-<li>Enhanced Date Rate</li>
-<li>Alternertive Media Access Control (MAC)</li>
-<li>Physical(PHY) layer extensions</li>
-</ol>
-</li>
-<li>Low Energy(LE)</li>
-</ol>
-<p><strong>Bluetooth Core System</strong></p>
-<ol>
-<li>Host</li>
-<li>one or more Controller: primary Controllers and secondary Controllers<br>BR/EDR controller:<br> Radio,<br> Baseband,<br> Link Manager,<br> HCI<br>BLE Controller<br> LE PHY<br> Link Layer<br> HCI</li>
-</ol>
-<p><strong>BR/EDR Overview</strong></p>
-<ol>
-<li>Piconet</li>
-<li>Frequency hopping</li>
-<li>Physical channel: sub-divided into time units known as <strong>slots</strong>, TDD<br> physical channel -&gt; physical link -&gt; logical transport -&gt; logical link -&gt; L2CAP channel<blockquote>
-<p>   The physical link is used as a transport for one or more logical links that support unicast synchronous, asynchronous and isochronous traffic, and broadcast traffic. Traffic on logical links is multiplexed onto the physical link by occupying slots assigned by a scheduling function in the resource manager.</p>
-</blockquote>
-</li>
-<li>LMP,A control protocol for the baseband and physical layers is carried over logical links in addition to user data</li>
-<li>Connectionless Slave Broadcast devices </li>
-</ol>
-<p><strong>LE Overview</strong></p>
-<ol>
-<li>PHY<br> 1M:<br> 1M Coded:<pre><code> coding scheme:(where S is the number of symbols per bit.)
-     s=2: 2 symbols represent 1 bit, the speed is 500Kb/s
-     s=8: 8 symbols represent 1 bit, the speed is 125Kb/s
-</code></pre> 2M:</li>
-<li>40 physical channel, 2M for 1 channel</li>
-<li>Events:The physical channel is sub-divided into time units known as events<br> 4 types events: Advertising, Extended Advertising, Periodic Advertising, and Connection events<blockquote>
-<p>   In connection events, channel hopping occurs at the start of each connection event. Within a connection event, the master and slave alternate sending data packets using the same data PHY channel. The master initiates the beginning of each connection event and can end each connection event at any time.</p>
-</blockquote>
-</li>
-<li>Physical channel:<blockquote>
-<p>The advertising and periodic physical links provide a unidirectional packet transport from the advertiser to a potentially unlimited number of scanners or initiators.</p>
-</blockquote>
-</li>
-<li>Link Layer Protocol(LL), A control protocol for the link and physical layers is carried over logical links in addition to user data</li>
-<li>L2CAP:<br> fregmentation and de-fregmentation<br> multiplex and de-multiplex<br> two Fixed channel: SMP and ATT.</li>
-<li>LE Radio: AoA, AoD</li>
-</ol>
-<p><strong>Question 1</strong></p>
-<p>Why the modem of BR is 1Mb/s, but the date rates is 721.2 kb/s?</p>
-<blockquote>
-<p>The Basic Rate system offers synchronous and asynchronous connections with data rates of 721.2 kb/s for Basic Rate, 2.1 Mb/s for Enhanced Data Rate and high speed operation up to 54 Mb/s with the 802.11 AMP.<br>2DH5 / 6 slot<br><strong>Question.2</strong></p>
-</blockquote>
-<p>Synchronization Train 是什么？</p>
-<blockquote>
-<p>A series of packets transmitted on a set of fixed fre- quencies that deliver sufficient information for a receiv- ing device to start receiving corresponding Connectionless Slave Broadcast packets or to recover the current piconet clock after missing a Coarse Clock Adjust.</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -2277,7 +2264,7 @@ cond(no)->op
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-count">65</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
