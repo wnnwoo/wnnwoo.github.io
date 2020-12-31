@@ -338,6 +338,206 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/12/nimble-adv/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wen Wu">
+      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wen Wu's notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/01/12/nimble-adv/" class="post-title-link" itemprop="url">nimble advertising</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-01-12 13:21:55" itemprop="dateCreated datePublished" datetime="2020-01-12T13:21:55+08:00">2020-01-12</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-01-19 23:51:55" itemprop="dateModified" datetime="2020-01-19T23:51:55+08:00">2020-01-19</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Nimble/" itemprop="url" rel="index"><span itemprop="name">Nimble</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>今天顺利将美人鱼（<a href="https://mermaid-js.github.io/mermaid/#/">Mermaid</a>）插件装上，整理一张时序图：</p>
+<pre class="mermaid">sequenceDiagram
+NPL->>HCI:BLE_HCI_OCF_LE_SET_ADV_ENABLE
+HCI->>HCI:ble_ll_hci_cmd_proc()
+HCI->>ADV: ble_ll_hci_adv_set_enable()
+note over ADV: ble_ll_adv_sm_start()
+ADV->>Scheduler: ble_ll_sched_adv_new()
+Scheduler->>Scheduler: ble_ll_sched_run()
+note over Scheduler: ble_ll_sched_execute_item()
+Scheduler->>ADV: ble_ll_adv_tx_start_cb()
+ADV->>PHY: ble_phy_tx()
+PHY->>ADV: ble_ll_adv_tx_done()
+ADV->>NPL: adv_txdone_ev
+NPL->>ADV: ble_ll_adv_event_done()
+note over ADV: ble_ll_adv_done()
+note over ADV: ble_ll_adv_reschedule_event()
+ADV-->>Scheduler: ble_ll_sched_adv_reschedule()
+RADIO->>PHY: RADIO_IRQn
+note over PHY: ble_phy_isr()
+note over PHY: ble_phy_rx_start_isr()
+PHY->>ADV: ble_ll_adv_rx_isr_start()
+note over PHY: ble_phy_rx_end_isr()
+PHY->>ADV: ble_ll_adv_rx_isr_end()
+note over ADV: ble_ll_adv_rx_req()
+ADV->>PHY:ble_phy_tx(ble_ll_adv_scan_rsp_legacy_pdu_make)
+NPL->>LL: ble_ll_event_rx_pkt()
+LL->>LL: ble_ll_rx_pkt_in()
+LL->>ADV: ble_ll_adv_rx_pkt_in()
+note over ADV: ble_ll_adv_conn_req_rxd()
+ADV->>CONN: ble_ll_conn_slave_start()
+note over ADV: ble_ll_adv_sm_stop()
+note over CONN: ble_ll_conn_created()
+CONN->>Scheduler:ble_ll_sched_slave_new()
+note over CONN: ble_ll_conn_next_event()</pre>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/11/why-fpga/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1848,159 +2048,6 @@
   </article>
 
     
-        
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/17/time-management/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wen Wu">
-      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wen Wu's notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/11/17/time-management/" class="post-title-link" itemprop="url">纯时间与毛时间</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-17 15:29:09" itemprop="dateCreated datePublished" datetime="2019-11-17T15:29:09+08:00">2019-11-17</time>
-            </span>
-          
-
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/阅读/" itemprop="url" rel="index"><span itemprop="name">阅读</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          
-
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>  第一次看到这个比较新鲜精确的概念：<strong>纯时间</strong>与<strong>毛时间</strong><br>  比如你说你一天上班工作的时间是8小时，但实际上只有2小时是真正在工作的，其他时间可能在做无意义的发呆或是刷微信。那这8小时就是工作的毛时间，2小时就是工作的纯时间。<br>这个概念是在<a href="https://book.douban.com/subject/1115353/">《奇特的一生》</a>这本书里提到的，在豆瓣上评分还挺高。作者描述了俄罗斯科学家柳比歇夫的时间统计法，用日期+事件+花费时间的方式来记录自己一天所做的事情，并坚持了56年，没有一天断过。柳比歇夫在每周，每月，每年都对自己记录的时间做总结，看哪项事件用了多久，可以精确到分钟。这样有个好处是自己对时间的估算是非常精确的。除了做总结，柳比歇夫还对自己一生的时间做五年规划，每过五年，他就把度过的时间和干过的事分析一通，可以说是做个总的鉴定，总结能客观公正的反映过去一年的历史，抓住变化无常的老想溜掉的日常生活，抓住我们没有擦觉到的损失掉的不知去向的时间。<br>  他能准确的感知时间，精确到1分钟，对他来说，时间的急流事看得见，摸得着的，他仿佛置身于这急流之中，觉得出来光阴冷冰冰的流逝。<br>  然而对于没有远大目标的人来说，这个方法很难坚持下去，坚持也不见得有意义。<br>  我自己每天会做日记记录做了那几件事情，但是还没有做过总结，只是对比下去年同一天在干啥，看起来还挺有意思的。看了这本书有一种豁然开朗的感觉，原来还有记录这么细致的日记，而且对自己的时间剖析的这么认真。 </p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -2048,7 +2095,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-count">69</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2221,7 +2268,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
