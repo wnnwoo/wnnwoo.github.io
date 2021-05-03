@@ -338,6 +338,328 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/01/bluetooth-long-range/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wen Wu">
+      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wen Wu's notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/11/01/bluetooth-long-range/" class="post-title-link" itemprop="url">如何增加蓝牙传输距离</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-11-01 18:24:05" itemprop="dateCreated datePublished" datetime="2020-11-01T18:24:05+08:00">2020-11-01</time>
+            </span>
+          
+
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Bluetooth/" itemprop="url" rel="index"><span itemprop="name">Bluetooth</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>蓝牙一直以来的卖点都是低功耗，不过低功耗的代价是传输距离短，大概也就是30米的样子。为了增加蓝牙通信距离，SIG一直在努力：</p>
+<ul>
+<li>推出 Coded PHY，在编码中加入更多的冗余数据，接收方可以尽可能的恢复数据，TI测试出来的距离有大概1.5KM。</li>
+<li>推出BLE Mesh，原理是让各个蓝牙节点可以通过广播来接力传输数据，达到长距离传输的目的。而要想接力传输，各个节点就不得不既要扫描又要发送数据包，这又丧失了BLE的立身之本，所以在Mesh的规范里又对mesh网络的拓扑结构做了很多规定以节约功耗，如下图，感兴趣的同学可以翻翻<a href="https://www.bluetooth.com/specifications/mesh-specifications/">Spec</a>。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothLongRange/MeshTop.png" alt></li>
+<li>还有6LOWPAN，让蓝牙数据从L2CAP层接到IP，借助以太网或是wifi来增加传输距离。</li>
+</ul>
+<p>厂家的思路就有点开阔了：</p>
+<ul>
+<li><p><a href="https://www.thetileapp.com">Tile</a>这个公司是做防丢追踪器的。比如买个防丢设备挂到钥匙圈上，你就可以通过手机app去找倒钥匙圈。还有一家智能耳机厂商Skullcandy原生就支持这个app，可以直接通过手机找耳机，不需要再在耳机上挂个防丢器。不过Tile做的比较有创意的地方是该公司运营了一个社区。假如你的设备丢了，你可以在手机app上启动“社区寻找”的功能，让所有支持社区搜寻的手机帮你找设备，借助社区的力量结局了距离的问题。比如你出差的时候，耳机丢在了美国的酒店，你回国后在家里触发这个社区搜寻的功能，而酒店有服务员的手机支持社区搜寻的功能而且搜到了你的耳机，那你就能看到自己的耳机在这家酒店，就可以通知酒店帮你找找看。</p>
+<p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothLongRange/CommunityFound.png?x-oss-process=image/resize,p_50" alt></p>
+</li>
+<li><p><a href="https://www.apptricity.com/i-connect-ultra-long-range-bluetooth-beacon/">Apptricity</a>这家公司则号称可以让蓝牙传输距离增加到20迈（36公里），可是实在查不到到底是怎么做到的，在IEEE的一篇文章<a href="https://spectrum.ieee.org/tech-talk/telecom/wireless/apptricity-beams-bluetooth-signals-over-20-miles">Apptricity Beams Bluetooth Signals Over 30 Kilometers</a>很吝啬的提了一句说它们借助了激光的思想，怎么个借助法就再没提提了，最牛的是说他们在与军方的合作的非商业版里已经做到了80～120公里，天啊，这还是蓝牙吗，还有必要用蓝牙吗。</p>
+<blockquote>
+<p>The key new wrinkle, according to Apptricity’s CEO Tim Garcia, is precise tuning within the Bluetooth spectrum. Garcia says it’s the same principle as a tightly-focused laser beam. A laser beam will travel farther without its signal weakening beyond recovery if the photons making up the beam are all as close to a specific frequency as possible. Apptricity’s Bluetooth beacons use firmware developed by the company to achieve such precise tuning, but with Bluetooth signals instead of photons. Thus, data can be sent and received by the beacons without interfering and without requiring unwieldy amounts of power.<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothLongRange/Bluetooth-20Miles.png?x-oss-process=image/resize,p_50" alt></p>
+</blockquote>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/27/people-lifecycle/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wen Wu">
+      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wen Wu's notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/09/27/people-lifecycle/" class="post-title-link" itemprop="url">我们的时间都花在哪里了</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-09-27 07:07:19" itemprop="dateCreated datePublished" datetime="2020-09-27T07:07:19+08:00">2020-09-27</time>
+            </span>
+          
+
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/经济学/" itemprop="url" rel="index"><span itemprop="name">经济学</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>看完下面这张图，你会发现你真正投入到工作上的时间在一辈子看来很少，所以你努力不了多少年，努力跟选择相比较，是选择更重要。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/LifeCycleOfPeople/LifeCyclePeople.png" alt></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/26/ray-china/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1656,449 +1978,6 @@
   </article>
 
     
-        
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/09/nimble-esp32/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wen Wu">
-      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wen Wu's notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/03/09/nimble-esp32/" class="post-title-link" itemprop="url">nimble on ESP32</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-03-09 20:49:41" itemprop="dateCreated datePublished" datetime="2020-03-09T20:49:41+08:00">2020-03-09</time>
-            </span>
-          
-
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Nimble/" itemprop="url" rel="index"><span itemprop="name">Nimble</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          
-
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>   从好友Yufeng那里得知Nimble有在ESP32上落地，刚好手头有一片ESP-WRCOM-32，手痒痒就download了一份ESP32的<a href="https://github.com/espressif/esp-idf">IDF</a> 玩下。<br><a href="https://docs.espressif.com/projects/esp-idf/en/stable/get-started/#get-started-connect">Getting Start</a> 写的真心不错，简单明了，照着操作步骤一步一步跑就能跑起来Nimble的example project。不过ESP32只用了Nimble的Host，没有用Controller的部分，毕竟ESP32是Combo chip，Nimble Controller Scheduler没有考虑过Wifi的部分。</p>
-<blockquote>
-<ul>
-<li>ESP32文档很很赞，花了大力气做宣传，内容挺丰富，也很正规，YouTube也有很多教学视频。</li>
-<li>还挺开放，放了不少源码出来，包括ble mesh等。</li>
-<li>不知道为啥没有自己的Host，之前用bluedroid，footprint没啥优势。</li>
-</ul>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">I (0) cpu_start: App cpu up.</span><br><span class="line">I (386) heap_init: Initializing. RAM available for dynamic allocation:</span><br><span class="line">I (393) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM</span><br><span class="line">I (399) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM</span><br><span class="line">I (405) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM</span><br><span class="line">I (411) heap_init: At 3FFBDB5C len 00000004 (0 KiB): DRAM</span><br><span class="line">I (417) heap_init: At 3FFC3B68 len 0001C498 (113 KiB): DRAM</span><br><span class="line">I (424) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM</span><br><span class="line">I (430) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM</span><br><span class="line">I (436) heap_init: At 40093CE0 len 0000C320 (48 KiB): IRAM</span><br><span class="line">I (443) cpu_start: Pro cpu start user code</span><br><span class="line">I (461) spi_flash: detected chip: gd</span><br><span class="line">I (461) spi_flash: flash io: dio</span><br><span class="line">W (462) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.</span><br><span class="line">I (472) cpu_start: Starting scheduler on PRO CPU.</span><br><span class="line">I (0) cpu_start: Starting scheduler on APP CPU.</span><br><span class="line">I (557) BTDM_INIT: BT controller compile version [fd2a63b]</span><br><span class="line">I (557) system_api: Base MAC address is not set</span><br><span class="line">I (557) system_api: read default base MAC address from EFUSE</span><br><span class="line">I (657) phy: phy_version: 4180, cb3948e, Sep 12 2019, 16:39:13, 0, 0</span><br><span class="line">I (887) NimBLE_BLE_PRPH: BLE Host Task Started</span><br><span class="line">I (897) uart: queue free spaces: 8</span><br><span class="line">Device Address: 80:7d:3a:d7:f1:56</span><br><span class="line">GAP procedure initiated: advertise; disc_mode=2 adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=0 adv_itvl_max=0</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-        
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/29/how-to-pick-career/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wen Wu">
-      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wen Wu's notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/02/29/how-to-pick-career/" class="post-title-link" itemprop="url">如何寻找一份适合你的职业</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-02-29 23:46:38" itemprop="dateCreated datePublished" datetime="2020-02-29T23:46:38+08:00">2020-02-29</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-04-05 18:06:38" itemprop="dateModified" datetime="2020-04-05T18:06:38+08:00">2020-04-05</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/阅读/" itemprop="url" rel="index"><span itemprop="name">阅读</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          
-
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>一篇有深度的好文<a href="https://waitbutwhy.com/2018/04/picking-career.html">How to Pick a Career</a>，大约需要6小时读完。<br>作者Tim Urban以写长<a href="https://waitbutwhy.com">博客</a>著称，讲话很幽默，这里有一个他在TED的关于拖延症的<a href="https://www.ted.com/talks/tim_urban_inside_the_mind_of_a_master_procrastinator?language=zh-cn">讲座</a>，可以一睹他的真容，挺接地气的一个小伙。</p>
-<h2 id="先甩个锅"><a href="#先甩个锅" class="headerlink" title="先甩个锅"></a>先甩个锅</h2><p>先声明的是这篇文章只算是一个路标，我们是路人，到底要不要按照路标去走，纯粹是个人的事情。</p>
-<blockquote>
-<p> 这个是混沌大学李善友老师用来给自己甩锅的一句话，哈哈。<br> 李老师总是想给别人一些指导，压力巨大，怕给人指错了，后来他就用这个路标和路人的关系给自己甩锅。</p>
-</blockquote>
-<h2 id="做自己人生的CEO，为自己负责"><a href="#做自己人生的CEO，为自己负责" class="headerlink" title="做自己人生的CEO，为自己负责"></a>做自己人生的CEO，为自己负责</h2><p>我们生下来后就象是弱弱的小蝌蚪被放在既定好的河流上漂流（见下图），这个河流我们是没办法选的(就是说投胎投到哪儿没办法选)，这个时候有父母师长管理我们的成长，做我们的CEO；但是到大学一毕业，我们两眼抹黑，啥也不会(skill-less and knowledge-less and a lot of other things-less)，突然间要做我们自己人生的CEO，真的很难。这篇文章介绍了一个寻找真我（your real self），寻找适合自己工作的一个方法论（framework）。</p>
-<blockquote>
-<ul>
-<li>我们中的有些人会发现自己是一只可爱的小狗，它最想做的事儿就是取悦它的主人，不能忍受主人对它的失望，很悲惨的是这个主人往往不是它自己，是那些心理上比你强大的人，如果你不小心，你几十年的的职业生涯只是去取悦他们使他们骄傲。这个他们很可能是你的父母。</li>
-<li>作者回顾了一下自己的经历，觉得最让他烦恼的是：其他人掌控你的思想，压制了真实的你的声音。<br>  “未来我的目标不是不犯错误，而是只犯我自己犯的错误”。</li>
-</ul>
-</blockquote>
-<p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/HowToSelectCareer/river-2.png?x-oss-process=image/resize,p_50" alt><br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/HowToSelectCareer/helpless-shore-2.jpg?x-oss-process=image/resize,p_30" alt></p>
-<h2 id="人的一生中真正做有意义事情的时间真的很少，所以请认真选择自己的工作"><a href="#人的一生中真正做有意义事情的时间真的很少，所以请认真选择自己的工作" class="headerlink" title="人的一生中真正做有意义事情的时间真的很少，所以请认真选择自己的工作"></a>人的一生中真正做有意义事情的时间真的很少，所以请认真选择自己的工作</h2><h4 id="工作大致上可以比作两类：大厨（Chef）和厨子（cook）"><a href="#工作大致上可以比作两类：大厨（Chef）和厨子（cook）" class="headerlink" title="工作大致上可以比作两类：大厨（Chef）和厨子（cook）"></a>工作大致上可以比作两类：大厨（Chef）和厨子（cook）</h4><ul>
-<li>大厨的思维：用各种食材、经历各种尝试，弄出一盘菜。<blockquote>
-<p>大厨要付出非常多的时间和精力，就像是带着眼罩，在一个诡异的森林里寻找出路，要经历非常多的失败、尝试。<br>做大厨大多数情况下非常耗时间，所以机会成本也高。</p>
-</blockquote>
-</li>
-<li>厨子的思维：照着大厨给的配方直接炒菜就好了，比较轻松，不用动太多脑子。适合不把工作当回事儿的人。</li>
-</ul>
-<p>人的一生总共750000小时（=750000/24/365=85.6年，可能是美国人的平均寿命），那么这么多万个小时都是怎么度过的呢？</p>
-<blockquote>
-<ul>
-<li>童年+青春期有 175000小时（=175000/24/365=20年）</li>
-<li>吃喝玩乐+睡觉 325000小时（37年）</li>
-<li>还剩下250000个小时（28.5年）是可以去做有意义的事情，其中20%～60%用在工作上，约50000到150000个小时，就是6年到17年的时间。<blockquote>
-<p>而你的工作时间又会极大的影响你的生活，你的影响力，你对自己的身份认同，所以一定要慎重选择自己的工作，别到老了才后悔（象苏大强那样儿）。</p>
-<blockquote>
-<p>苏大强有个账本，记录了三个娃每个人从小到大的花销，在妻子去世后，他就靠这个账本跟孩子们要钱过活，过的相当滋润。</p>
-</blockquote>
-</blockquote>
-</li>
-</ul>
-</blockquote>
-<p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/HowToSelectCareer/Time-Pie-Chart.png?x-oss-process=image/resize,p_80" alt></p>
-<h2 id="那么如何选择一份职业呢？"><a href="#那么如何选择一份职业呢？" class="headerlink" title="那么如何选择一份职业呢？"></a>那么如何选择一份职业呢？</h2><p>先看这个文尼图，用Want Box来记录你能想到的你想做的所有职业，用Reality Box来记录那些根据你潜力你应该能从事的职业，那么这两个Box的交集就是你要的职业，你要努力的方向。中间交集的地方每个点代表一份职业，这些个点还带个小箭头，如果你从事的很多份职业的方向是大致一致的，那么你就不得了，越积累越厉害。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/HowToSelectCareer/want-reality-venn.png?x-oss-process=image/resize,p_30" alt></p>
-<h3 id="先来看下如何填-Want-Box"><a href="#先来看下如何填-Want-Box" class="headerlink" title="先来看下如何填 Want Box"></a>先来看下如何填 Want Box</h3><p>这个章鱼图，从5个纬度来把职业做了大致分类，你可以根据你自己的爱好，把你自己想做的职业分布到这几个维度里。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/HowToSelectCareer/Octopus-3-segmented-1.png?x-oss-process=image/resize,p_50" alt></p>
-<ul>
-<li>Personal: 自我实现型<blockquote>
-<p>职业是为了自我实现，彰显个性，体现自我。那些很成功，但是不开心的人，往往会认为自己的成功是错误的。<br>很多人迫于生计或是其他原因从事的是其他几个类型的职业，过了很多年才发现不是自己所要的。</p>
-</blockquote>
-</li>
-<li>Social: 社会型<blockquote>
-<p>这类职业是比较有社会地位那种：医生，律师，公务员。<br>这种职业是我们最基本的，动物性一面的体现，可以追溯到我们祖先的部落生活，在部落里要想生存，就得合群，相互照应，最好能有权力，掌握资源，给自己多分几口肉吃。</p>
-</blockquote>
-</li>
-<li>Moral: 道德型<blockquote>
-<p>比如你一想到很多非洲儿童食不果腹，衣不蔽体，你就吃不下饭，你觉得自己是个好人，应该做点啥。<br>这类职业比如很多NGO组织，临终关怀组织等等。</p>
-</blockquote>
-</li>
-<li>Practical: 实在型<blockquote>
-<p>工作就是为了买房买车，为了赡养家人，无他。</p>
-</blockquote>
-</li>
-<li>Lifestyle: 安逸型<blockquote>
-<p>就是希望压力能少点，能有足够的自由时间可以让自己去吃喝玩乐。<br>但这又很矛盾，你当下轻松了，可能长远的看并不轻松，只是把问题留到了将来。</p>
-</blockquote>
-</li>
-</ul>
-<p>可能你想做的工作不是在一个种类里，那也正常，证明你有多面性，而且可能不同年龄段想做的职业也不一样。</p>
-<h4 id="下一步就是分析下到底哪些是真实的你想做的事情"><a href="#下一步就是分析下到底哪些是真实的你想做的事情" class="headerlink" title="下一步就是分析下到底哪些是真实的你想做的事情"></a>下一步就是分析下到底哪些是真实的你想做的事情</h4><p>你想做某个职业的想法，可能是其他人安插到你大脑里的（可能是父母，或是你看的某本书里的一个英雄）。这个一定要分析得透彻，非常重要，甚至你自己都挖不出来真实的你在想什么，可能被打压的过分，隐藏的太深了。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/HowToSelectCareer/mom-mask-4.png?x-oss-process=image/resize,p_50" alt><br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/HowToSelectCareer/friends-mask-6.png?x-oss-process=image/resize,p_50" alt><br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/HowToSelectCareer/denial-prison-2.png?x-oss-process=image/resize,p_50" alt></p>
-<h4 id="确定好你要做的职业后，就按照优先级排下序。"><a href="#确定好你要做的职业后，就按照优先级排下序。" class="headerlink" title="确定好你要做的职业后，就按照优先级排下序。"></a>确定好你要做的职业后，就按照优先级排下序。</h4><p>作者用一个书架来比喻，在书架上面放了一个碗，这里面装的是最高优先级的，书架里三个格子，从上到下优先级逐级降低，旁边是个垃圾桶。</p>
-<ul>
-<li>NN Bowl：这块是你认为最重要的，你愿意投入足够的时间、牺牲掉所有其它欲望去做的职业。这个碗很小，你最好只放一个东西在里面。<blockquote>
-<p>世界上很多牛人在某一方面做到最强，都是在内心中的NN bowl非常强烈，当然代价也很大，要牺牲的可能是朋友家人关系，甚至是自己的健康。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/HowToSelectCareer/yearning-hierarchy-2.png?x-oss-process=image/resize,p_80" alt></p>
-</blockquote>
-</li>
-</ul>
-<h3 id="再来看下Reality-Box"><a href="#再来看下Reality-Box" class="headerlink" title="再来看下Reality Box"></a>再来看下Reality Box</h3><p>你要根据你了解的世界和你的潜力做一个评估，评估根据你的潜力去实现在某个职业中的成功所需要的难度。</p>
-<ul>
-<li>潜力就是如果你有足够的时间，你在该职业内能做到足够好达到职业或行业内的成功吗？<br>下图中A代表你目前所处的位置，星表示成功点，他们之间的距离就是实现成功的难度。</li>
-<li>要注意的是“星”并不单纯指的是技术修炼到最好，指的是在整个行业内玩的好。<br>— 比如你想做个好莱坞影星，并不是说你的演技跟摩根弗里曼一样好就行的，你需要有机会去有权力的人那里去表现获得赏识，你需要谦逊和有足够的耐力一直坚持等等，才能有可能成为一线影星。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/HowToSelectCareer/A-star-1-1.png" alt><br>如果你是个学计算机的学生，你的梦想是成为google公司的一个软件工程师，那难度可能不大。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/HowToSelectCareer/A-star-2-1.png" alt><br>如果你想弄个新google出来，那难度可能就非常大了<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/HowToSelectCareer/A-star-4-2.png" alt></li>
-</ul>
-<p>那么如何计算你达到“星”的机会呢，请看下面这个公式<br>Progress = Pace x Persistence.<br>机会 = 步长 * 坚持</p>
-<h4 id="步长"><a href="#步长" class="headerlink" title="步长"></a>步长</h4><ul>
-<li>你做为大厨思维有多少决定了你进步有多快<blockquote>
-<p>工作就像个复杂的游戏，基本上每个人开头都很难，而大厨可以根据下图所示迅速进展。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/HowToSelectCareer/Chef-Strategy-Loop-1-768x687.png?x-oss-process=image/resize,p_50" alt></p>
-</blockquote>
-</li>
-<li>你的工作精神<blockquote>
-<p>一周工作60小时，一年工作50周的人要比一周工作20小时，一年工作40周的人进展快。<br>选择工作生活平衡的人，要比一根筋儿的工作狂（workaholic）进展慢。<br>经常中断工作做白日梦或玩手机的人要比能集中精力工作的人进展慢。</p>
-</blockquote>
-</li>
-<li>你的天赋<blockquote>
-<p>在职业相关的领域有天赋的，进展更快。<br>比如你的职业是社会型的，那如果自己在人际关系处理上有天赋，对建立深入的社会关系有心得，那就做起来得心应手。</p>
-</blockquote>
-</li>
-</ul>
-<h4 id="坚持"><a href="#坚持" class="headerlink" title="坚持"></a>坚持</h4><p>工作时马拉松，不是短跑。不只是几年的投入，可能要几十年。</p>
-<p>那么接下来就开始填写你的Reality Box吧，总结起来是5个方面：</p>
-<p>1) 尽力去了解整个职业的全貌，比如之前的例子，相当好莱坞影星，不仅仅是要演技好，还有其他方面要补，比如要认识哪些大佬，自己平时是不是要穿的拉风点。<br>2) 职业平台有多大？规则有哪些？<br>3) 评估你目前所处的位置，你掌握的技能，跟该职业是否有关系？<br>4) 你要做到在该职业内的成功是什么样儿？<br>5）评估你的步长。根据你现在的能力，你预计能跑多快。</p>
-<blockquote>
-<p>你想去google当工程师，那你是不是先花4年读个计算机学位？还是你觉得自学要比去学校更快？<br>6）你愿意投入多少时间在这份职业上，是三年五年，还是10年</p>
-</blockquote>
-<p>经过一番深入分析，你的optional pool里应该有了新的小圆点。</p>
-<blockquote>
-<p>有些自我感觉良好的人可能经过这么一轮分析，觉得自己跌落神坛了，但是没关系，这轮分析至少可以让你对自己的职业选择做个聚焦。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/HowToSelectCareer/venn-1.png?x-oss-process=image/resize,p_30" alt></p>
-</blockquote>
-<p>那么接下来，你该在你的optional pool里选一个职业了，这个确实很难决定。<br>你可能会认为职业是需要40年的坚持的，直到退休，如下图。不过这个只是个传统的想法。</p>
-<ul>
-<li>根据调查，现在的年轻人从事一份职业的平均时间是3年，年长一点的人的这个时间平均是10.4年。</li>
-<li>如果你一定要这样看的话，你可能会有身份危机，不知道自己现在以及几十年后变成什么样子。</li>
-<li>而且你可能不敢去换工作，即使是你的内心真的想这么做。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/HowToSelectCareer/tunnels-2.png?x-oss-process=image/resize,p_50" alt></li>
-</ul>
-<p>你应该把你的职业想象成一些列连起来的点</p>
-<ul>
-<li>这些个点就象是在做科学实验，一步步逼近你要的东西。</li>
-</ul>
-<p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/HowToSelectCareer/opportunity-cost-2.png?x-oss-process=image/resize,p_50" alt></p>
-<p>关于坚持，不得不注意下，如果在一个错误的职业上坚持意义也不大，如果过早的退出一份职业也不是好事儿。</p>
-<ul>
-<li>下图中最左端穿水泥鞋子的人，不敢换工作，在一个错误的职业得过且过。</li>
-<li>最右端鞋子长羽毛的人换职业又太快。</li>
-</ul>
-<p>据心理学家研究，人之将死的时候一般都会对自己的惰性有点遗憾“我希望我能早点退出”，“不要作自己不喜欢的工作”<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/HowToSelectCareer/inertia-spectrum.png?x-oss-process=image/resize,p_80" alt></p>
-<p>最后你应该是如下图的一个状态，随着你认知的不断升级，你可能会不断发现自己喜欢的职业，并不断优化自己，直到达到自己心目中的成功。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/HowToSelectCareer/venn-with-big-loop-small.png?x-oss-process=image/resize,p_30" alt></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -2146,7 +2025,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">74</span>
+          <span class="site-state-item-count">76</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2193,7 +2072,9 @@
         
           
         
-        <span class="site-state-item-count">15</span>
+          
+        
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -2282,7 +2163,9 @@
         
           
         
-        <span class="site-state-item-count">36</span>
+          
+        
+        <span class="site-state-item-count">37</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
