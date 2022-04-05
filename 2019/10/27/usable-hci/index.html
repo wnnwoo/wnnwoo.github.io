@@ -32,30 +32,30 @@
 
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=7.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=7.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=7.2.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
 
 
-  <link rel="mask-icon" href="/blog/images/logo.svg?v=7.2.0" color="#222">
-
-
-
-
-
-
-<link rel="stylesheet" href="/blog/css/main.css?v=7.2.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
 
 
 
 
 
 
-<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
 
 
 
@@ -67,7 +67,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/blog/',
+    root: '/',
     scheme: 'Gemini',
     version: '7.2.0',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
@@ -86,7 +86,7 @@
     },
     localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
     search: {
-      root: '/blog/',
+      root: '/',
       path: ''
     },
     tabs: true,
@@ -103,7 +103,7 @@
 <meta name="keywords" content="蓝牙规范">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HCI command笔记">
-<meta property="og:url" content="https://wnnwoo.gitee.io/blog/2019/10/27/usable-hci/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/10/27/usable-hci/index.html">
 <meta property="og:site_name" content="Wen Wu&#39;s notes">
 <meta property="og:description" content="规范 Vol2 的Part E，讲HCI command的第7章有几个command，看起来很有用，这里list下 7.5.1 Read Faild Contact Counter command这个计数器(Failed_Contact_Counter，两个字节)是用来记录由于flush timeout到期（一般是因为空气中信号干扰比较多，数据包重传比较多）而flush掉的数据包的个数，在做bt">
 <meta property="og:locale" content="zh-CN">
@@ -123,7 +123,7 @@
 
   
   
-  <link rel="canonical" href="https://wnnwoo.gitee.io/blog/2019/10/27/usable-hci/">
+  <link rel="canonical" href="http://yoursite.com/2019/10/27/usable-hci/">
 
 
 
@@ -191,7 +191,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/blog/" class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">Wen Wu's notes</span>
         <span class="logo-line-after"><i></i></span>
@@ -233,7 +233,7 @@
 
     
 
-    <a href="/blog/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
 
   </li>
         
@@ -249,7 +249,7 @@
 
     
 
-    <a href="/blog/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
 
   </li>
         
@@ -265,7 +265,7 @@
 
     
 
-    <a href="/blog/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
 
   </li>
         
@@ -281,7 +281,7 @@
 
     
 
-    <a href="/blog/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
 
   </li>
         
@@ -297,7 +297,7 @@
 
     
 
-    <a href="/blog/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
 
   </li>
         
@@ -313,7 +313,7 @@
 
     
 
-    <a href="/blog/schedule/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>日程表</a>
+    <a href="/schedule/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>日程表</a>
 
   </li>
         
@@ -329,7 +329,7 @@
 
     
 
-    <a href="/blog/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>站点地图</a>
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>站点地图</a>
 
   </li>
 
@@ -375,12 +375,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://wnnwoo.gitee.io/blog/blog/2019/10/27/usable-hci/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/27/usable-hci/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wen Wu">
       <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -428,7 +428,7 @@
 
           
           
-            <span id="/blog/2019/10/27/usable-hci/" class="post-meta-item leancloud_visitors" data-flag-title="HCI command笔记">
+            <span id="/2019/10/27/usable-hci/" class="post-meta-item leancloud_visitors" data-flag-title="HCI command笔记">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -453,8 +453,8 @@
       <span class="post-meta-item-text">评论数：</span>
     
   
-    <a href="/blog/2019/10/27/usable-hci/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/blog/2019/10/27/usable-hci/" itemprop="commentCount"></span>
+    <a href="/2019/10/27/usable-hci/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/27/usable-hci/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -523,7 +523,7 @@
         
         <div class="post-tags">
           
-            <a href="/blog/tags/蓝牙规范/" rel="tag"># 蓝牙规范</a>
+            <a href="/tags/蓝牙规范/" rel="tag"># 蓝牙规范</a>
           
         </div>
       
@@ -536,7 +536,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2019/10/03/hexo-math/" rel="next" title="hexo 中启用数学公式">
+              <a href="/2019/10/03/hexo-math/" rel="next" title="hexo 中启用数学公式">
                 <i class="fa fa-chevron-left"></i> hexo 中启用数学公式
               </a>
             
@@ -546,7 +546,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/2019/11/11/code-running-env/" rel="prev" title="在线多语言运行环境">
+              <a href="/2019/11/11/code-running-env/" rel="prev" title="在线多语言运行环境">
                 在线多语言运行环境 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -617,7 +617,7 @@
     
       <div class="site-state-item site-state-posts">
         
-          <a href="/blog/archives/">
+          <a href="/archives/">
         
           <span class="site-state-item-count">80</span>
           <span class="site-state-item-name">日志</span>
@@ -631,7 +631,7 @@
       <div class="site-state-item site-state-categories">
         
           
-            <a href="/blog/categories/">
+            <a href="/categories/">
           
         
         
@@ -680,7 +680,7 @@
       <div class="site-state-item site-state-tags">
         
           
-            <a href="/blog/tags/">
+            <a href="/tags/">
           
         
         
@@ -917,41 +917,41 @@
 
 
   
-  <script src="/blog/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
 
   
-  <script src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
 
   
-  <script src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
 
 
 
-  <script src="/blog/js/utils.js?v=7.2.0"></script>
+  <script src="/js/utils.js?v=7.2.0"></script>
 
-  <script src="/blog/js/motion.js?v=7.2.0"></script>
-
-
-
-  
-  
-
-
-  <script src="/blog/js/affix.js?v=7.2.0"></script>
-
-  <script src="/blog/js/schemes/pisces.js?v=7.2.0"></script>
-
+  <script src="/js/motion.js?v=7.2.0"></script>
 
 
 
   
-  <script src="/blog/js/scrollspy.js?v=7.2.0"></script>
-<script src="/blog/js/post-details.js?v=7.2.0"></script>
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
 
 
 
-  <script src="/blog/js/next-boot.js?v=7.2.0"></script>
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
 
   
 
