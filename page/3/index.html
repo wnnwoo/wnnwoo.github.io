@@ -338,6 +338,203 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/01/bluetooth-long-range/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wen Wu">
+      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wen Wu's notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/11/01/bluetooth-long-range/" class="post-title-link" itemprop="url">如何增加蓝牙传输距离</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-11-01 18:24:05" itemprop="dateCreated datePublished" datetime="2020-11-01T18:24:05+08:00">2020-11-01</time>
+            </span>
+          
+
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Bluetooth/" itemprop="url" rel="index"><span itemprop="name">Bluetooth</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          
+            <span id="/2020/11/01/bluetooth-long-range/" class="post-meta-item leancloud_visitors" data-flag-title="如何增加蓝牙传输距离">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    
+      <span class="post-meta-item-text">评论数：</span>
+    
+  
+    <a href="/2020/11/01/bluetooth-long-range/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/01/bluetooth-long-range/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>蓝牙一直以来的卖点都是低功耗，不过低功耗的代价是传输距离短，大概也就是30米的样子。为了增加蓝牙通信距离，SIG一直在努力：</p>
+<ul>
+<li>推出 Coded PHY，在编码中加入更多的冗余数据，接收方可以尽可能的恢复数据，TI测试出来的距离有大概1.5KM。</li>
+<li>推出BLE Mesh，原理是让各个蓝牙节点可以通过广播来接力传输数据，达到长距离传输的目的。而要想接力传输，各个节点就不得不既要扫描又要发送数据包，这又丧失了BLE的立身之本，所以在Mesh的规范里又对mesh网络的拓扑结构做了很多规定以节约功耗，如下图，感兴趣的同学可以翻翻<a href="https://www.bluetooth.com/specifications/mesh-specifications/">Spec</a>。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothLongRange/MeshTop.png" alt></li>
+<li>还有6LOWPAN，让蓝牙数据从L2CAP层接到IP，借助以太网或是wifi来增加传输距离。</li>
+</ul>
+<p>厂家的思路就有点开阔了：</p>
+<ul>
+<li><p><a href="https://www.thetileapp.com">Tile</a>这个公司是做防丢追踪器的。比如买个防丢设备挂到钥匙圈上，你就可以通过手机app去找倒钥匙圈。还有一家智能耳机厂商Skullcandy原生就支持这个app，可以直接通过手机找耳机，不需要再在耳机上挂个防丢器。不过Tile做的比较有创意的地方是该公司运营了一个社区。假如你的设备丢了，你可以在手机app上启动“社区寻找”的功能，让所有支持社区搜寻的手机帮你找设备，借助社区的力量结局了距离的问题。比如你出差的时候，耳机丢在了美国的酒店，你回国后在家里触发这个社区搜寻的功能，而酒店有服务员的手机支持社区搜寻的功能而且搜到了你的耳机，那你就能看到自己的耳机在这家酒店，就可以通知酒店帮你找找看。</p>
+<p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothLongRange/CommunityFound.png?x-oss-process=image/resize,p_50" alt></p>
+</li>
+<li><p><a href="https://www.apptricity.com/i-connect-ultra-long-range-bluetooth-beacon/">Apptricity</a>这家公司则号称可以让蓝牙传输距离增加到20迈（36公里），可是实在查不到到底是怎么做到的，在IEEE的一篇文章<a href="https://spectrum.ieee.org/tech-talk/telecom/wireless/apptricity-beams-bluetooth-signals-over-20-miles">Apptricity Beams Bluetooth Signals Over 30 Kilometers</a>很吝啬的提了一句说它们借助了激光的思想，怎么个借助法就再没提提了，最牛的是说他们在与军方的合作的非商业版里已经做到了80～120公里，天啊，这还是蓝牙吗，还有必要用蓝牙吗。</p>
+<blockquote>
+<p>The key new wrinkle, according to Apptricity’s CEO Tim Garcia, is precise tuning within the Bluetooth spectrum. Garcia says it’s the same principle as a tightly-focused laser beam. A laser beam will travel farther without its signal weakening beyond recovery if the photons making up the beam are all as close to a specific frequency as possible. Apptricity’s Bluetooth beacons use firmware developed by the company to achieve such precise tuning, but with Bluetooth signals instead of photons. Thus, data can be sent and received by the beacons without interfering and without requiring unwieldy amounts of power.<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothLongRange/Bluetooth-20Miles.png?x-oss-process=image/resize,p_50" alt></p>
+</blockquote>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/27/people-lifecycle/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2061,195 +2258,6 @@
   </article>
 
     
-        
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/09/nimble-esp32/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wen Wu">
-      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wen Wu's notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/03/09/nimble-esp32/" class="post-title-link" itemprop="url">nimble on ESP32</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-03-09 20:49:41" itemprop="dateCreated datePublished" datetime="2020-03-09T20:49:41+08:00">2020-03-09</time>
-            </span>
-          
-
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Nimble/" itemprop="url" rel="index"><span itemprop="name">Nimble</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          
-            <span id="/2020/03/09/nimble-esp32/" class="post-meta-item leancloud_visitors" data-flag-title="nimble on ESP32">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读次数：</span>
-              
-                <span class="leancloud-visitors-count"></span>
-            </span>
-          
-
-          
-
-          
-            
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="fa fa-comment-o"></i>
-    </span>
-    
-      <span class="post-meta-item-text">评论数：</span>
-    
-  
-    <a href="/2020/03/09/nimble-esp32/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/09/nimble-esp32/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>   从好友Yufeng那里得知Nimble有在ESP32上落地，刚好手头有一片ESP-WRCOM-32，手痒痒就download了一份ESP32的<a href="https://github.com/espressif/esp-idf">IDF</a> 玩下。<br><a href="https://docs.espressif.com/projects/esp-idf/en/stable/get-started/#get-started-connect">Getting Start</a> 写的真心不错，简单明了，照着操作步骤一步一步跑就能跑起来Nimble的example project。不过ESP32只用了Nimble的Host，没有用Controller的部分，毕竟ESP32是Combo chip，Nimble Controller Scheduler没有考虑过Wifi的部分。</p>
-<blockquote>
-<ul>
-<li>ESP32文档很很赞，花了大力气做宣传，内容挺丰富，也很正规，YouTube也有很多教学视频。</li>
-<li>还挺开放，放了不少源码出来，包括ble mesh等。</li>
-<li>不知道为啥没有自己的Host，之前用bluedroid，footprint没啥优势。</li>
-</ul>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">I (0) cpu_start: App cpu up.</span><br><span class="line">I (386) heap_init: Initializing. RAM available for dynamic allocation:</span><br><span class="line">I (393) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM</span><br><span class="line">I (399) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM</span><br><span class="line">I (405) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM</span><br><span class="line">I (411) heap_init: At 3FFBDB5C len 00000004 (0 KiB): DRAM</span><br><span class="line">I (417) heap_init: At 3FFC3B68 len 0001C498 (113 KiB): DRAM</span><br><span class="line">I (424) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM</span><br><span class="line">I (430) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM</span><br><span class="line">I (436) heap_init: At 40093CE0 len 0000C320 (48 KiB): IRAM</span><br><span class="line">I (443) cpu_start: Pro cpu start user code</span><br><span class="line">I (461) spi_flash: detected chip: gd</span><br><span class="line">I (461) spi_flash: flash io: dio</span><br><span class="line">W (462) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.</span><br><span class="line">I (472) cpu_start: Starting scheduler on PRO CPU.</span><br><span class="line">I (0) cpu_start: Starting scheduler on APP CPU.</span><br><span class="line">I (557) BTDM_INIT: BT controller compile version [fd2a63b]</span><br><span class="line">I (557) system_api: Base MAC address is not set</span><br><span class="line">I (557) system_api: read default base MAC address from EFUSE</span><br><span class="line">I (657) phy: phy_version: 4180, cb3948e, Sep 12 2019, 16:39:13, 0, 0</span><br><span class="line">I (887) NimBLE_BLE_PRPH: BLE Host Task Started</span><br><span class="line">I (897) uart: queue free spaces: 8</span><br><span class="line">Device Address: 80:7d:3a:d7:f1:56</span><br><span class="line">GAP procedure initiated: advertise; disc_mode=2 adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=0 adv_itvl_max=0</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -2297,7 +2305,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2453,7 +2461,9 @@
         
           
         
-        <span class="site-state-item-count">40</span>
+          
+        
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
