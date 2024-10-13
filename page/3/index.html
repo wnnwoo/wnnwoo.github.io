@@ -338,6 +338,196 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/03/bluetooth-cemetery/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wen Wu">
+      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wen Wu's notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2021/01/03/bluetooth-cemetery/" class="post-title-link" itemprop="url">蓝牙墓碑</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-01-03 17:22:50" itemprop="dateCreated datePublished" datetime="2021-01-03T17:22:50+08:00">2021-01-03</time>
+            </span>
+          
+
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Bluetooth/" itemprop="url" rel="index"><span itemprop="name">Bluetooth</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          
+            <span id="/2021/01/03/bluetooth-cemetery/" class="post-meta-item leancloud_visitors" data-flag-title="蓝牙墓碑">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    
+      <span class="post-meta-item-text">评论数：</span>
+    
+  
+    <a href="/2021/01/03/bluetooth-cemetery/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/01/03/bluetooth-cemetery/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>  看到这个<a href="https://www.cool3c.com/article/158691">新闻</a>，想到公司居然无意中有了进入殡葬行业的潜力，纯属意外。只是同事们去客户支持的时候估计会非常的为难。</p>
+<blockquote>
+<p>   “X 工，明天你去哪儿出差？”<br>   “呜呜，Y墓地”“<br>   “哈哈，是啥bug呀？”<br>   “客户的客户拜错了先人！客户被打的很惨！令人惊悚的是，据说这个issue是seldom的，我得要去debug了，你说我难不难呀！求你跟我一起去，好不？壮个胆儿？”<br>   “别呀！我可不想去挨打！”</p>
+</blockquote>
+<p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothCemetery/bluetooth-cemetery-1.png" alt><br>这个极其富有新意的产品，共享墓地，是由日本千叶县的八千代墓园推出的。一块墓地可以放35个骨灰盒，这在地少人多的日本来说，是个很可贵的创意。共享墓地通过一块带有显示屏以及蓝牙模块的墓碑来达到共享的目的，目前相对便宜的价格应该是最大的卖点。一块普通墓地的价格是<a href="https://japantoday.com/category/features/lifestyle/Bluetooth-tombstones-help-you-mourn-loved-ones-without-breaking-the-bank">700万日元</a>，而共享之后是每位29万日元，略大于700万/35=20万。那些担不起昂贵墓地的家庭，就可以考虑选择这样的共享墓地作为家人的长眠之地。具体如何共享的呢？<br>重点在这块屏幕上，屏幕可以根据来访人的身份识别信息变换显示内容。当家属或亲友来致意时，需要带上一个事先在墓园注册过的特殊的护身符（“蓝牙御守”）。当这个护身符靠近墓碑时，墓碑上的蓝牙模块捕获到这个身份识别信息就提前将相对应的作古之人的相关信息显示出来，信息可以是文字，也可以是图片，不拘泥于形式。更为重要的是，这块屏幕上的信息是可定制的，墓园可以从另外一个角度来满足客户需求，增加营收，而跳出目前仅仅拘泥于收取管理费这一种形式。<br> <img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BluetoothCemetery/bluetooth-cemetery-2.png" alt><br>想象下使用到的蓝牙技术也应该比较简单。蓝牙御守做BLE广播，广播自己的ID号，保险起见，ID号千万要加密。蓝牙墓碑做搜索，搜索到ID后，就去匹配保存在数据库里的相关信息，再刷到屏幕上。</p>
+<ul>
+<li>蓝牙御守可以做到非常便宜。<br>里面放一颗只支持BLE的蓝牙芯片，配一颗纽扣电池，用个3到5年绝对不成问题，广播的频率可以做到非常低，毕竟一年也做不了几次扫墓。想更进一步省电的话，也可以放一颗重力感应传感器，只在感知到移动的时候开蓝牙广播。</li>
+<li>共享墓碑的成本可能就要高些了。<br>一块很大的屏幕是刚需，如果要普通墓碑那么大，那就更贵了。一定得配一个MCU来驱动屏幕，如果要更具有扩展行性的话，可以配个好点的带图形加速器的MCU以显示更炫一点的画面。这个应用场景上蓝牙的功能就比较单一了，能稳定的扫描广播数据就行，一般的蓝牙模组就够用。当然也可以配个蓝牙和wifi共存的模块，将来可以从远端支持客户对屏幕显示信息的定制，不用经常跑到墓碑这里来更新数据库。墓碑可以根据客户需求在不同时间显示不同的内容。这样想起来，如果人们的接受度能慢慢起来的话，各种需求就会慢慢的进来，还是可以做不少事情。<br>同样地，独立墓地的墓碑也可以做到定制。假如作古之人在世的时候是个CS高手，那可以把背景定制成他生前喜欢玩的任何一个区的场景；假如他喜欢爬山，那可以把背景定义成攀登者的圣地珠穆朗玛峰；如果喜欢《三体》，可以定制个半人马星座放在背景，等等。</li>
+</ul>
+<p>这个市场总的容量目前应该非常非常的小，毕竟一般家庭也不愿意家人在去世后还要跟别人挤在一块墓地，如果你去过墓园的话，你会看到即使是独立墓地也是很拥挤的。而且一般墓园也不愿意劳这个神去为这么少的客户去做这个事。不过也许随着老龄化的发展，墓地的价格最后一定会变得越来越高，大家对这个也许慢慢能接受了。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/01/men-women/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2038,187 +2228,6 @@
   </article>
 
     
-        
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/28/ble-spec-introduction/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wen Wu">
-      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wen Wu's notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/05/28/ble-spec-introduction/" class="post-title-link" itemprop="url">关于BLE的好文</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-05-28 22:04:12" itemprop="dateCreated datePublished" datetime="2020-05-28T22:04:12+08:00">2020-05-28</time>
-            </span>
-          
-
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/蓝牙/" itemprop="url" rel="index"><span itemprop="name">蓝牙</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          
-            <span id="/2020/05/28/ble-spec-introduction/" class="post-meta-item leancloud_visitors" data-flag-title="关于BLE的好文">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读次数：</span>
-              
-                <span class="leancloud-visitors-count"></span>
-            </span>
-          
-
-          
-
-          
-            
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="fa fa-comment-o"></i>
-    </span>
-    
-      <span class="post-meta-item-text">评论数：</span>
-    
-  
-    <a href="/2020/05/28/ble-spec-introduction/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/05/28/ble-spec-introduction/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>一系列介绍<a href="http://bbs.wireless-tech.cn/d/73-ble">BLE 规范</a>的好文，对于了解BLE的整体概念非常有帮助。当然要想深入理解，还是要读原汁原味的Spec，让你苦思冥想，在谜团中寻找自己需要的东西，才更有收获。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BLE/BLE-Arc.png" alt></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -2266,7 +2275,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">89</span>
+          <span class="site-state-item-count">90</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2329,7 +2338,9 @@
         
           
         
-        <span class="site-state-item-count">23</span>
+          
+        
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -2432,7 +2443,9 @@
         
           
         
-        <span class="site-state-item-count">43</span>
+          
+        
+        <span class="site-state-item-count">44</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
