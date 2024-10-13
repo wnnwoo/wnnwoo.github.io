@@ -99,18 +99,20 @@
   };
 </script>
 
-  <meta name="description" content="I&apos;m a bluetooth Host and Controller developer">
+  <meta name="description" content="Zephyr 作为Linux基金会推的物联网操作系统，里面有很多linux的影子，在github上有10K的star量，跟rt-thread差不多，值得深究一把。按照Zephyr官网的步骤一步一步的把Zephyr的SDK build过，这期间为了解决各种问题，顺带买了阿里云的无影云电脑，完美解决了我手头这台9年老mac系统旧、速度慢的问题，有云电脑的加持感觉这台mac再战10年也没啥问题。 Zep">
 <meta name="keywords" content="Zephyr">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Zephyr的net_buf机制">
 <meta property="og:url" content="http://yoursite.com/2024/10/01/zephyr-netbuf/index.html">
 <meta property="og:site_name" content="Wen Wu&#39;s notes">
-<meta property="og:description" content="I&apos;m a bluetooth Host and Controller developer">
+<meta property="og:description" content="Zephyr 作为Linux基金会推的物联网操作系统，里面有很多linux的影子，在github上有10K的star量，跟rt-thread差不多，值得深究一把。按照Zephyr官网的步骤一步一步的把Zephyr的SDK build过，这期间为了解决各种问题，顺带买了阿里云的无影云电脑，完美解决了我手头这台9年老mac系统旧、速度慢的问题，有云电脑的加持感觉这台mac再战10年也没啥问题。 Zep">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Zephyr/zephyr-net-buf.png">
 <meta property="og:updated_time" content="2024-10-13T13:01:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Zephyr的net_buf机制">
-<meta name="twitter:description" content="I&apos;m a bluetooth Host and Controller developer">
+<meta name="twitter:description" content="Zephyr 作为Linux基金会推的物联网操作系统，里面有很多linux的影子，在github上有10K的star量，跟rt-thread差不多，值得深究一把。按照Zephyr官网的步骤一步一步的把Zephyr的SDK build过，这期间为了解决各种问题，顺带买了阿里云的无影云电脑，完美解决了我手头这台9年老mac系统旧、速度慢的问题，有云电脑的加持感觉这台mac再战10年也没啥问题。 Zep">
+<meta name="twitter:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Zephyr/zephyr-net-buf.png">
 
 
 
@@ -473,7 +475,26 @@
       
 
       
-        
+        <p>Zephyr 作为Linux基金会推的物联网操作系统，里面有很多linux的影子，在github上有10K的star量，跟rt-thread差不多，值得深究一把。<br>按照Zephyr<a href="https://docs.zephyrproject.org/latest/develop/getting_started/index.html">官网</a>的步骤一步一步的把Zephyr的SDK build过，这期间为了解决各种问题，顺带买了阿里云的<a href="https://www.aliyun.com/product/wuying/gws/personal_edition?spm=5176.24056923.J_5506141290.5.75c91d75sXx6fP">无影</a>云电脑，完美解决了我手头这台9年老mac系统旧、速度慢的问题，有云电脑的加持感觉这台mac再战10年也没啥问题。</p>
+<p>Zephyr的memory机制里有一个net_buf, 专门用在协议栈里各个层级来打包传输数据。net_buf 管理的buffer总共有三个来源：</p>
+<ul>
+<li>一块固定的buffer</li>
+<li>几个固定长度的buffer组成的数组</li>
+<li>来自Heap的memory</li>
+</ul>
+<p>其中第二项在bluetooth subsys里用的最多，有个专门的名字叫做 net buffer pool，这个pool管理了两个重要数组：</p>
+<ul>
+<li>一个用来存放所有的net_buf,</li>
+<li>一个是存放net_buf管理的buffer的来源</li>
+</ul>
+<p>数据结构如下图所示：</p>
+<ul>
+<li>Pool的 _bufs 指针指向net_buf数组，数组里的net_buf在用过被free掉后，回挂到free list里。</li>
+<li>Pool 的alloc指针来指向 buffer的来源，来源是由Allocator函数来定义好的</li>
+<li>net_buf 里的 __buf 指针指向分配来的数据块的地址，这块buffer是真正给net_buf的用户用的。</li>
+</ul>
+<p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Zephyr/zephyr-net-buf.png" alt="图片"></p>
+
       
     </div>
 
