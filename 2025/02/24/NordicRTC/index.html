@@ -99,18 +99,18 @@
   };
 </script>
 
-  <meta name="description" content="今天顺利将美人鱼（Mermaid）插件装上，整理一张时序图： sequenceDiagram NPL-&amp;gt;&amp;gt;HCI:BLE_HCI_OCF_LE_SET_ADV_ENABLE HCI-&amp;gt;&amp;gt;HCI:ble_ll_hci_cmd_proc() HCI-&amp;gt;&amp;gt;ADV: ble_ll_hci_adv_set_enable() note over ADV: ble_ll_adv_sm_start() ADV-&amp;gt;">
-<meta name="keywords" content="Bluetooth,Mermaid">
+  <meta name="description" content="Nordic Semiconductor的 nrf_rtc_cc_set 函数用于配置 RTC（实时时钟）的比较通道（Compare Channel），以便在 RTC 的计数器达到预设值时触发事件或中断。以下是该函数的参数说明及使用详解：  函数原型1void nrf_rtc_cc_set(NRF_RTC_Type *p_rtc, uint32_t cc_channel, uint32_t cc_">
+<meta name="keywords" content="Nordic">
 <meta property="og:type" content="article">
-<meta property="og:title" content="nimble advertising">
-<meta property="og:url" content="http://yoursite.com/2020/01/12/nimble-adv/index.html">
+<meta property="og:title" content="Nordic RTC 函数说明">
+<meta property="og:url" content="http://yoursite.com/2025/02/24/NordicRTC/index.html">
 <meta property="og:site_name" content="Wen Wu&#39;s notes">
-<meta property="og:description" content="今天顺利将美人鱼（Mermaid）插件装上，整理一张时序图： sequenceDiagram NPL-&amp;gt;&amp;gt;HCI:BLE_HCI_OCF_LE_SET_ADV_ENABLE HCI-&amp;gt;&amp;gt;HCI:ble_ll_hci_cmd_proc() HCI-&amp;gt;&amp;gt;ADV: ble_ll_hci_adv_set_enable() note over ADV: ble_ll_adv_sm_start() ADV-&amp;gt;">
+<meta property="og:description" content="Nordic Semiconductor的 nrf_rtc_cc_set 函数用于配置 RTC（实时时钟）的比较通道（Compare Channel），以便在 RTC 的计数器达到预设值时触发事件或中断。以下是该函数的参数说明及使用详解：  函数原型1void nrf_rtc_cc_set(NRF_RTC_Type *p_rtc, uint32_t cc_channel, uint32_t cc_">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-19T15:51:55.000Z">
+<meta property="og:updated_time" content="2025-02-23T23:00:45.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="nimble advertising">
-<meta name="twitter:description" content="今天顺利将美人鱼（Mermaid）插件装上，整理一张时序图： sequenceDiagram NPL-&amp;gt;&amp;gt;HCI:BLE_HCI_OCF_LE_SET_ADV_ENABLE HCI-&amp;gt;&amp;gt;HCI:ble_ll_hci_cmd_proc() HCI-&amp;gt;&amp;gt;ADV: ble_ll_hci_adv_set_enable() note over ADV: ble_ll_adv_sm_start() ADV-&amp;gt;">
+<meta name="twitter:title" content="Nordic RTC 函数说明">
+<meta name="twitter:description" content="Nordic Semiconductor的 nrf_rtc_cc_set 函数用于配置 RTC（实时时钟）的比较通道（Compare Channel），以便在 RTC 的计数器达到预设值时触发事件或中断。以下是该函数的参数说明及使用详解：  函数原型1void nrf_rtc_cc_set(NRF_RTC_Type *p_rtc, uint32_t cc_channel, uint32_t cc_">
 
 
 
@@ -118,7 +118,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2020/01/12/nimble-adv/">
+  <link rel="canonical" href="http://yoursite.com/2025/02/24/NordicRTC/">
 
 
 
@@ -129,7 +129,7 @@
 </script>
 
   
-  <title>nimble advertising | Wen Wu's notes</title>
+  <title>Nordic RTC 函数说明 | Wen Wu's notes</title>
   
 
 
@@ -338,7 +338,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/12/nimble-adv/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2025/02/24/NordicRTC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wen Wu">
@@ -355,7 +355,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">nimble advertising
+          <h1 class="post-title" itemprop="name headline">Nordic RTC 函数说明
 
               
             
@@ -381,24 +381,10 @@
                 
               
 
-              <time title="创建时间：2020-01-12 13:21:55" itemprop="dateCreated datePublished" datetime="2020-01-12T13:21:55+08:00">2020-01-12</time>
+              <time title="创建时间：2025-02-24 07:00:45" itemprop="dateCreated datePublished" datetime="2025-02-24T07:00:45+08:00">2025-02-24</time>
             </span>
           
 
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-01-19 23:51:55" itemprop="dateModified" datetime="2020-01-19T23:51:55+08:00">2020-01-19</time>
-              </span>
-            
           
 
           
@@ -410,7 +396,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Nimble/" itemprop="url" rel="index"><span itemprop="name">Nimble</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Bluetooth/" itemprop="url" rel="index"><span itemprop="name">Bluetooth</span></a></span>
 
                 
                 
@@ -420,7 +406,7 @@
 
           
           
-            <span id="/2020/01/12/nimble-adv/" class="post-meta-item leancloud_visitors" data-flag-title="nimble advertising">
+            <span id="/2025/02/24/NordicRTC/" class="post-meta-item leancloud_visitors" data-flag-title="Nordic RTC 函数说明">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -445,8 +431,8 @@
       <span class="post-meta-item-text">评论数：</span>
     
   
-    <a href="/2020/01/12/nimble-adv/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/12/nimble-adv/" itemprop="commentCount"></span>
+    <a href="/2025/02/24/NordicRTC/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2025/02/24/NordicRTC/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -473,40 +459,107 @@
       
 
       
-        <p>今天顺利将美人鱼（<a href="https://mermaid-js.github.io/mermaid/#/">Mermaid</a>）插件装上，整理一张时序图：</p>
-<pre class="mermaid">sequenceDiagram
-NPL->>HCI:BLE_HCI_OCF_LE_SET_ADV_ENABLE
-HCI->>HCI:ble_ll_hci_cmd_proc()
-HCI->>ADV: ble_ll_hci_adv_set_enable()
-note over ADV: ble_ll_adv_sm_start()
-ADV->>Scheduler: ble_ll_sched_adv_new()
-Scheduler->>Scheduler: ble_ll_sched_run()
-note over Scheduler: ble_ll_sched_execute_item()
-Scheduler->>ADV: ble_ll_adv_tx_start_cb()
-ADV->>PHY: ble_phy_tx()
-PHY->>ADV: ble_ll_adv_tx_done()
-ADV->>NPL: adv_txdone_ev
-NPL->>ADV: ble_ll_adv_event_done()
-note over ADV: ble_ll_adv_done()
-note over ADV: ble_ll_adv_reschedule_event()
-ADV-->>Scheduler: ble_ll_sched_adv_reschedule()
-RADIO->>PHY: RADIO_IRQn
-note over PHY: ble_phy_isr()
-note over PHY: ble_phy_rx_start_isr()
-PHY->>ADV: ble_ll_adv_rx_isr_start()
-note over PHY: ble_phy_rx_end_isr()
-PHY->>ADV: ble_ll_adv_rx_isr_end()
-note over ADV: ble_ll_adv_rx_req()
-ADV->>PHY:ble_phy_tx(ble_ll_adv_scan_rsp_legacy_pdu_make)
-NPL->>LL: ble_ll_event_rx_pkt()
-LL->>LL: ble_ll_rx_pkt_in()
-LL->>ADV: ble_ll_adv_rx_pkt_in()
-note over ADV: ble_ll_adv_conn_req_rxd()
-ADV->>CONN: ble_ll_conn_slave_start()
-note over ADV: ble_ll_adv_sm_stop()
-note over CONN: ble_ll_conn_created()
-CONN->>Scheduler:ble_ll_sched_slave_new()
-note over CONN: ble_ll_conn_next_event()</pre>
+        <p>Nordic Semiconductor的 <strong><code>nrf_rtc_cc_set</code></strong> 函数用于配置 RTC（实时时钟）的比较通道（Compare Channel），以便在 RTC 的计数器达到预设值时触发事件或中断。以下是该函数的参数说明及使用详解：</p>
+<hr>
+<h3 id="函数原型"><a href="#函数原型" class="headerlink" title="函数原型"></a><strong>函数原型</strong></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">nrf_rtc_cc_set</span><span class="params">(NRF_RTC_Type *p_rtc, <span class="keyword">uint32_t</span> cc_channel, <span class="keyword">uint32_t</span> cc_value)</span></span>;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a><strong>参数说明</strong></h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>p_rtc</code></strong></td>
+<td><code>NRF_RTC_Type *</code></td>
+<td>指向 RTC 外设实例的指针。例如：<code>NRF_RTC0</code>, <code>NRF_RTC1</code>, <code>NRF_RTC2</code>（具体取决于芯片型号）。</td>
+</tr>
+<tr>
+<td><strong><code>cc_channel</code></strong></td>
+<td><code>uint32_t</code></td>
+<td>比较通道的编号，取值范围：<code>0</code> 到 <code>NRF_RTC_CC_COUNT - 1</code>（通常为 0~3，共4个通道）。</td>
+</tr>
+<tr>
+<td><strong><code>cc_value</code></strong></td>
+<td><code>uint32_t</code></td>
+<td>比较值（24位有效值），当 RTC 计数器（<code>COUNTER</code>）达到此值时触发比较事件。取值范围：<code>0</code> ~ <code>0x00FFFFFF</code>。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h3 id="功能详解"><a href="#功能详解" class="headerlink" title="功能详解"></a><strong>功能详解</strong></h3><ol>
+<li><p><strong>RTC 实例选择（<code>p_rtc</code>）</strong><br>Nordic 芯片通常有多个 RTC 实例（如 nRF52 系列有 RTC0、RTC1、RTC2），需根据实际需求选择：  </p>
+<ul>
+<li><strong>RTC0</strong>：常用于协议栈（如蓝牙 SoftDevice）。  </li>
+<li><strong>RTC1/RTC2</strong>：推荐用户自定义任务（如定时唤醒、周期性事件）。  </li>
+<li><strong>示例</strong>：  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nrf_rtc_cc_set(NRF_RTC1, <span class="number">0</span>, <span class="number">32768</span>);  <span class="comment">// 使用 RTC1 的通道0，设置比较值为32768</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>比较通道（<code>cc_channel</code>）</strong>  </p>
+<ul>
+<li>每个 RTC 实例有多个比较通道（通常为4个），可独立配置。  </li>
+<li><strong>注意</strong>：避免与其他模块（如协议栈或库）占用同一通道。例如，蓝牙协议栈可能默认使用 RTC0 的通道0。</li>
+</ul>
+</li>
+<li><p><strong>比较值（<code>cc_value</code>）</strong>  </p>
+<ul>
+<li>RTC 计数器为 <strong>24位</strong>，因此 <code>cc_value</code> 最大为 <code>0x00FFFFFF</code>（16,777,215）。  </li>
+<li><p><strong>时间计算</strong>：<br>实际时间与 RTC 的时钟源和分频系数相关。例如：  </p>
+<ul>
+<li><p>若 RTC 时钟源为 32.768 kHz，分频系数为 1（<code>PRESCALER = 0</code>），则：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 秒 = 32768 个计数周期  </span><br><span class="line">cc_value = 目标时间（秒） * 32768</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>若设置 <code>cc_value = 32768</code>，则比较事件将在 1 秒后触发。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a><strong>使用示例</strong></h3><h4 id="场景：配置-RTC1-的通道0，在-5-秒后触发中断。"><a href="#场景：配置-RTC1-的通道0，在-5-秒后触发中断。" class="headerlink" title="场景：配置 RTC1 的通道0，在 5 秒后触发中断。"></a><strong>场景</strong>：配置 RTC1 的通道0，在 5 秒后触发中断。</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"nrf_drv_rtc.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 初始化 RTC</span></span><br><span class="line"><span class="keyword">nrf_drv_rtc_config_t</span> rtc_config = NRF_DRV_RTC_DEFAULT_CONFIG;</span><br><span class="line">nrf_drv_rtc_init(&amp;rtc1, &amp;rtc_config, rtc_handler);  <span class="comment">// rtc_handler 为中断处理函数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 设置比较值（假设时钟源为 32.768 kHz，分频系数为 0）</span></span><br><span class="line"><span class="keyword">uint32_t</span> timeout_seconds = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">uint32_t</span> cc_value = timeout_seconds * <span class="number">32768</span>;  <span class="comment">// 5秒 = 163840 个计数周期</span></span><br><span class="line">nrf_rtc_cc_set(NRF_RTC1, <span class="number">0</span>, cc_value);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 启用比较中断</span></span><br><span class="line">nrf_rtc_event_enable(NRF_RTC1, NRF_RTC_INT_COMPARE0_MASK);</span><br><span class="line">nrf_rtc_int_enable(NRF_RTC1, NRF_RTC_INT_COMPARE0_MASK);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 启动 RTC</span></span><br><span class="line">nrf_rtc_task_trigger(NRF_RTC1, NRF_RTC_TASK_START);</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a><strong>注意事项</strong></h3><ol>
+<li><p><strong>计数器溢出</strong><br>RTC 是 24 位计数器，若 <code>cc_value</code> 小于当前计数器值，需等待计数器溢出后重新计数到 <code>cc_value</code> 才会触发事件。</p>
+</li>
+<li><p><strong>中断处理</strong>  </p>
+<ul>
+<li><p>在中断服务程序（如 <code>rtc_handler</code>）中需清除事件标志：  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rtc_handler</span><span class="params">(<span class="keyword">nrf_drv_rtc_int_type_t</span> int_type)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (int_type == NRF_DRV_RTC_INT_COMPARE0) &#123;</span><br><span class="line">        nrf_rtc_event_clear(NRF_RTC1, NRF_RTC_EVENT_COMPARE_0);</span><br><span class="line">        <span class="comment">// 处理逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>若未清除事件标志，可能导致中断持续触发。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>分频系数（PRESCALER）</strong><br>RTC 的时钟频率由分频系数决定，需在初始化时配置：  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rtc_config.prescaler = <span class="number">31</span>;  <span class="comment">// 32.768 kHz / (31 + 1) = 1024 Hz</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>多通道协同</strong><br>可配置多个比较通道实现复杂定时逻辑（如周期触发、超时检测）。</p>
+</li>
+</ol>
+<hr>
+<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a><strong>常见问题</strong></h3><ul>
+<li><p><strong>Q1：设置了 <code>cc_value</code>，但未触发事件？</strong>  </p>
+<ul>
+<li>检查 RTC 是否已启动（<code>NRF_RTC_TASK_START</code>）。  </li>
+<li>确认中断已启用且未与其他模块冲突。</li>
+</ul>
+</li>
+<li><p><strong>Q2：如何计算 <code>cc_value</code> 对应的时间？</strong>  </p>
+<ul>
+<li>公式：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc_value = (目标时间秒数) * (RTC时钟频率 / (PRESCALER + 1))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><p><code>nrf_rtc_cc_set</code> 是 Nordic RTC 外设的核心函数，通过配置比较通道实现精准定时。使用时需注意时钟源、分频系数及中断处理，适用于低功耗定时任务（如传感器采样、蓝牙连接间隔等）。</p>
 
       
     </div>
@@ -537,9 +590,7 @@ note over CONN: ble_ll_conn_next_event()</pre>
         
         <div class="post-tags">
           
-            <a href="/tags/Bluetooth/" rel="tag"># Bluetooth</a>
-          
-            <a href="/tags/Mermaid/" rel="tag"># Mermaid</a>
+            <a href="/tags/Nordic/" rel="tag"># Nordic</a>
           
         </div>
       
@@ -552,8 +603,8 @@ note over CONN: ble_ll_conn_next_event()</pre>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/01/11/why-fpga/" rel="next" title="为什么要用FPGA">
-                <i class="fa fa-chevron-left"></i> 为什么要用FPGA
+              <a href="/2025/02/24/nordic-dppi/" rel="next" title="Nordic的DPPI 和 PPI">
+                <i class="fa fa-chevron-left"></i> Nordic的DPPI 和 PPI
               </a>
             
           </div>
@@ -561,10 +612,6 @@ note over CONN: ble_ll_conn_next_event()</pre>
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/01/27/vs-mac-cmd/" rel="prev" title="VC code 常用快捷键">
-                VC code 常用快捷键 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -609,8 +656,17 @@ note over CONN: ble_ll_conn_next_event()</pre>
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -822,6 +878,23 @@ note over CONN: ble_ll_conn_next_event()</pre>
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数原型"><span class="nav-number">1.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数说明"><span class="nav-number">2.</span> <span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#功能详解"><span class="nav-number">3.</span> <span class="nav-text">功能详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用示例"><span class="nav-number">4.</span> <span class="nav-text">使用示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#场景：配置-RTC1-的通道0，在-5-秒后触发中断。"><span class="nav-number">4.1.</span> <span class="nav-text">场景：配置 RTC1 的通道0，在 5 秒后触发中断。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">5.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见问题"><span class="nav-number">6.</span> <span class="nav-text">常见问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
