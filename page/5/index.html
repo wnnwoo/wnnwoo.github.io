@@ -338,6 +338,206 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/28/nimble-ll-state/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wen Wu">
+      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wen Wu's notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/01/28/nimble-ll-state/" class="post-title-link" itemprop="url">nimble Link layer 状态机</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-01-28 00:27:55" itemprop="dateCreated datePublished" datetime="2020-01-28T00:27:55+08:00">2020-01-28</time>
+            </span>
+          
+
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Bluetooth/" itemprop="url" rel="index"><span itemprop="name">Bluetooth</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          
+            <span id="/2020/01/28/nimble-ll-state/" class="post-meta-item leancloud_visitors" data-flag-title="nimble Link layer 状态机">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    
+      <span class="post-meta-item-text">评论数：</span>
+    
+  
+    <a href="/2020/01/28/nimble-ll-state/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/28/nimble-ll-state/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Link Layer总共有7个状态，这7个状态串起了整个Link layer的运作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#define BLE_LL_STATE_STANDBY        (0)</span><br><span class="line">#define BLE_LL_STATE_ADV            (1)</span><br><span class="line">#define BLE_LL_STATE_SCANNING       (2)</span><br><span class="line">#define BLE_LL_STATE_INITIATING     (3)</span><br><span class="line">#define BLE_LL_STATE_CONNECTION     (4)</span><br><span class="line">#define BLE_LL_STATE_DTM            (5)</span><br><span class="line">#define BLE_LL_STATE_SYNC           (6)</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">stateDiagram
+    [*] --> STANDBY : reset
+    STANDBY --> ADV
+    STANDBY --> SCANNING
+    STANDBY --> SYNC
+    ADV --> STANDBY
+    ADV --> SYNC
+    ADV --> CONNECTION
+    SCANNING --> STANDBY
+    SCANNING --> INITIATING
+    SCANNING --> SYNC
+    INITIATING --> CONNECTION
+    INITIATING --> STANDBY
+    CONNECTION --> STANDBY
+    CONNECTION --> DTM
+    CONNECTION --> SYNC
+    DTM --> STANDBY
+    SYNC --> STANDBY</pre>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/27/vs-mac-cmd/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2143,208 +2343,11 @@ note over CONN: ble_ll_conn_next_event()</pre>
   </article>
 
     
-        
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/31/bluetooth-past/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wen Wu">
-      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wen Wu's notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/12/31/bluetooth-past/" class="post-title-link" itemprop="url">Periodic Advertising Sync Transfer (PAST)[未完结]</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-12-31 23:06:57" itemprop="dateCreated datePublished" datetime="2019-12-31T23:06:57+08:00">2019-12-31</time>
-            </span>
-          
-
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Bluetooth/" itemprop="url" rel="index"><span itemprop="name">Bluetooth</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          
-            <span id="/2019/12/31/bluetooth-past/" class="post-meta-item leancloud_visitors" data-flag-title="Periodic Advertising Sync Transfer (PAST)[未完结]">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读次数：</span>
-              
-                <span class="leancloud-visitors-count"></span>
-            </span>
-          
-
-          
-
-          
-            
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="fa fa-comment-o"></i>
-    </span>
-    
-      <span class="post-meta-item-text">评论数：</span>
-    
-  
-    <a href="/2019/12/31/bluetooth-past/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/31/bluetooth-past/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Periodic Advertising Sync Transfer 是BT 5.1的一个新feature，SIG官网上有一篇文章介绍的还不错<a href="https://www.bluetooth.com/blog/periodic-advertising-sync-transfer/">What You Need to Know About Periodic Advertising Sync Transfer</a>。这里就做一个简单的总结。<br>这个新概念的引入，本质上是为了省电。对于Legacy的advertising，Advertiser在interval附近会加一个Delay（0～10ms），那么Scanner就需要多开窗来抓到adverting 数据包，增加耗电，而PAST概念就是为了在某个场景下可以解决这个问题。<br>先看下几种Advertising的概念</p>
-<h2 id="1-Legacy-Advertising"><a href="#1-Legacy-Advertising" class="headerlink" title="1.Legacy Advertising"></a>1.Legacy Advertising</h2><p>Legacy Advertising只在37/38/39三个Channel上打，为了避免adv event刚好跟Scannner的scan window完美错过，在Adv的Interval上会加一个随机值advDalay，让Anchor点随机shift一点点，增加与Scanner的scan window碰撞的几率，示意图如下：<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-LegacyAdv.png" alt="Legacy Adv" title="Legacy advertising"><br>下图为Legacy Adv的PDU的格式：<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/LegacyAdvPDUFormat.png?x-oss-process=image/resize,p_50" alt="Legacy Adv"></p>
-<h2 id="2-Extended-Advertising"><a href="#2-Extended-Advertising" class="headerlink" title="2.Extended Advertising"></a>2.Extended Advertising</h2><p>Legacy Advertising能发送的Adv data有限，所以后来又衍生出了 extended adv：在Data channel里也可以打Adv data，如下图。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-ExtAdv.png" alt="Extended Adv" title="Extended advertising"><br>而Extended Advertising引入的概念就比较多了，比如：</p>
-<ul>
-<li>Advertising Handle，</li>
-<li>Advertising Set</li>
-<li>Advertising Data ID</li>
-<li>…</li>
-</ul>
-<p>当收到的Adv的type是 ADV_EXT_IND 时，Adv的Payload的数据格式如下：<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/ExtAdvPayloadFormat.png?x-oss-process=image/resize,p_50" alt="Payload with ExtendedAdv" title="Payload"><br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/ExtAdvHeaderFormat.png?x-oss-process=image/resize,p_50" alt="Extended Header format" title="Extended Header"><br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/ExtAdvHeaderFlags.png?x-oss-process=image/resize,p_50" alt="Extended Adv Header Flags" title="Header Flags"></p>
-<h2 id="3-Periodic-Advertising"><a href="#3-Periodic-Advertising" class="headerlink" title="3.Periodic Advertising"></a>3.Periodic Advertising</h2><p>在Extended Advertising的基础上，在发送大量数据的时候又引入了Periodic Advertising。<br>Periodic Advertising 流程的建立有两种方式：</p>
-<h3 id="3-1-正常的Scanner-和-Advertiser的交互"><a href="#3-1-正常的Scanner-和-Advertiser的交互" class="headerlink" title="3.1 正常的Scanner 和 Advertiser的交互"></a>3.1 正常的Scanner 和 Advertiser的交互</h3><p>如下图中AoD Transmitter 与 Smartphone的Sync。</p>
-<h3 id="3-2-已经有Periodic-Advertising-Synchronization-infomation的一方，将该data通过-LE-C-转发给另外一个跟它连线的设备，就是PAST。"><a href="#3-2-已经有Periodic-Advertising-Synchronization-infomation的一方，将该data通过-LE-C-转发给另外一个跟它连线的设备，就是PAST。" class="headerlink" title="3.2 已经有Periodic Advertising Synchronization infomation的一方，将该data通过 LE-C 转发给另外一个跟它连线的设备，就是PAST。"></a>3.2 已经有Periodic Advertising Synchronization infomation的一方，将该data通过 LE-C 转发给另外一个跟它连线的设备，就是PAST。</h3><p>如下图右图中Smartphone 与Wearable Device之间的关系，Wearable device在前期不需要开Scan去抓ADV_EXT_IND就知道后续要到哪里去收AUX_SYNC_IND包，从而节约了电能。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PAST-Scenario.png" alt></p>
-<h2 id="4-关于PAST的细节："><a href="#4-关于PAST的细节：" class="headerlink" title="4. 关于PAST的细节："></a>4. 关于PAST的细节：</h2><p>下图是Spec中关于Periodic Advertising的一个Sequence flow。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1-PeriodicAdv.png?x-oss-process=image/rotate,90" alt="PAST 对比"><br>message 流程图如下：<br>下面三图中A是Scanner，B是Advertiser，A和B中有一个与C有BLE连线，那么会有三种情况：</p>
-<h3 id="4-1-A与B建立了Sync，A与C有连线，A通过LL-PERIODIC-SYNC-IND将Sync-information通知给C，那么C就可以收B的Periodic-Sync-advertising。"><a href="#4-1-A与B建立了Sync，A与C有连线，A通过LL-PERIODIC-SYNC-IND将Sync-information通知给C，那么C就可以收B的Periodic-Sync-advertising。" class="headerlink" title="4.1 A与B建立了Sync，A与C有连线，A通过LL_PERIODIC_SYNC_IND将Sync information通知给C，那么C就可以收B的Periodic Sync advertising。"></a>4.1 A与B建立了Sync，A与C有连线，A通过LL_PERIODIC_SYNC_IND将Sync information通知给C，那么C就可以收B的Periodic Sync advertising。</h3><p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1_PAST_MSC_1_Scanner_Report_Disable.png?x-oss-process=image/resize,p_60" alt></p>
-<h3 id="4-2-流程同4-1，只是C一开始就Enable了report"><a href="#4-2-流程同4-1，只是C一开始就Enable了report" class="headerlink" title="4.2 流程同4.1，只是C一开始就Enable了report."></a>4.2 流程同4.1，只是C一开始就Enable了report.</h3><p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1_PAST_MSC_1_ScannerTransfer_Report_Enable.png?x-oss-process=image/resize,p_60" alt></p>
-<h3 id="4-3-A与B建立Sync，B与C有连线，B通过LL-PERIODIC-SYNC-IND将Sync-information通知给C，那么C就可以收B的Periodic-Sync-Advertising-data了。"><a href="#4-3-A与B建立Sync，B与C有连线，B通过LL-PERIODIC-SYNC-IND将Sync-information通知给C，那么C就可以收B的Periodic-Sync-Advertising-data了。" class="headerlink" title="4.3 A与B建立Sync，B与C有连线，B通过LL_PERIODIC_SYNC_IND将Sync information通知给C，那么C就可以收B的Periodic Sync Advertising data了。"></a>4.3 A与B建立Sync，B与C有连线，B通过LL_PERIODIC_SYNC_IND将Sync information通知给C，那么C就可以收B的Periodic Sync Advertising data了。</h3><p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/BT5.1/BT5.1_PAST_MSC_1_AdvertiserTransfer_Report_Disable.png?x-oss-process=image/resize,p_80" alt></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2387,7 +2390,7 @@ note over CONN: ble_ll_conn_next_event()</pre>
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">90</span>
+          <span class="site-state-item-count">91</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2596,7 +2599,7 @@ note over CONN: ble_ll_conn_next_event()</pre>
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2025</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
