@@ -475,12 +475,18 @@
 </ul>
 <p>这三者的关系，我们用下面的图形来举例：</p>
 <ul>
-<li>带箭头的蓝色横线是ticker_id_head上的已经处于scheduled状态的所有节点的先后关系，这些节点等着他们的expiry时间到后，就可以执行他们的expiry callback函数。</li>
-<li>第一个节点的expiry时间expiry1是相对于ticks_current，该时间是绝对时间。</li>
-<li>后面每个节点的expiry时间都是相对于前一个节点的expiry时间。</li>
+<li>带箭头的<u>蓝色横线</u>看做是一个时间线，标记已经处于scheduled状态的所有节点的先后关系，这些节点等着他们的expiry时间到后，就可以执行他们的expiry callback函数，完成一个轮回。</li>
+<li>ticks_current是在所有还未到期的节点的一绝对参考时间，第一个节点的expiry时间expiry1是相对于ticks_current，后面每个节点的expiry时间都是相对于前一个节点的expiry时间。</li>
+<li>游标所指处为当前时间，可见当前的节点都还未过期。</li>
+<li>蓝色Node #4 为待调度节点，看起来他的slot有跟节点 #2 冲突。</li>
 </ul>
 <p>在理解Ticker所有时间相关的变量的时候，一定要注意该时间是绝对时间还是相对时间，如果是相对时间，是相对于谁，只要搞清楚这个，基本上能理解整个流程。</p>
 <p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Zephyr/ticker_job.PNG" alt="ticker"></p>
+<ul>
+<li>所有Node放在一个大数组里，由两个指针ticker_id_head 和insert_head来管理他们之间的关系。</li>
+<li>ticker_id_head 把所有可以被scheduled的Node（橘色）都串起来，这个list可以叫做scheduled list，第一个节点的expiry时间会送到RTC timer里，timer到期后就开始执行这个节点的callback。</li>
+<li>insert_head把所有待定的要进入sheduled list的节点（蓝色）串起来。这些节点会被 ticker_job_list_insert() 逐个插入到scheduled list，有thread_id_head统领。</li>
+</ul>
 <p>在ticker_job_list_insert()函数会将insert_head里所有的节点尝试加入ticker_id_head，在加入的过程中，会有一些冲突处理机制如下图：</p>
 <ul>
 <li>特别注意Node #5 是没有slot的，他不占用RF<br><strong>ticker_job_enqueue()</strong>.</li>
@@ -2791,7 +2797,9 @@
         
           
         
-        <span class="site-state-item-count">45</span>
+          
+        
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
