@@ -463,9 +463,9 @@
       
         
           
-            <p>Ticker 是zephyr bluetooth controller中的一个核心模块，该模块仲裁Link Layer中各个procedure对RF资源的申请，用定义好的Rule来保证这些procedure都能被童叟无欺的执行到。<br><strong>在Ticker里有三大角色：</strong></p>
+            <p><strong>Ticker</strong> 是zephyr bluetooth controller中的一个核心模块，负责仲裁Link Layer中各个procedure对RF资源的申请，用定义好的Rule来保证这些procedure都能被童叟无欺的执行到。<br><strong>在Ticker里有三大角色：</strong></p>
 <ul>
-<li><strong>Node</strong>：是Ticker的调度单元，里面的关键信息是到期时间及申请占用RF的时间。</li>
+<li><strong>Node</strong>：是Ticker的调度单元，里面的关键信息是到期时间（ticks_to_expire）及申请占用RF的时间(ticks_slot)。</li>
 <li><p><strong>User</strong>：是Node的用户，总共有4个，从字面意思看是跟优先级相关，但实际上没有优先级的概念。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#define TICKER_USER_ID_LLL           MAYFLY_CALL_ID_0 </span><br><span class="line">#define TICKER_USER_ID_ULL_HIGH  MAYFLY_CALL_ID_1 </span><br><span class="line">#define TICKER_USER_ID_ULL_LOW   MAYFLY_CALL_ID_2  </span><br><span class="line">#define TICKER_USER_ID_THREAD    MAYFLY_CALL_ID_PROGRAM</span><br></pre></td></tr></table></figure>
 </li>
@@ -475,22 +475,64 @@
 </ul>
 <p>这三者的关系，我们用下面的图形来举例：</p>
 <ul>
-<li>带箭头的<u>蓝色横线</u>看做是一个时间线，标记已经处于scheduled状态的所有节点的先后关系，这些节点等着他们的expiry时间到后，就可以执行他们的expiry callback函数，完成一个轮回。</li>
-<li>ticks_current是在所有还未到期的节点的一绝对参考时间，第一个节点的expiry时间expiry1是相对于ticks_current，后面每个节点的expiry时间都是相对于前一个节点的expiry时间。</li>
-<li>游标所指处为当前时间，可见当前的节点都还未过期。</li>
+<li>带箭头的<u>蓝色横线</u>是一个时间线，展现已经处于scheduled状态的所有节点的先后关系，这些节点等着他们的expiry时间到后，就可以执行他们的expiry callback函数，完成一个轮回。</li>
+<li>ticks_current是所有还未到期的节点的一绝对参考时间，第一个节点的expiry时间expiry1是相对于ticks_current，后面每个节点的expiry时间都是相对于前一个节点的expiry时间。</li>
+<li>地标所指处为当前时间，可见当前的节点都还未过期。</li>
 <li>蓝色Node #4 为待调度节点，看起来他的slot有跟节点 #2 冲突。</li>
 </ul>
 <p>在理解Ticker所有时间相关的变量的时候，一定要注意该时间是绝对时间还是相对时间，如果是相对时间，是相对于谁，只要搞清楚这个，基本上能理解整个流程。</p>
 <p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Zephyr/ticker_job.PNG" alt="ticker"></p>
 <ul>
-<li>所有Node放在一个大数组里，由两个指针ticker_id_head 和insert_head来管理他们之间的关系。</li>
+<li>所有Node放在一个大数组里，由两个指针ticker_id_head 和insert_head来管理他们之间的关系。<ul>
 <li>ticker_id_head 把所有可以被scheduled的Node（橘色）都串起来，这个list可以叫做scheduled list，第一个节点的expiry时间会送到RTC timer里，timer到期后就开始执行这个节点的callback。</li>
-<li>insert_head把所有待定的要进入sheduled list的节点（蓝色）串起来。这些节点会被 ticker_job_list_insert() 逐个插入到scheduled list，有thread_id_head统领。</li>
+<li>insert_head把所有待定的要进入sheduled list的节点（蓝色）串起来。这些节点会被 ticker_job_list_insert() 逐个插入到scheduled list，交由thread_id_head统领。</li>
 </ul>
-<p>在ticker_job_list_insert()函数会将insert_head里所有的节点尝试加入ticker_id_head，在加入的过程中，会有一些冲突处理机制如下图：</p>
+</li>
+</ul>
+<p><strong>两个关键函数</strong> 相互配合完成调度</p>
 <ul>
-<li>特别注意Node #5 是没有slot的，他不占用RF<br><strong>ticker_job_enqueue()</strong>.</li>
+<li><strong>ticker_job()</strong> 的目的是把所有希望得到调度的节点都欢送到Scheduled list里，它的操作对象有三个：<ul>
+<li>用<code>ticker_job_list_manage()</code> 处理所有User的所有的OP中的Update 和 Stop 操作.</li>
+<li>用<code>ticker_job_worker_bh()</code> 处理Scheduled list中所有的过期节点，这些节点可能还需要再进入Scheduled list中.</li>
+<li>用<code>ticker_job_list_insert()</code>函数处理所有User的所有的operation中的START操作以及 Insert_head中的节点，这些节点是由前两步的操作带入的。</li>
+<li>如果ticker_id_head有变，就重新把新的expiry时间设置到RTC。</li>
 </ul>
+</li>
+</ul>
+<pre class="mermaid">flowchart TD
+    A[start] -->B(ticker_job_list_manage)
+    B --> C{flag_elapsed}
+    C -->|Yes| D[ticker_job_worker_bh]
+    D --> E[ticker_job_list_insert]
+    C --> |No| E
+    E --> F{ticker_id_head changes?}
+    F --> |Yes| G[ticker_job_compare_update]
+    F --> |No| H
+    G --> H[Schedule job_worker]
+    H --> I[End]</pre>
+
+<ul>
+<li><strong>ticker_worker()</strong> 目的是执行ticker_id_head 指向的节点的expiry callback，并标记这个节点的状态。在Node 插入schedule List的时候并不会针对ticks_slot做冲突检测，这样的话必须在这个函数里执行的时候做冲突检测，会影响执行效能。<br><pre class="mermaid">graph TD
+A[Start] --> B(Calculate ticks_elapsed)
+B --> C{NextNode?}
+C -->|Yes| D{Expiry?}
+C -->|No| Job
+D -->|Yes| State{state == 0}
+D -->|No| Job
+State -->|Yes| Collide[ticker_resolve_collision]
+State -->|No| C
+Collide -->IsWin[Win?]
+IsWin -->|Yes| Callback[timeout_callback]
+IsWin -->|No| Skip_check[Skip?]
+Skip_check -->|Yes|C
+Skip_check -->|No|Callback
+Callback --> Job
+Job[Schedule a ticker_job]
+Job --> End
+End[End]</pre><br>为了解决在执行callback的时候才做冲突出来带来的效率问题，有了另外一个版本（<br>CONFIG_BT_TICKER_LOW_LAT）的ticker_job_list_insert() 函数，该)函数会将insert_head里所有的节点尝试加入ticker_id_head，在加入的过程中，会有一些冲突处理机制如下图：</li>
+<li>特别注意Node #5 是没有slot的，它不占用RF，即使它的expiry时间被 #7 overlap到，但它跟#7并不冲突。</li>
+</ul>
+<p><strong>ticker_job_enqueue()</strong> 中的冲突处理：</p>
 <p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Zephyr/zephyr_job_enqueue.png" alt="job_enqueue"></p>
 
           
