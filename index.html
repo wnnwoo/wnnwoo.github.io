@@ -493,7 +493,7 @@
 <ul>
 <li><strong>ticker_job()</strong> 的目的是把所有希望得到调度的节点都欢送到Scheduled list里，它的操作对象有三个：<ul>
 <li>用<code>ticker_job_list_manage()</code> 处理所有User的所有的OP中的Update 和 Stop 操作.</li>
-<li>用<code>ticker_job_worker_bh()</code> 处理Scheduled list中所有的过期节点，这些节点可能还需要再进入Scheduled list中.</li>
+<li>用<code>ticker_job_worker_bh()</code> 处理Scheduled list中所有的过期节点，这些节点可能还需要再进入Scheduled list中, ticker_work()不会判定已经expiry 的节点是否要再次进入Scheduled list中，是交由该函数处理。</li>
 <li>用<code>ticker_job_list_insert()</code>函数处理所有User的所有的operation中的START操作以及 Insert_head中的节点，这些节点是由前两步的操作带入的。</li>
 <li>如果ticker_id_head有变，就重新把新的expiry时间设置到RTC。</li>
 </ul>
@@ -512,7 +512,7 @@
     H --> I[End]</pre>
 
 <ul>
-<li><strong>ticker_worker()</strong> 目的是执行ticker_id_head 指向的节点的expiry callback，并标记这个节点的状态。在Node 插入schedule List的时候并不会针对ticks_slot做冲突检测，这样的话必须在这个函数里执行的时候做冲突检测，会影响执行效能。<br><pre class="mermaid">graph TD
+<li><strong>ticker_worker()</strong> 目的是执行ticker_id_head 指向的节点的expiry callback，至于该Node要不要再次进入scheduled List，这里不管。在Node 插入schedule List的时候并不会针对ticks_slot做冲突检测，这样的话必须在这个函数里执行的时候做冲突检测，会影响执行效能。<br><pre class="mermaid">graph TD
 A[Start] --> B(Calculate ticks_elapsed)
 B --> C{NextNode?}
 C -->|Yes| D{Expiry?}
@@ -525,11 +525,12 @@ Collide -->IsWin[Win?]
 IsWin -->|Yes| Callback[timeout_callback]
 IsWin -->|No| Skip_check[Skip?]
 Skip_check -->|Yes|C
-Skip_check -->|No|Callback
+Skip_check -->|No|SetAsShallowExpiry
+SetAsShallowExpiry -->Callback
 Callback --> Job
 Job[Schedule a ticker_job]
 Job --> End
-End[End]</pre><br>为了解决在执行callback的时候才做冲突出来带来的效率问题，有了另外一个版本（<br>CONFIG_BT_TICKER_LOW_LAT）的ticker_job_list_insert() 函数，该)函数会将insert_head里所有的节点尝试加入ticker_id_head，在加入的过程中，会有一些冲突处理机制如下图：</li>
+End[End]</pre><br>为了解决在执行callback的时候才做冲突出来带来的效率问题，有了另外一个版本（<br><strong><em>CONFIG_BT_TICKER_LOW_LAT</em></strong>）的ticker_job_list_insert() 函数，该)函数会将insert_head里所有的节点尝试加入ticker_id_head，在加入的过程中，会有一些冲突处理机制如下图：</li>
 <li>特别注意Node #5 是没有slot的，它不占用RF，即使它的expiry时间被 #7 overlap到，但它跟#7并不冲突。</li>
 </ul>
 <p><strong>ticker_job_enqueue()</strong> 中的冲突处理：</p>
