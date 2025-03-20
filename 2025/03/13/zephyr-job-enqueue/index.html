@@ -534,6 +534,7 @@ End[End]</pre><br>为了解决在执行callback的时候才做冲突出来带来
 </ul>
 <p><strong>ticker_job_enqueue()</strong> 中的冲突处理：</p>
 <p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Zephyr/zephyr_job_enqueue.png" alt="job_enqueue"></p>
+<p>stateDiagram-v2<br>    [<em>] —&gt; Still<br>    Still —&gt; [</em>]<br>    Still —&gt; Moving<br>    Moving —&gt; Still<br>    Moving —&gt; Crash<br>    Crash —&gt; [*]</p>
 
       
     </div>
