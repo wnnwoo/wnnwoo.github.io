@@ -463,7 +463,7 @@
       
         
           
-            <p><strong>Ticker</strong> 是zephyr bluetooth controller中的一个核心模块，负责仲裁Link Layer中各个procedure对RF资源的申请，用定义好的Rule来保证这些procedure都能被童叟无欺的执行到。<br><strong>在Ticker里有三大角色：</strong></p>
+            <p><strong>Ticker</strong> 是zephyr bluetooth controller中的一个核心模块，负责仲裁Link Layer中各个procedure对RF资源的申请，用定义好的Rule来保证这些procedure都能被童叟无欺的执行到。<br>但实际上这个module是个完全独立的module，跟蓝牙的行为没有什么关系，也可以拿来做他用。。<br><strong>在Ticker里有三大角色：</strong></p>
 <ul>
 <li><strong>Node</strong>：是Ticker的调度单元，里面的关键信息是到期时间（ticks_to_expire）及申请占用RF的时间(ticks_slot)。</li>
 <li><p><strong>User</strong>：是Node的用户，总共有4个，从字面意思看是跟优先级相关，但实际上没有优先级的概念。</p>
@@ -535,7 +535,16 @@ End[End]</pre><br>为了解决在执行callback的时候才做冲突出来带来
 </ul>
 <p><strong>ticker_job_enqueue()</strong> 中的冲突处理：</p>
 <p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Zephyr/zephyr_job_enqueue.png" alt="job_enqueue"></p>
-<p>stateDiagram-v2<br>    [<em>] —&gt; Still<br>    Still —&gt; [</em>]<br>    Still —&gt; Moving<br>    Moving —&gt; Still<br>    Moving —&gt; Crash<br>    Crash —&gt; [*]</p>
+<p><strong>Ticker中各个Compile option的作用：</strong></p>
+<ul>
+<li>CONFIG_BT_TICKER_EXT：多了一个 ticks_slot_window，Adv对expiry的时间不需要严格精确，那么就把它的expiry时间前后稍微挪动下，如果能避免冲突，那它就能得到更早的执行。</li>
+<li>CONFIG_BT_TICKER_SLOT_AGNOSTIC：每个node都没有ticks_slot，完全把ticker拿来当timer来用，可以用一个RTC的HW timer来模拟多个SW timer；</li>
+<li>CONFIG_BT_TICKER_LOW_LAT：在Node进入schedule list时做collision 处理，而不是在expiry的时候。</li>
+</ul>
+<p><strong>Ticker里还没有解决的问题</strong>：</p>
+<ol>
+<li>假如某种原因，ticker_worker() 被耽误了，导致一次timeout，有好几个node的callback都被执行到了，那这些callback都要吃RF，他们之间的冲突又是怎么解决？</li>
+</ol>
 
           
         
