@@ -494,7 +494,7 @@ LLL_SCAN-->>Radio: radio_aa_set()
 LLL_SCAN-->>Radio: radio_crc_configure()
 LLL_SCAN-->>Radio: radio_freq_chan_set(chan)
 LLL_SCAN-->>Radio: radio_whiten_iv_set(chan)
-LLL_SCAN-->>Radio: radio_isr_set(isr_rx, lll);
+LLL_SCAN-->>Radio: radio_isr_set(**isr_rx**, lll);
 LLL_SCAN-->>Radio: radio_tmr_tifs_set()
 LLL_SCAN-->>Radio: radio_filter_configure()
 LLL_SCAN-->>Radio: radio_ar_configure()
@@ -503,17 +503,83 @@ LLL_SCAN-->>Radio: radio_tmr_end_capture()
 LLL_SCAN-->>Radio: radio_rssi_measure()
 LLL_SCAN-->>-Ticker: ticker_start(TICKER_ID_SCAN_STOP)
 
-
 Radio-->>+LLL_SCAN: isr_rx()
 LLL_SCAN-->>LLL_SCAN: lll_scan_aux_addr_match_get()
 LLL_SCAN-->>LLL_SCAN: lll_scan_isr_rx_check()
 LLL_SCAN-->>LLL_SCAN: isr_rx_pdu()
-LLL_SCAN-->>LLL_SCAN: isr_rx_scan_report() w/ NODE_RX_TYPE_EXT_1M_REPORT
+LLL_SCAN-->>LLL_SCAN: isr_rx_scan_report() NODE_RX_TYPE_EXT_1M_REPORT
 
+opt Active scanner 需要发送Scan Request
+LLL_SCAN-->>Radio: radio_tmr_tifs_set()
+LLL_SCAN-->>Radio: radio_switch_complete_and_rx(0)
+LLL_SCAN-->>LLL_SCAN: isr_rx_scan_report()
+LLL_SCAN-->>Radio: radio_pkt_tx_set,PDU_ADV_TYPE_SCAN_REQ with radio_pkt_scratch_get();
+LLL_SCAN-->>Radio: radio_tmr_end_capture();
+LLL_SCAN-->>Radio: radio_isr_set(isr_tx, lll)
+
+Radio-->>+LLL_SCAN:  isr_tx(void *param)
+LLL_SCAN-->>Radio: radio_switch_complete_and_disable()
+LLL_SCAN-->>Radio: radio_pkt_rx_set()
+LLL_SCAN-->>Radio: radio_tmr_hcto_configure()
+LLL_SCAN-->>Radio:radio_rssi_measure()
+LLL_SCAN-->>-Radio: radio_isr_set(isr_rx, param)
+end
+
+opt Passive scanner or scan responses ,LLL处理EXT_IND
 LLL_SCAN-->>LLL_SCAN_AUX: lll_scan_aux_setup()
-LLL_SCAN_AUX-->>LLL_SCAN_AUX: lll_scan_aux_isr_aux_setup()
+LLL_SCAN_AUX-->>+LLL_SCAN_AUX: lll_scan_aux_isr_aux_setup()
+LLL_SCAN_AUX-->>Radio: radio_isr_set(lll_scan_aux_isr_aux_setup)
+LLL_SCAN_AUX-->>-Radio: radio_disable()
+end
 
-LLL_SCAN-->>ULL: ull_rx_put_sched()
+LLL_SCAN-->>ULL: ull_rx_put_sched() NODE_RX_TYPE_EXT_1M_REPORT
+ULL-->>ULL: ull_rx_sched()
+ULL-->>Mayfly: mayfly_enqueue()
+Mayfly-->>ULL: rx_demux()
+ULL-->>ULL:  rx_demux_rx(link, rx); 
+ULL-->>ULL_SCAN_AUX: ull_scan_aux_setup(NODE_RX_TYPE_EXT_1M_REPORT)
+ULL_SCAN_AUX-->>ULL_Sync: ull_sync_setup()
+
+opt LLL 层来处理AUX
+Radio-->>+LLL_SCAN_AUX: lll_scan_aux_isr_aux_setup()
+LLL_SCAN_AUX-->>LLL: lll_isr_status_reset()
+LLL_SCAN_AUX-->>Radio: radio_phy_set()
+LLL_SCAN_AUX-->>Radio:radio_pkt_configure()
+LLL_SCAN_AUX-->>LLL: lll_chan_set()
+LLL_SCAN_AUX-->>Radio: radio_pkt_rx_set()
+LLL_SCAN_AUX-->>Radio: radio_isr_set(isr_rx_lll_schedule, node_rx)
+LLL_SCAN_AUX-->>Radio:  radio_tmr_tifs_set(EVENT_IFS_US)
+LLL_SCAN_AUX-->>Radio: radio_switch_complete_and_tx(phy_aux, 0, phy_aux, 1);
+LLL_SCAN_AUX-->>Radio: radio_tmr_start_us(0, aux_start_us)
+LLL_SCAN_AUX-->>Radio: radio_tmr_hcto_configure(hcto)
+LLL_SCAN_AUX-->>Radio: radio_tmr_end_capture()
+LLL_SCAN_AUX-->>-Radio: radio_rssi_measure()
+
+
+Radio-->>LLL_SCAN_AUX: isr_rx_lll_schedule()
+LLL_SCAN_AUX-->>LLL_SCAN_AUX: isr_rx() 
+LLL_SCAN_AUX-->>LLL_SCAN_AUX: isr_rx_pdu() 
+
+opt ADV是Scannable的
+LLL_SCAN_AUX-->>Radio: radio_pkt_tx_set() PDU_ADV_TYPE_SCAN_REQ
+LLL_SCAN_AUX-->>Radio: radio_isr_set(isr_tx_scan_req_lll_schedule)
+LLL_SCAN_AUX-->>ULL: ull_rx_put_sched(),NODE_RX_TYPE_EXT_AUX_REPORT
+
+Radio-->>+LLL_SCAN_AUX: isr_tx_scan_req_lll_schedule()
+LLL_SCAN_AUX-->>LLL_SCAN_AUX: isr_tx()
+LLL_SCAN_AUX-->>-Radio: radio_isr_set(isr_rx_lll_schedule())
+
+Radio-->>LLL_SCAN_AUX: isr_rx_lll_schedule()
+LLL_SCAN-->>LLL_SCAN: isr_rx()
+LLL_SCAN-->>LLL_SCAN: isr_rx_pdu()
+LLL_SCAN-->>LLL_SCAN: lll_scan_aux_setup()
+LLL_SCAN-->>Radio: radio_isr_set(lll_scan_aux_isr_aux_setup)
+
+LLL_SCAN-->>ULL: ull_rx_put_sched(NODE_RX_TYPE_EXT_AUX_REPORT)
+
+end
+
+end
 
 LLL_SCAN-->>Radio: radio_isr_set(isr_done, lll);
 LLL_SCAN-->>-Radio: radio_disable()
@@ -530,15 +596,19 @@ loop Alaways
 App-->>App: k_sem_take(&sem_per_adv, K_FOREVER);
 App-->>Host: bt_le_per_adv_sync_create()
 Host-->>HCI: BT_HCI_OP_LE_PER_ADV_CREATE_SYNC
-HCI-->>ULL_SCAN: ll_sync_create()
+HCI-->>ULL_Sync: ll_sync_create()
+ULL_Sync-->>ULL_Sync:  scan->periodic.sync = sync，设定Sync
+
+
 Host-->>HCI: BT_HCI_OP_LE_SET_PER_ADV_RECV_ENABLE
-HCI-->>ULL_SCAN: ll_sync_recv_enable()
+HCI-->>ULL_Sync: ll_sync_recv_enable()
+
+
 Host-->>HCI: BT_HCI_OP_LE_PER_ADV_TERMINATE_SYNC
-HCI-->>ULL_SCAN: ll_sync_terminate()
+HCI-->>ULL_Sync: ll_sync_terminate()
 
 App-->>App: k_sem_take(&sem_per_sync, TIMEOUT_SYNC_CREATE)
 end</pre>
-
 
       
     </div>
