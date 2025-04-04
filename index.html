@@ -358,7 +358,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2025/04/04/PA-Sync/" class="post-title-link" itemprop="url">PA_Sync</a>
+                <a href="/2025/04/04/PA-Sync/" class="post-title-link" itemprop="url">Zephyr PA_Sync sequence flow</a>
               
             
           </h1>
@@ -408,7 +408,7 @@
 
           
           
-            <span id="/2025/04/04/PA-Sync/" class="post-meta-item leancloud_visitors" data-flag-title="PA_Sync">
+            <span id="/2025/04/04/PA-Sync/" class="post-meta-item leancloud_visitors" data-flag-title="Zephyr PA_Sync sequence flow">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -522,8 +522,8 @@ LLL_SCAN-->>ULL: ull_rx_put_sched()
 LLL_SCAN-->>Radio: radio_isr_set(isr_done, lll);
 LLL_SCAN-->>-Radio: radio_disable()
 Radio-->>+LLL_SCAN: isr_done()
-LLL_SCAN-->>Radio(): radio_rx_enable()
-LLL_SCAN-->>-Radio(): radio_tmr_end_capture()
+LLL_SCAN-->>Radio: radio_rx_enable()
+LLL_SCAN-->>-Radio: radio_tmr_end_capture()
 
 LLL_SCAN-->>LLL_SCAN: lll_prepare_done()
 Ticker-->>LLL_SCAN: ticker_stop_cb()

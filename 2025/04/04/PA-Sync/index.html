@@ -102,14 +102,14 @@
   <meta name="description" content="sequenceDiagram App--&amp;gt;&amp;gt;Host: bt_enable() Host--&amp;gt;HCI: bt_hci_open() App--&amp;gt;&amp;gt;Host: bt_le_scan_cb_register() App--&amp;gt;&amp;gt;Host: bt_le_per_adv_sync_cb_register()  App--&amp;gt;&amp;gt;Host: bt_le_scan_start() Host--&amp;gt;&amp;gt;HCI: BT_">
 <meta name="keywords" content="Zephyr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PA_Sync">
+<meta property="og:title" content="Zephyr PA_Sync sequence flow">
 <meta property="og:url" content="http://yoursite.com/2025/04/04/PA-Sync/index.html">
 <meta property="og:site_name" content="Wen Wu&#39;s notes">
 <meta property="og:description" content="sequenceDiagram App--&amp;gt;&amp;gt;Host: bt_enable() Host--&amp;gt;HCI: bt_hci_open() App--&amp;gt;&amp;gt;Host: bt_le_scan_cb_register() App--&amp;gt;&amp;gt;Host: bt_le_per_adv_sync_cb_register()  App--&amp;gt;&amp;gt;Host: bt_le_scan_start() Host--&amp;gt;&amp;gt;HCI: BT_">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2025-04-04T02:06:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PA_Sync">
+<meta name="twitter:title" content="Zephyr PA_Sync sequence flow">
 <meta name="twitter:description" content="sequenceDiagram App--&amp;gt;&amp;gt;Host: bt_enable() Host--&amp;gt;HCI: bt_hci_open() App--&amp;gt;&amp;gt;Host: bt_le_scan_cb_register() App--&amp;gt;&amp;gt;Host: bt_le_per_adv_sync_cb_register()  App--&amp;gt;&amp;gt;Host: bt_le_scan_start() Host--&amp;gt;&amp;gt;HCI: BT_">
 
 
@@ -129,7 +129,7 @@
 </script>
 
   
-  <title>PA_Sync | Wen Wu's notes</title>
+  <title>Zephyr PA_Sync sequence flow | Wen Wu's notes</title>
   
 
 
@@ -355,7 +355,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">PA_Sync
+          <h1 class="post-title" itemprop="name headline">Zephyr PA_Sync sequence flow
 
               
             
@@ -406,7 +406,7 @@
 
           
           
-            <span id="/2025/04/04/PA-Sync/" class="post-meta-item leancloud_visitors" data-flag-title="PA_Sync">
+            <span id="/2025/04/04/PA-Sync/" class="post-meta-item leancloud_visitors" data-flag-title="Zephyr PA_Sync sequence flow">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -518,8 +518,8 @@ LLL_SCAN-->>ULL: ull_rx_put_sched()
 LLL_SCAN-->>Radio: radio_isr_set(isr_done, lll);
 LLL_SCAN-->>-Radio: radio_disable()
 Radio-->>+LLL_SCAN: isr_done()
-LLL_SCAN-->>Radio(): radio_rx_enable()
-LLL_SCAN-->>-Radio(): radio_tmr_end_capture()
+LLL_SCAN-->>Radio: radio_rx_enable()
+LLL_SCAN-->>-Radio: radio_tmr_end_capture()
 
 LLL_SCAN-->>LLL_SCAN: lll_prepare_done()
 Ticker-->>LLL_SCAN: ticker_stop_cb()
