@@ -522,7 +522,7 @@ LLL_SCAN-->>Radio: radio_switch_complete_and_disable()
 LLL_SCAN-->>Radio: radio_pkt_rx_set()
 LLL_SCAN-->>Radio: radio_tmr_hcto_configure()
 LLL_SCAN-->>Radio:radio_rssi_measure()
-LLL_SCAN-->>-Radio: radio_isr_set(isr_rx, param)
+LLL_SCAN-->>-Radio: radio_isr_set(isr_rx, param) 切换到RX
 end
 
 opt Passive scanner or scan responses ,LLL处理EXT_IND
@@ -545,15 +545,31 @@ ULL_Sync-->>Mayfly: mayfly_enqueue()
 Mayfly-->>LLL_Sync: lll_sync_create_prepare()
 LLL_Sync-->>LLL_Sync: create_prepare_cb()
 LLL_Sync-->>LLL_Sync: prepare_cb_common()
-LLL_Sync-->>Radio: radio_isr_set(isr_rx_adv_sync_estab, lll)
+LLL_Sync-->>Radio: radio_isr_set(**isr_rx_adv_sync_estab**, lll)
 Radio-->>LLL_Sync: isr_rx_adv_sync_estab()
 
 opt SYNC_STAT_ALLOWED
 LLL_Sync-->>LLL_Sync: isr_rx()
 LLL_Sync-->>LLL_SCAN_AUX:  lll_scan_aux_setup()
 LLL_SCAN_AUX-->>Radio: radio_isr_set(isr_aux_setup)
-LLL_Sync-->>ULL: ull_rx_put(node_rx->hdr.link, node_rx);
-LLL_Sync-->>ULL: ull_rx_sched()
+LLL_Sync-->>ULL: ull_rx_put(NODE_RX_TYPE_SYNC, SYNC_STAT_ALLOW);
+LLL_Sync-->>ULL: ull_rx_sched() 通知ULL
+
+ULL-->>ULL: rx_demux_rx(NODE_RX_TYPE_SYNC)
+ULL-->>ULL_Sync: ull_sync_established_report
+ULL_Sync-->>ULL_SCAN_AUX: ull_scan_aux_setup(NODE_RX_TYPE_SYNC_REPORT) 如果LLL已经启动，ULL就不会再启动ticker
+ULL_SCAN_AUX-->>ULL_Sync: ull_sync_setup() if sync is created.
+ULL_SCAN_AUX-->>Ticker: ticker_start() 如果LLL没有启动AUX，ULL就启动ticker
+Ticker-->>ULL_SCAN_AUX: ticker_cb()
+ULL_SCAN_AUX-->>Mayfly: mayfly_enqueue()
+Mayfly-->>LLL_SCAN_AUX: lll_scan_aux_prepare()
+LLL_SCAN_AUX-->>LLL_SCAN_AUX: prepare_cb()
+
+LLL_SCAN_AUX-->>LLL_SCAN_AUX: lll_sync_aux_prepare_cb() 是PA train
+LLL_SCAN_AUX-->>Radio: radio_isr_set(isr_rx_aux_chain, lll)
+
+LLL_SCAN_AUX-->>Radio: radio_isr_set(isr_rx_ull_schedule, lll_aux) if NOT PA train.
+
 
 Radio-->>LLL_Sync: isr_aux_setup()
 LLL_Sync-->>Radio: radio_isr_set(isr_rx_aux_chain, lll)
@@ -566,7 +582,7 @@ LLL_Sync-->>LLL_Sync: isr_rx(NODE_RX_TYPE_EXT_AUX_REPORT)
 end
 
 opt SYNC_STAT_TERM
-LLL_Sync-->>ULL: ull_rx_put_sched(SYNC_STAT_TERM)
+LLL_Sync-->>ULL: ull_rx_put_sched(SYNC_STAT_TERM) 终结
 end
 
 opt LLL 层来处理AUX
