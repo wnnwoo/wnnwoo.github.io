@@ -565,11 +565,15 @@ ULL_SCAN_AUX-->>Mayfly: mayfly_enqueue()
 Mayfly-->>LLL_SCAN_AUX: lll_scan_aux_prepare()
 LLL_SCAN_AUX-->>LLL_SCAN_AUX: prepare_cb()
 
+opt 如果有前序AUX，那后面就是CHAIN IND
 LLL_SCAN_AUX-->>LLL_SCAN_AUX: lll_sync_aux_prepare_cb() 是PA train
 LLL_SCAN_AUX-->>Radio: radio_isr_set(isr_rx_aux_chain, lll)
+end
 
+opt 如果没有前序AUX
 LLL_SCAN_AUX-->>Radio: radio_isr_set(isr_rx_ull_schedule, lll_aux) if NOT PA train.
-
+LLL_SCAN_AUX-->>LLL: lll_prepare_done()
+end
 
 Radio-->>LLL_Sync: isr_aux_setup()
 LLL_Sync-->>Radio: radio_isr_set(isr_rx_aux_chain, lll)
