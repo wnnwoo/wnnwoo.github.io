@@ -99,22 +99,22 @@
   };
 </script>
 
-  <meta name="description" content="在Zephyr bluetooth controller中，每一个procedure 要想拿到Radio去收发数据，必须要闯过两关：ULL层的Ticker和LLL层的Prepare, 本文介绍Ticker的部分。 Ticker 负责仲裁Link Layer中各个procedure对RF资源的申请，用定义好的Rule来保证这些procedure都能被童叟无欺的执行到。但实际上这个module是个完全">
+  <meta name="description" content="在Zephyr bluetooth controller中，每一个procedure 要想拿到Radio去收发数据，必须要闯过两道关卡：ULL层的Ticker和LLL层的Prepare, 本文主要介绍Ticker的部分。 Ticker 负责仲裁Link Layer中各个procedure对RF资源的申请，用定义好的Rule来保证这些procedure都能被童叟无欺的执行到。但实际上这个module">
 <meta name="keywords" content="Zephyr">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Zephyr Ticker 介绍">
 <meta property="og:url" content="http://yoursite.com/2025/03/13/zephyr-job-enqueue/index.html">
 <meta property="og:site_name" content="Wen Wu&#39;s notes">
-<meta property="og:description" content="在Zephyr bluetooth controller中，每一个procedure 要想拿到Radio去收发数据，必须要闯过两关：ULL层的Ticker和LLL层的Prepare, 本文介绍Ticker的部分。 Ticker 负责仲裁Link Layer中各个procedure对RF资源的申请，用定义好的Rule来保证这些procedure都能被童叟无欺的执行到。但实际上这个module是个完全">
+<meta property="og:description" content="在Zephyr bluetooth controller中，每一个procedure 要想拿到Radio去收发数据，必须要闯过两道关卡：ULL层的Ticker和LLL层的Prepare, 本文主要介绍Ticker的部分。 Ticker 负责仲裁Link Layer中各个procedure对RF资源的申请，用定义好的Rule来保证这些procedure都能被童叟无欺的执行到。但实际上这个module">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Zephyr/procedure_gate2.png?x-oss-credential=TMP.3KsHdtHGm6EoCXnC2sN3CpyVy8M3NaasN82aTeboDaXzRfZbLzAYN9rUx1z3rAeuBFRKSw5TYPe6rN43qAvsQihvyz7gwc%2F20250413%2Fcn-chengdu%2Foss%2Faliyun_v4_request&x-oss-date=20250413T034218Z&x-oss-expires=3600&x-oss-signature-version=OSS4-HMAC-SHA256&x-oss-signature=7da0359eb51a3008b34fa50179c49303b50e38b067c38402e61738564f1c183f">
+<meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Zephyr/procedure_gate2.png">
 <meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Zephyr/ticker_job.PNG">
 <meta property="og:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Zephyr/zephyr_job_enqueue.png">
 <meta property="og:updated_time" content="2025-03-12T22:35:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Zephyr Ticker 介绍">
-<meta name="twitter:description" content="在Zephyr bluetooth controller中，每一个procedure 要想拿到Radio去收发数据，必须要闯过两关：ULL层的Ticker和LLL层的Prepare, 本文介绍Ticker的部分。 Ticker 负责仲裁Link Layer中各个procedure对RF资源的申请，用定义好的Rule来保证这些procedure都能被童叟无欺的执行到。但实际上这个module是个完全">
-<meta name="twitter:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Zephyr/procedure_gate2.png?x-oss-credential=TMP.3KsHdtHGm6EoCXnC2sN3CpyVy8M3NaasN82aTeboDaXzRfZbLzAYN9rUx1z3rAeuBFRKSw5TYPe6rN43qAvsQihvyz7gwc%2F20250413%2Fcn-chengdu%2Foss%2Faliyun_v4_request&x-oss-date=20250413T034218Z&x-oss-expires=3600&x-oss-signature-version=OSS4-HMAC-SHA256&x-oss-signature=7da0359eb51a3008b34fa50179c49303b50e38b067c38402e61738564f1c183f">
+<meta name="twitter:description" content="在Zephyr bluetooth controller中，每一个procedure 要想拿到Radio去收发数据，必须要闯过两道关卡：ULL层的Ticker和LLL层的Prepare, 本文主要介绍Ticker的部分。 Ticker 负责仲裁Link Layer中各个procedure对RF资源的申请，用定义好的Rule来保证这些procedure都能被童叟无欺的执行到。但实际上这个module">
+<meta name="twitter:image" content="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Zephyr/procedure_gate2.png">
 
 
 
@@ -463,7 +463,7 @@
       
 
       
-        <p>在Zephyr bluetooth controller中，每一个procedure 要想拿到Radio去收发数据，必须要闯过两关：ULL层的Ticker和LLL层的Prepare, 本文介绍Ticker的部分。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Zephyr/procedure_gate2.png?x-oss-credential=TMP.3KsHdtHGm6EoCXnC2sN3CpyVy8M3NaasN82aTeboDaXzRfZbLzAYN9rUx1z3rAeuBFRKSw5TYPe6rN43qAvsQihvyz7gwc%2F20250413%2Fcn-chengdu%2Foss%2Faliyun_v4_request&amp;x-oss-date=20250413T034218Z&amp;x-oss-expires=3600&amp;x-oss-signature-version=OSS4-HMAC-SHA256&amp;x-oss-signature=7da0359eb51a3008b34fa50179c49303b50e38b067c38402e61738564f1c183f" alt="Procedure"></p>
+        <p>在Zephyr bluetooth controller中，每一个procedure 要想拿到Radio去收发数据，必须要闯过两道关卡：ULL层的Ticker和LLL层的Prepare, 本文主要介绍Ticker的部分。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Zephyr/procedure_gate2.png" alt="Procedure"></p>
 <p><strong>Ticker</strong> 负责仲裁Link Layer中各个procedure对RF资源的申请，用定义好的Rule来保证这些procedure都能被童叟无欺的执行到。<br>但实际上这个module是个完全独立的module，跟蓝牙的行为没有什么关系，也可以拿来做他用。<br><strong>在Ticker里有三大角色：</strong></p>
 <ul>
 <li><strong>Node</strong>：是Ticker的调度单元，里面的关键信息是到期时间（ticks_to_expire）及申请占用RF的时间(ticks_slot)。</li>
