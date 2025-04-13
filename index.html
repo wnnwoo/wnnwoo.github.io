@@ -842,7 +842,8 @@ end</pre>
       
         
           
-            <p><strong>Ticker</strong> 是zephyr bluetooth controller中的一个核心模块，负责仲裁Link Layer中各个procedure对RF资源的申请，用定义好的Rule来保证这些procedure都能被童叟无欺的执行到。<br>但实际上这个module是个完全独立的module，跟蓝牙的行为没有什么关系，也可以拿来做他用。<br><strong>在Ticker里有三大角色：</strong></p>
+            <p>在Zephyr bluetooth controller中，每一个procedure 要想拿到Radio去收发数据，必须要闯过两关：ULL层的Ticker和LLL层的Prepare, 本文介绍Ticker的部分。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Zephyr/procedure_gate.png?x-oss-process=image/resize,p_50" alt="ticker"></p>
+<p><strong>Ticker</strong> 负责仲裁Link Layer中各个procedure对RF资源的申请，用定义好的Rule来保证这些procedure都能被童叟无欺的执行到。<br>但实际上这个module是个完全独立的module，跟蓝牙的行为没有什么关系，也可以拿来做他用。<br><strong>在Ticker里有三大角色：</strong></p>
 <ul>
 <li><strong>Node</strong>：是Ticker的调度单元，里面的关键信息是到期时间（ticks_to_expire）及申请占用RF的时间(ticks_slot)。</li>
 <li><p><strong>User</strong>：是Node的用户，总共有4个，从字面意思看是跟优先级相关，但实际上没有优先级的概念。</p>
@@ -872,7 +873,7 @@ end</pre>
 <ul>
 <li><strong>ticker_job()</strong> 的目的是把所有希望得到调度的节点都欢送到Scheduled list里，它的操作对象有三个：<ul>
 <li>用<code>ticker_job_list_manage()</code> 处理所有User的所有的OP中的Update 和 Stop 操作.</li>
-<li>用<code>ticker_job_worker_bh()</code> 处理Scheduled list中所有的过期节点，这些节点可能还需要再进入Scheduled list中, ticker_work()不会判定已经expiry 的节点是否要再次进入Scheduled list中，是交由该函数处理。</li>
+<li>用<code>ticker_job_worker_bh()</code> 处理Scheduled list中所有的过期节点，这些节点可能还需要再进入Scheduled list中, ticker_work()不会判定已经expiry 的节点是否要再次进入Scheduled list中，是交由该函数处理，从函数名也能初见端倪，bh表示bottom half，就是后半部分，是ticker_worker的后半部分。</li>
 <li>用<code>ticker_job_list_insert()</code>函数处理所有User的所有的operation中的START操作以及 Insert_head中的节点，这些节点是由前两步的操作带入的。</li>
 <li>如果ticker_id_head有变，就重新把新的expiry时间设置到RTC。</li>
 </ul>
@@ -920,9 +921,10 @@ End[End]</pre><br>为了解决在执行callback的时候才做冲突出来带来
 <li>CONFIG_BT_TICKER_SLOT_AGNOSTIC：每个node都没有ticks_slot，完全把ticker拿来当timer来用，可以用一个RTC的HW timer来模拟多个SW timer；</li>
 <li>CONFIG_BT_TICKER_LOW_LAT：在Node进入schedule list时做collision 处理，而不是在expiry的时候。</li>
 </ul>
-<p><strong>Ticker里还没有解决的问题</strong>：</p>
+<p><strong>几个问题</strong>：</p>
 <ol>
 <li>假如某种原因，ticker_worker() 被耽误了，导致一次timeout，有好几个node的callback都被执行到了，那这些callback都要吃RF，他们之间的冲突又是怎么解决？</li>
+<li>Shallow Expiry时，Node 无论如何都要expiry，冲突时在那里解决的？</li>
 </ol>
 
           
