@@ -338,6 +338,198 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2025/05/25/zephyr-native-sim/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wen Wu">
+      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wen Wu's notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2025/05/25/zephyr-native-sim/" class="post-title-link" itemprop="url">Zephyr Native Sim</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2025-05-25 12:17:25" itemprop="dateCreated datePublished" datetime="2025-05-25T12:17:25+08:00">2025-05-25</time>
+            </span>
+          
+
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Zephyr/" itemprop="url" rel="index"><span itemprop="name">Zephyr</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          
+            <span id="/2025/05/25/zephyr-native-sim/" class="post-meta-item leancloud_visitors" data-flag-title="Zephyr Native Sim">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    
+      <span class="post-meta-item-text">评论数：</span>
+    
+  
+    <a href="/2025/05/25/zephyr-native-sim/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2025/05/25/zephyr-native-sim/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Zephyr 有个非常棒的功能叫做Native SIM，就是把zephyr build 成一个linux上的可执行文件跑，这样的话调试跟UI相关应用就会非常的方便。</p>
+<p><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Zephyr/zephyr-lvgl.png" alt="job_enqueue"></p>
+<p>1.先挑选一个LVGL的demo，在sample/modules/lvgl/demos这个目录，我匆匆看了下readme，就开搞。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">west build -p always -b native_sim samples/modules/lvgl/demos</span><br></pre></td></tr></table></figure>
+<p>2.不出所料build不过，提示找不到这个目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/include/SDL2/SDL_config.h:4:10: fatal error: SDL2/_real_SDL_config.h: No such file or directory</span><br></pre></td></tr></table></figure>
+<p>3.于是我在linux搜索，我还真的找到了这个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">admin@6vbapldvahorygh:/bin$ sudo find / -name &quot;_real_SDL_config.h&quot; 2&gt;/dev/null</span><br><span class="line">/usr/include/x86_64-linux-gnu/SDL2/_real_SDL_config.h</span><br></pre></td></tr></table></figure></p>
+<p>4.那我把这个文件加到CMAKE<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">include_directories(/usr/include/x86_64-linux-gnu/SDL2)</span><br></pre></td></tr></table></figure></p>
+<p>5.还是过不了，提示不兼容和找不到lib，这里百思不得其解，找Deepseek帮忙搜了半天，指定lib文件名等各种操作，还是这个error，有点崩溃，一上午就这样没了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/ld: skipping incompatible /usr/lib/x86_64-linux-gnu/libSDL2.so when searching for -lSDL2</span><br><span class="line">/usr/bin/ld: skipping incompatible /usr/lib/x86_64-linux-gnu/libSDL2.a when searching for -lSDL2</span><br><span class="line">/usr/bin/ld: skipping incompatible /usr/local/lib/libSDL2.so when searching for -lSDL2</span><br><span class="line">/usr/bin/ld: skipping incompatible /usr/local/lib/libSDL2.a when searching for -lSDL2</span><br><span class="line">/usr/bin/ld: cannot find -lSDL2</span><br></pre></td></tr></table></figure></p>
+<p>6.吃完午饭，我把readme 拿出来想看下是否还有其他线索，我看到了最重要的一条。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Alternatively, if building from a 64-bit host machine, the previous target</span><br><span class="line">board argument may also be replaced by ``native_sim/native/64``.</span><br></pre></td></tr></table></figure></p>
+<p>7.于是我回到第一步，修改build command，把 native_sim 改成 native_sim/native/64<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">west build -p always -b native_sim/native/64 samples/modules/lvgl/demos</span><br></pre></td></tr></table></figure></p>
+<p>8.跳到 build/zephyr目录，执行 zephyr.exe，于是看到了激动人心的 demo app UI，真是漂亮啊。自己为什么就不能一开始就把readme看完呢？</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2025/04/04/PA-Sync/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2558,218 +2750,6 @@ End[End]</pre><br>为了解决在执行callback的时候才做冲突出来带来
   </article>
 
     
-        
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/01/02/EatAndRun/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wen Wu">
-      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wen Wu's notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2023/01/02/EatAndRun/" class="post-title-link" itemprop="url">Eat and Run</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2023-01-02 18:17:34" itemprop="dateCreated datePublished" datetime="2023-01-02T18:17:34+08:00">2023-01-02</time>
-            </span>
-          
-
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2023-01-03 08:47:34" itemprop="dateModified" datetime="2023-01-03T08:47:34+08:00">2023-01-03</time>
-              </span>
-            
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/跑步/" itemprop="url" rel="index"><span itemprop="name">跑步</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          
-            <span id="/2023/01/02/EatAndRun/" class="post-meta-item leancloud_visitors" data-flag-title="Eat and Run">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读次数：</span>
-              
-                <span class="leancloud-visitors-count"></span>
-            </span>
-          
-
-          
-
-          
-            
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="fa fa-comment-o"></i>
-    </span>
-    
-      <span class="post-meta-item-text">评论数：</span>
-    
-  
-    <a href="/2023/01/02/EatAndRun/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2023/01/02/EatAndRun/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://item.jd.com/12223436736.html">Eat &amp; Run</a> 这本书挺值得一读，牛人们都有一套自己的套路。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Book/EatAndRun.png?x-oss-process=image/resize,p_30" alt></p>
-<p>作者Scott Jurek是一位70后，拿过10多个超马冠军。书本主要记录了很多自己参加超马时候的内心活动，讲述自己如何一次次超越绝望和痛苦，捧得冠军。</p>
-<p>他是个素食主义者，在这本自传中加了很多自己的食谱，他经常把自己收集到的植物性食材塞到料理机里一顿搅和就是一顿佳肴，哈哈，也挺简单的。他认为现代农业带来的所谓文明食物饱含着各种毒素，抗生素等等，对身体摧残非常大，他的素食反而是解决这个问题的方法，他是无意中参加滑雪比赛的时候，发现自己吃素食可以让体能恢复的非常快，就走上了这条路。<br>不同于我这样的佛系跑着，跑超级马拉松（100km 以上）光靠体力绝对是撑不过去的，靠的是跑者的坚强意志，是个人意志在克服百般痛苦后，身体进入一种“心流”，无我和空灵状态的爽朗。</p>
-<p>几个金句：</p>
-<blockquote>
-<p>理性的评估带来的结果很可能就是理性的放弃。</p>
-</blockquote>
-<p>有时候后理性反而是成事最大的绊脚石。</p>
-<blockquote>
-<p>我们在绵延的路上奔跑，跑进狭窄的小径，荒芜的小道，撞见林间跃动的小鹿，漫步的土狼。我们踏过积雪及膝的路面，横渡春雪初融的溪水，双腿因寒冷而麻木。我硬着头皮撑下去，大口喘着气，跑过亚多夫超市。</p>
-<p>如今跑步不再是单纯的训练，而已变成我沉淀思绪的方式。 </p>
-<p>跑步时，我的心灵尽情奔放，脱离尘嚣，不再为学业，未来与母亲的病情烦恼。我的身体任凭意志摆布。我不再把自己锁在没有出口的死路上，再也没有坏学生吵我脸上吐口水。我仿佛摆脱重力，一跃登上天梯。</p>
-</blockquote>
-<p>关于跑步心得：</p>
-<blockquote>
-<p>用腹式呼吸，平躺在床上，肚皮上放一本书，体会在呼吸的时候书本跟着上下起伏的感觉。<br>  还有人提到平时要多拉升横膈膜，也有助于腹式呼吸的深度。</p>
-<p>用鼻子呼吸，只有用鼻子呼吸，才对大脑有益。<br>我试了下，单纯只用鼻子呼吸，心跳也比较容易稳定，不容易飙的很高。这也有个好处是可以温暖下空气和鼻腔，我试过在冬天鼻子只用来吸气，嘴巴呼气，鼻子特难受，跑完之后得连续打10多个喷嚏。</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -2817,7 +2797,7 @@ End[End]</pre><br>为了解决在执行callback的时候才做冲突出来带来
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">95</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2882,7 +2862,9 @@ End[End]</pre><br>为了解决在执行callback的时候才做冲突出来带来
         
           
         
-        <span class="site-state-item-count">24</span>
+          
+        
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -2989,7 +2971,9 @@ End[End]</pre><br>为了解决在执行callback的时候才做冲突出来带来
         
           
         
-        <span class="site-state-item-count">45</span>
+          
+        
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

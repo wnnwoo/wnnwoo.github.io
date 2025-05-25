@@ -338,6 +338,248 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/05/nimble-scheduler/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wen Wu">
+      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wen Wu's notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/01/05/nimble-scheduler/" class="post-title-link" itemprop="url">Nimble scheduler</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-01-05 22:26:36" itemprop="dateCreated datePublished" datetime="2020-01-05T22:26:36+08:00">2020-01-05</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-01-19 22:26:36" itemprop="dateModified" datetime="2020-01-19T22:26:36+08:00">2020-01-19</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Nimble/" itemprop="url" rel="index"><span itemprop="name">Nimble</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          
+            <span id="/2020/01/05/nimble-scheduler/" class="post-meta-item leancloud_visitors" data-flag-title="Nimble scheduler">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    
+      <span class="post-meta-item-text">评论数：</span>
+    
+  
+    <a href="/2020/01/05/nimble-scheduler/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/05/nimble-scheduler/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>Nimble controller</strong> 的Scheduler是由一个32K的timer来驱动的，一个tick是30.52us，完全执行在timer的isr里，所以timer callback里要做的事情不能太耗时（超过一个tick），否则scheduler就不准确了，如下为scheduler的主函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/* Initialize cputimer for the scheduler */</span><br><span class="line">   os_cputime_timer_init(&amp;g_ble_ll_sched_timer, ble_ll_sched_run, NULL);</span><br></pre></td></tr></table></figure></p>
+<h3 id="时间单位"><a href="#时间单位" class="headerlink" title="时间单位"></a>时间单位</h3><ul>
+<li>Tick：由clock决定，对于32K clock来说，一个tick就是 1000000us/（32*1024） = 30.52us.</li>
+<li>Slot：1250个毫秒</li>
+<li>Period：N * Slot，N是可配置的</li>
+<li>Epoch：M * Period，M是可配置的<br>Scheduler在调度的时候，有时要将Connection event放在Period的边界，scanning/initiating/advertising是尽可能发生在没有被用到的Period内。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/* Time per BLE scheduler slot */</span><br><span class="line">#define BLE_LL_SCHED_USECS_PER_SLOT         (1250)</span><br><span class="line">#define BLE_LL_SCHED_32KHZ_TICKS_PER_SLOT   (41)    /* 1 tick = 30.517 usecs */</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="调度单位"><a href="#调度单位" class="headerlink" title="调度单位"></a>调度单位</h3><p>每一个可被调度的单位叫做Sched item,  这些item放在FIFO的List中，每当timer到期后Scheduler就从List里拉一个出来做执行。<br>每一个item有如下几个属性：</p>
+<blockquote>
+<ol>
+<li>schedule type，类型</li>
+<li>enquened，是否入Q，入Q就代表是Ready，等待被执行</li>
+<li>remainder，剩余的执行时间</li>
+<li>start_time, 开始执行时间</li>
+<li>end_time, 结束执行时间</li>
+<li>cb_args, item执行函数的参数</li>
+<li>sched_cb, item被调度到的时候的执行函数<br>如下是相关的code segment <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">struct ble_ll_sched_item</span><br><span class="line">&#123;</span><br><span class="line">    uint8_t         sched_type;</span><br><span class="line">    uint8_t         enqueued;</span><br><span class="line">    uint8_t         remainder;</span><br><span class="line">    uint32_t        start_time;</span><br><span class="line">    uint32_t        end_time;</span><br><span class="line">    void            *cb_arg;</span><br><span class="line">    sched_cb_func   sched_cb;</span><br><span class="line">    TAILQ_ENTRY(ble_ll_sched_item) link;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">/* Types of scheduler events */</span><br><span class="line">#define BLE_LL_SCHED_TYPE_ADV       (1)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_SCAN      (2)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_CONN      (3)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_AUX_SCAN  (4)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_DTM       (5)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_PERIODIC  (6)</span><br><span class="line">#define BLE_LL_SCHED_TYPE_SYNC      (7)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<h3 id="调度原则"><a href="#调度原则" class="headerlink" title="调度原则"></a>调度原则</h3><ol>
+<li>Sched item之间没有优先级的关系，完全按照Sched item的start_time为序，一个一个的执行。</li>
+<li>调度到某个item时就直接执行这个item的sched_cb，并将这个item从调度列表上删掉，callback执行完后，再起timer，等待下一个item的start_time到期。</li>
+<li>item在插入到调度列表的时候就已经排好序了。</li>
+<li>在插入新的Adv Sched item的时候，新的Adv要避开每一个跟他有overlap的item，直到找到一个完全跟它没有overlap的位置，这意味着在有同样的start time的情况下，先入list的优先级高。<blockquote>
+<ul>
+<li>以插入一个Adv Schedule为例，假如Scheduler的ReadyList里有4个item，它们的排列如下。那么下图中绿色的item就是可以直接插入的item，而红色的item则需要一直往后移动，一直移到一个能插入&gt;的地方，也许到list最后才能有它的一席之地。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-new.png" alt></li>
+<li>在一个adv event执行完成后，需要再计算下一个adv event起来的时间，请参考下图。<br>Item中的<strong>Delay</strong>（0～10ms）指的是这个adv event最大允许delay的时间。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-Reschedule.png" alt></li>
+</ul>
+</blockquote>
+</li>
+<li>但是对于type为CONN的Sched是有点优先级的<blockquote>
+<ul>
+<li>正在execute的type为CONN的Sched的优先级最高，要新建立的conn的sched (ble_ll_sched_slave_new())如果刚好跟正在execute的conn overlap，那直接就取消新的这个conn。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/* The schedule item must occur after current running item (if any) */</span><br><span class="line">  if (ble_ll_sched_overlaps_current(sch)) &#123;</span><br><span class="line">      OS_EXIT_CRITICAL(sr);</span><br><span class="line">      return rc;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<blockquote>
+<ul>
+<li>在收到CONN_IND的时候，为了能尽快在windowOffset到达时发包出去回应对方，会将跟他overlap的type为CONN的sched 给盖掉</li>
+<li>但这包如果type是其他的type，则会继续往后shift找合适的位置，但如果是回应CONN_IND的第一包的话，不在规定时间发包出去，link就建立不起来，这里还是有点问题。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if (ble_ll_sched_is_overlap(sch, entry)) &#123;</span><br><span class="line">    /* If we overlap with a connection, we re-schedule */</span><br><span class="line">    if (ble_ll_sched_conn_overlap(entry)) &#123;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<h3 id="更正-4"><a href="#更正-4" class="headerlink" title="更正 #4"></a>更正 #4</h3><p>感谢<a href="https://jaydenh215.github.io">jaydenh215</a>的指导，上图中关于Adv reschedule的图例欠妥，正确的符合code行为的插入Sched的示意图如下。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-Reschedule4.png" alt><br>如果超过了max_delay,那插入也是失败的，如下图，虽然在#3的前面有位置给sch插入，但是因为overdue了，所以插入会失败。<br><img src="https://wnnwoo.oss-cn-chengdu.aliyuncs.com/Nimble/Nimble-Schedule-Adv-Reschedule5.png" alt></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/05/markdown-online/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1946,215 +2188,6 @@
   </article>
 
     
-        
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/03/hexo-math/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wen Wu">
-      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wen Wu's notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/10/03/hexo-math/" class="post-title-link" itemprop="url">hexo 中启用数学公式</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-10-03 15:45:17" itemprop="dateCreated datePublished" datetime="2019-10-03T15:45:17+08:00">2019-10-03</time>
-            </span>
-          
-
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          
-            <span id="/2019/10/03/hexo-math/" class="post-meta-item leancloud_visitors" data-flag-title="hexo 中启用数学公式">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读次数：</span>
-              
-                <span class="leancloud-visitors-count"></span>
-            </span>
-          
-
-          
-
-          
-            
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="fa fa-comment-o"></i>
-    </span>
-    
-      <span class="post-meta-item-text">评论数：</span>
-    
-  
-    <a href="/2019/10/03/hexo-math/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/03/hexo-math/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>本文来自 <a href="https://blog.csdn.net/crazy_scott/article/details/79293576">https://blog.csdn.net/crazy_scott/article/details/79293576</a>  感谢原作者。</p>
-<p><strong>安装插件</strong></p>
-<ol>
-<li>首先我们需要安装Mathjax插件</li>
-</ol>
-<blockquote>
-<p>npm install hexo-math —save</p>
-</blockquote>
-<p>2 更换Hexo的markdown渲染引擎，hexo-renderer-kramed引擎是在默认的渲染引擎hexo-renderer-marked的基础上修改了一些bug，两者比较接近，也比较轻量级。</p>
-<blockquote>
-<p>npm uninstall hexo-renderer-marked —save<br>npm install hexo-renderer-kramed —save</p>
-</blockquote>
-<p><strong>解决语义冲突</strong></p>
-<p>由于LaTeX与markdown语法有语义冲突，在markdown中，斜体和加粗可以用<em>或者_表示，在这里我们修改变量，将_用于LaTeX，而使用</em>表示markdown中的斜体和加粗。<br>在博客根目录下，进入node_modules\kramed\lib\rules\inline.js，把第11行的escape变量的值做相应的修改：</p>
-<blockquote>
-<p>//escape: /^\([\`<em>{}[]()#$+-.!_&gt;])/,<br>escape: /^\([`</em>[]()#$+-.!_&gt;])/,</p>
-</blockquote>
-<p>这一步是在原基础上取消了对,{,}的转义(escape)。<br>同时把第20行的em变量也要做相应的修改:</p>
-<blockquote>
-<p>//  em: /^\b_((?:__|[\s\S])+?)_\b|^*((?:**|[\s\S])+?)*(?!*)/,<br>em: /^*((?:**|[\s\S])+?)*(?!*)/,</p>
-</blockquote>
-<p><strong>更改配置文件</strong></p>
-<p>这里是最重要的一步，我找了好久才在这个网站中找到适用的解决办法。<br>进入到主题目录，找到_config.yml配置问题，把mathjax默认的false修改为true，并更换cdn的url，具体如下：</p>
-<p># MathJax Support<br>mathjax:<br>  enable: true<br>  per_page: true<br>  #cdn: //cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML<br>  cdn: //cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML</p>
-<p>如果配置文件里已经有这一行而且版本比这行还新的话，就可以不用更新。</p>
-<p><strong>写博客</strong></p>
-<p>在每次需要用LaTeX渲染的博文中，在文章的Front-matter里启动mathjax，具体如下：</p>
-<p>-—<br>title: Hexo Usage<br>date: 2018-2-8 21:01:30<br>tags: Hexo<br>mathjax: true<br>-—</p>
-<p><a href="https://blog.csdn.net/ethmery/article/details/50670297">Mathjax 语法</a><br><a href="https://blog.csdn.net/weixin_43159148/article/details/88621318">Markdown/LaTex数学符号大全</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -2202,7 +2235,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">95</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2267,7 +2300,9 @@
         
           
         
-        <span class="site-state-item-count">24</span>
+          
+        
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -2374,7 +2409,9 @@
         
           
         
-        <span class="site-state-item-count">45</span>
+          
+        
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
