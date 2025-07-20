@@ -338,6 +338,325 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2025/07/21/mcuboot/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wen Wu">
+      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wen Wu's notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2025/07/21/mcuboot/" class="post-title-link" itemprop="url">MCUboot 整理</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2025-07-21 07:31:47" itemprop="dateCreated datePublished" datetime="2025-07-21T07:31:47+08:00">2025-07-21</time>
+            </span>
+          
+
+          
+
+          
+
+          
+          
+            <span id="/2025/07/21/mcuboot/" class="post-meta-item leancloud_visitors" data-flag-title="MCUboot 整理">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    
+      <span class="post-meta-item-text">评论数：</span>
+    
+  
+    <a href="/2025/07/21/mcuboot/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2025/07/21/mcuboot/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>因为孤陋寡闻，看到MCUboot在做的A/B Image的方案时大惊失色，居然有两种我从来没想过的妙法，求助为Deepseek帮忙整理，我就是简单搬运下。</p>
+<p>MCUboot作为专为资源受限微控制器设计的开源安全引导加载程序，支持多种固件升级模式，其中<strong>Overwrite（覆盖）、Swap（交换）和Direct XIP（就地执行）</strong> 是最核心的三种方案。以下是这三种方案的详细对比，涵盖工作原理、优缺点及适用场景：</p>
+<hr>
+<h3 id="📊-三种方案核心特性对比"><a href="#📊-三种方案核心特性对比" class="headerlink" title="📊 三种方案核心特性对比"></a>📊 <strong>三种方案核心特性对比</strong></h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>特性</strong></th>
+<th><strong>Overwrite模式</strong></th>
+<th><strong>Swap模式</strong></th>
+<th><strong>Direct XIP模式</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>升级机制</strong></td>
+<td>新固件直接覆盖主槽（Primary Slot）</td>
+<td>主槽（Slot0）与备槽（Slot1）内容交换</td>
+<td>新固件在备槽（Slot1）中直接执行</td>
+</tr>
+<tr>
+<td><strong>回滚支持</strong></td>
+<td>❌ 不支持（旧固件被覆盖）</td>
+<td>✅ 支持（旧固件保留在备槽）</td>
+<td>✅ 支持（旧固件保留在主槽）</td>
+</tr>
+<tr>
+<td><strong>启动时间</strong></td>
+<td>中等（需擦写主槽）</td>
+<td>较长（需多次擦写+交换）</td>
+<td>⚡ <strong>最短</strong>（无需拷贝或交换）</td>
+</tr>
+<tr>
+<td><strong>空间需求</strong></td>
+<td>最小（无需备用槽和暂存区）</td>
+<td>最大（需备用槽+暂存区Scratch）</td>
+<td>中等（需备用槽，无需暂存区）</td>
+</tr>
+<tr>
+<td><strong>Flash擦写次数</strong></td>
+<td>2次擦除（主槽+备槽） + 1次写入（主槽）</td>
+<td>多次擦写（与Slot大小相关）</td>
+<td>0次（仅写入备槽）</td>
+</tr>
+<tr>
+<td><strong>安全校验</strong></td>
+<td>✅ 升级前校验备槽固件</td>
+<td>✅ 交换前校验备槽固件</td>
+<td>✅ 跳转前校验备槽固件</td>
+</tr>
+<tr>
+<td><strong>适用存储类型</strong></td>
+<td>片上Flash</td>
+<td>片上Flash</td>
+<td>片上Flash（外部Flash需地址映射）</td>
+</tr>
+<tr>
+<td><strong>加密支持</strong></td>
+<td>✅ 支持</td>
+<td>✅ 支持</td>
+<td>⚠️ 外部Flash不支持加密</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h3 id="🔍-详细方案解析"><a href="#🔍-详细方案解析" class="headerlink" title="🔍 详细方案解析"></a>🔍 <strong>详细方案解析</strong></h3><h4 id="1-Overwrite模式"><a href="#1-Overwrite模式" class="headerlink" title="1. Overwrite模式"></a>1. <strong>Overwrite模式</strong></h4><ul>
+<li><strong>工作原理</strong>：<br>新固件下载至备槽（Slot1）→ 重启后Bootloader校验固件 → <strong>直接覆盖主槽（Slot0）</strong> → 跳转至主槽运行。  </li>
+<li><strong>优点</strong>：  <ul>
+<li>代码量最小，Bootloader占用资源少；  </li>
+<li>实现简单，适合Flash空间紧张的场景。  </li>
+</ul>
+</li>
+<li><strong>缺点</strong>：  <ul>
+<li>无回滚能力，升级失败可能变砖；  </li>
+<li>升级时间长（需完整擦写主槽）。  </li>
+</ul>
+</li>
+<li><strong>适用场景</strong>：<br>对空间敏感、无需版本回退的轻量级设备（如传感器节点）。</li>
+</ul>
+<h4 id="2-Swap模式"><a href="#2-Swap模式" class="headerlink" title="2. Swap模式"></a>2. <strong>Swap模式</strong></h4><ul>
+<li><strong>工作原理</strong>：<br>新固件下载至备槽（Slot1）→ 重启后Bootloader校验固件 → <strong>通过暂存区（Scratch）交换主备槽内容</strong> → 跳转至主槽运行新固件。  </li>
+<li><strong>优点</strong>：  <ul>
+<li>支持版本回滚（旧固件保留在备槽）；  </li>
+<li>升级过程可恢复（交换失败可回退）。  </li>
+</ul>
+</li>
+<li><strong>缺点</strong>：  <ul>
+<li>需额外暂存区（Scratch），占用Flash空间；  </li>
+<li>启动时间最长（交换操作耗时）。  </li>
+</ul>
+</li>
+<li><strong>适用场景</strong>：<br>需高可靠性的设备（如工业控制器、医疗设备）。</li>
+</ul>
+<h4 id="3-Direct-XIP模式"><a href="#3-Direct-XIP模式" class="headerlink" title="3. Direct XIP模式"></a>3. <strong>Direct XIP模式</strong></h4><ul>
+<li><strong>工作原理</strong>：<br>新固件下载至备槽（Slot1）→ 重启后Bootloader校验固件 → <strong>直接跳转至备槽执行</strong>（无需拷贝或交换）。  </li>
+<li><strong>优点</strong>：  <ul>
+<li>启动最快（无擦写操作）；  </li>
+<li>保留旧固件在主槽，支持快速回退。  </li>
+</ul>
+</li>
+<li><strong>缺点</strong>：  <ul>
+<li><strong>不支持外部Flash或加密固件</strong>（需地址映射）；  </li>
+<li>需确保备槽地址可执行（链接脚本需适配）。  </li>
+</ul>
+</li>
+<li><strong>适用场景</strong>：<br>启动速度要求高的场景（如实时控制系统），且使用片上Flash。</li>
+</ul>
+<hr>
+<h3 id="⚖️-方案选择建议"><a href="#⚖️-方案选择建议" class="headerlink" title="⚖️ 方案选择建议"></a>⚖️ <strong>方案选择建议</strong></h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>考量因素</strong></th>
+<th><strong>推荐方案</strong></th>
+<th><strong>理由</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>空间紧张</strong></td>
+<td>Overwrite</td>
+<td>Bootloader体积最小，无额外分区需求</td>
+</tr>
+<tr>
+<td><strong>高可靠性要求</strong></td>
+<td>Swap</td>
+<td>支持回滚，抗升级中断</td>
+</tr>
+<tr>
+<td><strong>快速启动</strong></td>
+<td>Direct XIP</td>
+<td>无拷贝操作，启动延迟最低</td>
+</tr>
+<tr>
+<td><strong>外部Flash存储</strong></td>
+<td>Overwrite/Swap</td>
+<td>Direct XIP受限于地址映射</td>
+</tr>
+<tr>
+<td><strong>固件加密</strong></td>
+<td>Overwrite/Swap</td>
+<td>Direct XIP与加密不兼容</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h3 id="💎-总结"><a href="#💎-总结" class="headerlink" title="💎 总结"></a>💎 <strong>总结</strong></h3><ul>
+<li><strong>Overwrite</strong>：轻量易实现，牺牲回滚能力换取空间优化；  </li>
+<li><strong>Swap</strong>：功能全面，适合对可靠性要求高的场景；  </li>
+<li><strong>Direct XIP</strong>：性能最优，但受限于硬件存储布局。  </li>
+</ul>
+<p>实际选型需结合<strong>Flash容量、启动速度、回滚需求</strong>及<strong>硬件支持</strong>（如外部Flash）综合评估。对于资源极度受限的设备，可优先测试Overwrite；若需平衡安全与效率，Swap是通用选择；而Direct XIP更适合实时性要求严苛的系统。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2025/05/25/zephyr-native-sim/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2527,229 +2846,6 @@ End[End]</pre><br>为了解决在执行callback的时候才做冲突出来带来
   </article>
 
     
-        
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/01/07/DataWrong/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wen Wu">
-      <meta itemprop="description" content="I'm a bluetooth Host and Controller developer">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wen Wu's notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2023/01/07/DataWrong/" class="post-title-link" itemprop="url">数字的谬误</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2023-01-07 18:48:26" itemprop="dateCreated datePublished" datetime="2023-01-07T18:48:26+08:00">2023-01-07</time>
-            </span>
-          
-
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/阅读/" itemprop="url" rel="index"><span itemprop="name">阅读</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-          
-            <span id="/2023/01/07/DataWrong/" class="post-meta-item leancloud_visitors" data-flag-title="数字的谬误">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读次数：</span>
-              
-                <span class="leancloud-visitors-count"></span>
-            </span>
-          
-
-          
-
-          
-            
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="fa fa-comment-o"></i>
-    </span>
-    
-      <span class="post-meta-item-text">评论数：</span>
-    
-  
-    <a href="/2023/01/07/DataWrong/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2023/01/07/DataWrong/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>平日我们经常在工作中用数字来支持自己的结论，经常因为不够严谨而漏洞百出。在《科学推理》这本书在针对统计推理的介绍中总结了数据应用的谬误，希望自己能时刻注意。</p>
-<p><strong>平均数谬误</strong></p>
-<blockquote>
-<p>三个统计学家去打猎，碰上一头大鹿，第一个人开火，结果偏左一米，第二个人开火结果偏右一米。第三个人放下枪欢呼胜利“平均而言我们大众了！”，事实上平均打中了，但一点意义都没有。</p>
-<p>《黑天鹅》里塔勒布把世界分为两种：一种叫平均斯坦，一种叫极端斯坦。在极端斯坦的世界里讲平均数就是个笑话，比如包含比尔盖兹的一群人里计算个人财富，得出大家平均财富超高的结论是没有意义的。</p>
-</blockquote>
-<p><strong>绝对数字陷阱</strong></p>
-<blockquote>
-<p>某校今年本科生上线达500人，比去年多了50人，所以喜获丰收</p>
-<blockquote>
-<p>绝对数字要跟相对数字结合才比较有说服力。</p>
-</blockquote>
-</blockquote>
-<p><strong>百分比陷阱</strong></p>
-<blockquote>
-<p>肺结核发病正在迅速增长，今年肺结核数量增长的比率是去年的4倍。</p>
-<blockquote>
-<p>比率是四倍不意味着人数是四倍。</p>
-</blockquote>
-</blockquote>
-<p><strong>赌徒谬误</strong></p>
-<blockquote>
-<p>一对农村夫妇，特别想要一个男孩，生了第一个孩子是女儿，叫招弟；第二个是女儿，叫跟弟；第三个还是女儿叫听弟；第四个还是女儿叫等弟；第五个到第七个还是女儿，分别叫候弟，盼弟，望弟；一个七个女儿就是没有男孩。其实不管生几个女儿，下一个生儿女的概率各是50%。</p>
-</blockquote>
-<p><strong>数字和结论不相关</strong></p>
-<blockquote>
-<p>近十年里来，德克萨市州博士的数量每年增加5.5%，而该州骡子的数量每年减少5.5%，所以博士数量额增长导致了骡子数量的下降。</p>
-<blockquote>
-<p>在《因果关系》中将这种关系定义为为叉结构： 博士数量增长 &lt;— 城市化进程 —&gt; 骡子的数量下降</p>
-</blockquote>
-</blockquote>
-<p><strong>数据不可比</strong></p>
-<blockquote>
-<p>今年本公司的汽车销售了10万辆，是竞争对手公司的一倍，我们的好年头来了。</p>
-<p>统计表明，大多数医疗事故出在大医院，因此去小医院看病比较安全。</p>
-</blockquote>
-<p><strong>独立数据</strong></p>
-<blockquote>
-<p>某国卫生部门统计，2004年全国糖尿病患者中70%为肥胖者。这说明，肥胖将极大地增加患糖尿病的危险。</p>
-<blockquote>
-<p>实际上很可能全国的肥胖者比率就是70%，跟糖尿病没事哈关系。</p>
-</blockquote>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -2797,7 +2893,7 @@ End[End]</pre><br>为了解决在执行callback的时候才做冲突出来带来
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">95</span>
+          <span class="site-state-item-count">96</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2973,7 +3069,11 @@ End[End]</pre><br>为了解决在执行callback的时候才做冲突出来带来
         
           
         
-        <span class="site-state-item-count">46</span>
+          
+        
+          
+        
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
